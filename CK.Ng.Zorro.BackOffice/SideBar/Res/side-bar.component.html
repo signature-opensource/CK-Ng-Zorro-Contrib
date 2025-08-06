@@ -1,0 +1,88 @@
+<div [class]="collapsed() ? 'ck-sidebar-container collapsed' : 'ck-sidebar-container'">
+    <div class="ck-sidebar-logo">
+        @if (!collapsed()) {
+            <img [src]="logoSrc()" (click)="clickLogo()" />
+        }
+        <fa-icon class="collapse-button" [icon]="barsIcon" (click)="toggleCollapse()"></fa-icon>
+    </div>
+    <div class="ck-sidebar-navigation-items">
+        @if (showGlobalSearchBtn()) {
+            <div
+                [class]="isCollapsed() ? 'ck-sidebar-search-btn collapsed' : 'ck-sidebar-search-btn'"
+                [nz-tooltip]="isCollapsed() ? getSearchTooltip() : ''"
+                nzTooltipPlacement="right"
+                (click)="openSearchModal()">
+                <fa-icon [icon]="searchIcon" class="search"></fa-icon>
+                @if (!collapsed()) {
+                    <span class="label">{{ 'Button.Search' | translate }}</span>
+                }
+            </div>
+        }
+        @for (section of navigationItems(); track section.sectionHeadline; let idx = $index) {
+            @if (isCollapsed()) {
+                <div [class]="section.bottom ? 'ck-sidebar-navigation-section collapsed bottom' : 'ck-sidebar-navigation-section collapsed'">
+                    @if (idx > 0) {
+                        <nz-divider></nz-divider>
+                    }
+                    @for (item of section.items; track item.label) {
+                        @if (collapsed()) {
+                            <div
+                                [class]="getNavItemClass(item)"
+                                [nz-tooltip]="item.label"
+                                nzTooltipPlacement="right"
+                                (click)="itemClicked($event, item)"
+                                (auxclick)="handleAuxClick($event, item)">
+                                @if (item.icon) {
+                                    <fa-icon class="icon" [icon]="item.icon"> </fa-icon>
+                                } @else {
+                                    @if (item.label.length > 0) {
+                                        {{ item.label[0] }}
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            } @else {
+                <div [class]="section.bottom ? 'ck-sidebar-navigation-section bottom' : 'ck-sidebar-navigation-section'">
+                    <span class="sidebar-head-label">
+                        {{ section.sectionHeadline }}
+                    </span>
+                    @for (item of section.items; track item.label) {
+                        <div [class]="getNavItemClass(item)" (click)="itemClicked($event, item)" (auxclick)="handleAuxClick($event, item)">
+                            <fa-icon *ngIf="item.icon" class="icon" [icon]="item.icon"></fa-icon>
+                            <span class="item-label">{{ item.label }}</span>
+                        </div>
+                    }
+                </div>
+            }
+        }
+        @if (versionInfos()) {
+            @if (!isCollapsed()) {
+                <div
+                    class="version-infos"
+                    nz-tooltip
+                    nzTooltipOverlayClassName="version-tooltip"
+                    [nzTooltipTitle]="versionRef"
+                    [nzTooltipOverlayStyle]="{ wordWrap: 'normal' }">
+                    Version : {{ versionInfos()!.version }}
+                </div>
+            } @else {
+                <fa-icon
+                    class="version-icon"
+                    [icon]="infoIcon"
+                    nz-tooltip
+                    nzTooltipOverlayClassName="version-tooltip"
+                    [nzTooltipTitle]="versionRef"
+                    [nzTooltipOverlayStyle]="{ wordWrap: 'normal' }">
+                </fa-icon>
+            }
+            <ng-template #versionRef>
+                Version : {{ versionInfos()!.version }}<br />
+                Commit : {{ versionInfos()!.commitSha }}<br />
+                Date commit : {{ versionInfos()!.commitDatetime }}<br />
+                Date build : {{ versionInfos()!.buildDatetime }}
+            </ng-template>
+        }
+    </div>
+</div>

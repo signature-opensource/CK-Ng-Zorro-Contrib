@@ -1,0 +1,50 @@
+@if (this.showFilters()) {
+    <!-- <fa-icon [icon]="filterIcon" class="filter-icon"></fa-icon> -->
+
+    @for (filter of filters(); track filter.label) {
+        @if (filter.active) {
+            <div [class]="getFilterClassName(filter)">
+                <span class="label">{{ filter.label }}</span>
+                @if (instanceOfSelect(filter)) {
+                    @if (asSelectFilter(filter).mode === 'default') {
+                        <nz-select
+                            class="select-filter"
+                            [nzMode]="'tags'"
+                            [nzMaxMultipleCount]="1"
+                            [(ngModel)]="asSelectFilter(filter).value"
+                            nzBorderless
+                            nzAllowClear
+                            (ngModelChange)="filterValueChanged()">
+                            @for (opts of asSelectFilter(filter).options; track opts.label) {
+                                <nz-option [nzLabel]="opts.label" [nzValue]="opts.value"></nz-option>
+                            }
+                        </nz-select>
+                    } @else {
+                        <nz-select
+                            class="select-filter"
+                            [nzMode]="asSelectFilter(filter).mode"
+                            [(ngModel)]="asSelectFilter(filter).value"
+                            [nzMaxMultipleCount]="asSelectFilter(filter).maxSelectionCount"
+                            [nzMaxTagCount]="asSelectFilter(filter).maxDisplayedCount"
+                            [nzMaxTagPlaceholder]="asSelectFilter(filter).maxDisplayedTemplate ?? defaultMaxTagPlaceholder"
+                            nzBorderless
+                            nzAllowClear
+                            (ngModelChange)="filterValueChanged()">
+                            @for (opts of asSelectFilter(filter).options; track opts.label) {
+                                <nz-option [nzLabel]="opts.label" [nzValue]="opts.value"></nz-option>
+                            }
+                        </nz-select>
+                    }
+                }
+                @if (instanceOfSwitch(filter)) {
+                    <nz-switch class="switch-filter" [(ngModel)]="asSwitchFilter(filter).value" (ngModelChange)="filterValueChanged()">
+                    </nz-switch>
+                }
+            </div>
+        }
+    }
+}
+<ng-template #defaultMaxTagPlaceholder let-selectedList>
+    <fa-icon [icon]="plusIcon" class="ck-btn-icon"></fa-icon>
+    <span>{{ selectedList.length }}</span>
+</ng-template>

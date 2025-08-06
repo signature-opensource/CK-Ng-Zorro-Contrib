@@ -1,0 +1,201 @@
+<div class="ck-table-top">
+    @if (searchbarEnabled()) {
+        <div class="ck-table-searchbar">
+            <fa-icon class="ck-table-search-icon search" [icon]="searchIcon"></fa-icon>
+            <input nz-input [(ngModel)]="searchString" (ngModelChange)="onSearchInputChange($event)" />
+            @if (debouncing) {
+                <span nz-icon nzType="loading" nzTheme="outline"></span>
+            }
+            <fa-icon class="ck-table-search-icon close" [icon]="closeIcon" (click)="clearSearch()"></fa-icon>
+        </div>
+    }
+    <div class="ck-table-columns-config">
+        <button
+            class="ck-table-columns-btn"
+            nz-button
+            nzType="default"
+            nz-popover
+            [nzPopoverTitle]="columnConfigPopoverTitle"
+            [nzPopoverContent]="columnChoicesTpl"
+            nzPopoverTrigger="click"
+            [nzPopoverPlacement]="columnsPopoverPosition()">
+            <fa-icon class="ck-table-column-icon ck-btn-icon" [icon]="tableIcon"></fa-icon>
+            <span>{{ 'CK.Table.Button.Columns' | translate }}</span>
+        </button>
+        <ng-template #columnConfigPopoverTitle>
+            <span class="column-config-popover-title">{{ 'CK.Table.ColumnsPopover.Title' | translate }}</span>
+        </ng-template>
+        <ng-template #columnChoicesTpl>
+            <div class="ck-column-choices-container">
+                <nz-checkbox-group [nzOptions]="columnChoices()" [ngModel]="columnsConfig()" (ngModelChange)="updateColumnsChecked($event)"> </nz-checkbox-group>
+                <div class="ck-column-choices-actions">
+                    <a nz-button nzDanger nzType="link" (click)="clearColumns()" [disabled]="displayedColumns().length === 0">
+                        {{ 'CK.Table.Button.DeactivateAll' | translate }}
+                    </a>
+                    <button nz-button nzType="primary" (click)="activateAllColumns()" [disabled]="displayedColumns().length === columns().length">
+                        {{ 'CK.Table.Button.ActivateAll' | translate }}
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+<nz-table
+    nzBordered
+    #table
+    [nzData]="tableData()"
+    nzSize="small"
+    [nzPageIndex]="pageIndex()"
+    [nzPageSize]="pageSize()"
+    [nzShowSizeChanger]="true"
+    [nzPageSizeOptions]="pageSizeOptions()"
+    [nzTotal]="totalCount()"
+    [nzFrontPagination]="frontPagination()"
+    (nzPageSizeChange)="sizeChanged($event)"
+    (nzPageIndexChange)="indexChanged($event)">
+    <thead>
+        <tr>
+            @if (selectableRows()) {
+                <th [nzChecked]="isEveryItemChecked()" [nzIndeterminate]="hasSelectedItems()" (nzCheckedChange)="selectAll()"></th>
+            }
+            @for (col of displayedColumns(); track col.name) {
+                @if (col.sortable) {
+                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzSortOrder]="col.sortOrder!" [nzSortFn]="col.sortFn!">
+                        {{ col.displayedName }}
+                        @if (col.filter) {
+                            <nz-filter-trigger
+                                *ngIf="col.filter"
+                                [(nzVisible)]="col.filter.visible"
+                                [nzActive]="col.filter.searchValue.length > 0"
+                                [nzDropdownMenu]="searchMenu">
+                                <span nz-icon nzType="search"></span>
+                            </nz-filter-trigger>
+                            <nz-dropdown-menu #searchMenu="nzDropdownMenu">
+                                <div class="ck-table-filter-dropdown">
+                                    <div class="search-box" *ngIf="col.filter">
+                                        <input type="text" nz-input [(ngModel)]="col.filter.searchValue" />
+                                        <div class="search-box-buttons">
+                                            <button nz-button nzSize="small" nzType="primary" (click)="search(col)" class="search-button">
+                                                {{ searchLabel() }}
+                                            </button>
+                                            <button nz-button nzSize="small" (click)="reset(col)">{{ cancelLabel() }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nz-dropdown-menu>
+                        }
+                    </th>
+                } @else {
+                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'">
+                        {{ col.displayedName }}
+                    </th>
+                }
+            }
+            @if (tableActions().length > 0) {
+                <th nzRight>{{ actionsHeaderLabel() }}</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (data of table.data; track data[dataUniqueKey()]) {
+            <tr (click)="selectRow(data)" class="ck-table-row" (dblclick)="rowDblClicked(data)">
+                <!-- Selectable rows have a checkbox as first column -->
+                @if (selectableRows()) {
+                    <td [nzChecked]="isSelected(data)" (nzCheckedChange)="itemChecked(data, $event)"></td>
+                }
+
+                <!-- Displaying each column's value -->
+                @for (column of displayedColumns(); track column) {
+                    <td
+                        *ngIf="column.template; else defaultCell"
+                        [style]="getColumnStyle(column.name, data)"
+                        [class]="!shouldDisplayValue(column) ? 'ck-cell-value ck-table-desktop-only' : 'ck-cell-value'">
+                        <ng-container *ngTemplateOutlet="column.template; context: { $implicit: data[column.name], row: data }"></ng-container>
+                    </td>
+
+                    <!-- Default cell rendering -->
+                    <ng-template #defaultCell>
+                        <td [style]="getColumnStyle(column.name, data)" [class]="!shouldDisplayValue(column) ? 'ck-cell-value ck-table-desktop-only' : 'ck-cell-value'">
+                            {{ column.valueFormatter ? column.valueFormatter(data[column.name], data) : data[column.name] }}
+                        </td>
+                    </ng-template>
+                }
+
+                <!-- Displaying TableActions in the last column if any -->
+                @if (tableActions() && tableActions().length > 0) {
+                    <td class="ck-cell-value" nzRight>
+                        @for (a of tableActions(); track a.name) {
+                            @if (a.shouldBeDisplayed(data)) {
+                                @if (a.displayedName && a.displayedName.length > 0) {
+                                    @if (a.isDanger) {
+                                        @if (a.tooltip && a.tooltip.length > 0) {
+                                            <!-- Danger + Tooltip + DisplayedName -->
+                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" (click)="a.execute(data)" [nzType]="a.type">
+                                                <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
+                                                {{ a.displayedName }}
+                                            </button>
+                                        } @else {
+                                            <!-- Danger + DisplayedName -->
+                                            <button nz-button nzDanger [nzType]="a.type" (click)="a.execute(data)">
+                                                <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
+                                                {{ a.displayedName }}
+                                            </button>
+                                        }
+                                    } @else {
+                                        @if (a.tooltip && a.tooltip.length > 0) {
+                                            <!-- Tooltip + DisplayedName -->
+                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="a.execute(data)">
+                                                <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
+                                                {{ a.displayedName }}
+                                            </button>
+                                        } @else {
+                                            <!-- DisplayedName -->
+                                            <button nz-button [nzType]="a.type" (click)="a.execute(data)">
+                                                <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
+                                                {{ a.displayedName }}
+                                            </button>
+                                        }
+                                    }
+                                } @else {
+                                    @if (a.isDanger) {
+                                        @if (a.tooltip && a.tooltip.length > 0) {
+                                            <!-- Danger + Tooltip -->
+                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="a.execute(data)">
+                                                <fa-icon [icon]="a.icon"></fa-icon>
+                                            </button>
+                                        } @else {
+                                            <!-- Danger -->
+                                            <button nz-button nzDanger [nzType]="a.type" (click)="a.execute(data)">
+                                                <fa-icon [icon]="a.icon"></fa-icon>
+                                            </button>
+                                        }
+                                    } @else {
+                                        @if (a.tooltip && a.tooltip.length > 0) {
+                                            <!-- Tooltip -->
+                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="a.execute(data)">
+                                                <fa-icon [icon]="a.icon"></fa-icon>
+                                            </button>
+                                        } @else {
+                                            <!-- Nothing -->
+                                            <button nz-button [nzType]="a.type" (click)="a.execute(data)">
+                                                <fa-icon [icon]="a.icon"></fa-icon>
+                                            </button>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</nz-table>
+<div class="ck-table-total-count">
+    @if (totalCount()) {
+        <span class="ck-table-count-span">{{ tableData().length }}/{{ totalCount() }}</span>
+    }
+    @if (totalCountLabel()) {
+        <span>{{ totalCountLabel() }}</span>
+    }
+</div>

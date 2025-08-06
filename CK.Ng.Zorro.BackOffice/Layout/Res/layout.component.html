@@ -1,0 +1,78 @@
+<nz-layout class="ck-backoffice-root-layout">
+    <nz-layout class="router-layout">
+        <div [ngClass]="collapsed ? 'ck-backoffice-layout-sidebar-container force-desktop-only collapsed' : 'ck-backoffice-layout-sidebar-container force-desktop-only'">
+            @if (logoSrc()) {
+                <ck-backoffice-side-bar
+                    [logoSrc]="logoSrc()!"
+                    [navigationItems]="navigationItems()"
+                    [isCollapsed]="collapsed"
+                    [versionInfos]="versionInfos()"
+                    [showGlobalSearchBtn]="showGlobalSearchBtn()"
+                    [defaultContentTpl]="defaultContentTpl()"
+                    [searchResultTpl]="searchResultTpl()"
+                    [globalSearchPlaceholder]="globalSearchPlaceholder()"
+                    [globalSearchDebounceTime]="globalSearchDebounceTime()"
+                    (searchRequested)="requestGlobalSearch($event)"
+                    (searchCleared)="clearGlobalSearch()"
+                    (collapseChanged)="toggleCollapse()"
+                    (logoClicked)="clickLogo()"
+                    (navItemClicked)="itemClicked($event)">
+                </ck-backoffice-side-bar>
+            } @else {
+                <ck-backoffice-side-bar
+                    [navigationItems]="navigationItems()"
+                    [isCollapsed]="collapsed"
+                    [versionInfos]="versionInfos()"
+                    [showGlobalSearchBtn]="showGlobalSearchBtn()"
+                    [defaultContentTpl]="defaultContentTpl()"
+                    [searchResultTpl]="searchResultTpl()"
+                    [globalSearchPlaceholder]="globalSearchPlaceholder()"
+                    [globalSearchDebounceTime]="globalSearchDebounceTime()"
+                    (searchRequested)="requestGlobalSearch($event)"
+                    (searchCleared)="clearGlobalSearch()"
+                    (collapseChanged)="toggleCollapse()"
+                    (logoClicked)="clickLogo()"
+                    (navItemClicked)="itemClicked($event)">
+                </ck-backoffice-side-bar>
+            }
+        </div>
+
+        <nz-content [class]="collapsed ? 'ck-backoffice-layout-content collapsed' : 'ck-backoffice-layout-content'">
+            <ck-backoffice-top-bar
+                #topbar
+                class="force-desktop-only"
+                [displayWCSDropdown]="displayWCSDropdown()"
+                [allWCS]="allWCS()"
+                [selectedWCS]="selectedWCS()"
+                [selectedLanguage]="selectedLanguage()"
+                [userName]="userName()"
+                [displayNotifIcon]="displayNotifIcon()"
+                [displayLanguageChoices]="displayLanguageChoices()"
+                [displayThemeToggle]="displayThemeToggle()"
+                (appIconClicked)="toggleAppIcon()"
+                (wcsSelected)="selectWCS($event)"
+                (disconnectClicked)="disconnect()"
+                (languageChanged)="selectLanguage($event)"
+                (profileClicked)="goToProfile()"
+                (notificationClicked)="openNotifications()"
+                (searchCleared)="clearSearch()"
+                (themeToggled)="toggleTheme()">
+            </ck-backoffice-top-bar>
+            <ck-backoffice-mobile-bar
+                class="force-mobile-only"
+                [navigationItems]="navigationItems()"
+                [allWCS]="allWCS()"
+                [selectedWCS]="selectedWCS()"
+                [selectedLanguage]="selectedLanguage()"
+                (wcsSelected)="selectWCS($event)"
+                (languageChanged)="selectLanguage($event)"
+                (searchRequested)="requestSearch($event)"
+                (profileClicked)="goToProfile()"
+                (notificationClicked)="openNotifications()">
+            </ck-backoffice-mobile-bar>
+            <div [class]="collapsed ? 'ck-backoffice-layout-inner-content collapsed' : 'ck-backoffice-layout-inner-content'">
+                <ng-content></ng-content>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>

@@ -1,0 +1,135 @@
+.ck-backoffice-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ck-table-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1%;
+    height: @ck-table-top-height;
+
+    .ck-table-searchbar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-radius: @ck-table-searchbar-border-radius;
+        padding: @ck-table-searchbar-padding;
+        border: 1px solid @ck-table-searchbar-border-color;
+        height: @ck-table-searchbar-height;
+        min-height: @ck-table-searchbar-height;
+        width: 30%;
+
+        .ck-table-search-icon {
+            font-size: @ck-table-searchbar-icon-font-size;
+            color: @ck-table-searchbar-search-icon-color;
+            font-weight: @ck-table-searchbar-icon-font-weight;
+
+            &.search {
+                margin-right: 2%;
+            }
+
+            &.close {
+                margin-left: 2%;
+                cursor: pointer;
+            }
+        }
+
+        input {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+
+            &:focus-visible {
+                outline: none;
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+
+    .ck-table-columns-config {
+        .ck-table-columns-btn {
+            box-shadow: @ck-table-columns-btn-box-shadow;
+
+            .ck-btn-icon {
+                color: @primary-color;
+            }
+        }
+    }
+}
+
+.ck-column-choices-container {
+  display: flex;
+  flex-direction: column;
+
+  .ck-column-choices-actions {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.ck-table-header {
+  color: @ck-table-header-color;
+  font-weight: @ck-table-header-font-weight;
+  font-size: @ck-table-header-font-size;
+}
+
+.ck-table-row {
+  cursor: pointer;
+
+  .ck-cell-value {
+    color: @ck-table-cell-value-color;
+
+    .cell-value-icon {
+      margin-left: @ck-table-cell-value-icon-margin;
+      font-size: @ck-table-cell-value-font-size;
+    }
+
+    button {
+      .action-icon {
+        margin-right: @ck-table-cell-value-icon-margin;
+      }
+    }
+  }
+}
+
+.ck-table-desktop-only {
+  @media (max-width: @screen-md-max) {
+    display: none;
+  }
+}
+
+.ck-table-filter-dropdown {
+  background-color: @ck-table-filter-dropdown-background;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #80808038;
+  padding: 2%;
+
+  .search-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: @ck-table-filter-dropdown-width;
+  }
+}
+
+.ck-table-total-count {
+  margin-top: auto;
+  font-style: @ck-table-total-count-font-style;
+  color: @ck-table-total-count-color;
+  font-weight: @ck-table-total-count-font-weight;
+
+  .ck-table-count-span {
+    margin-right: 10px;
+  }
+}

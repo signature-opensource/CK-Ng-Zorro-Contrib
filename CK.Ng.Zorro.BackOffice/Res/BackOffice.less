@@ -1,0 +1,27 @@
+/*.ant-input-affix-wrapper,*/
+.ant-btn,
+.ant-modal-content {
+    border-radius: @ck-border-radius;
+}
+
+.ant-tabs-content,
+.ant-tabs-tabpane {
+    height: 100%;
+}
+
+.ant-select-item-option {
+    padding: 0 1%;
+}
+
+// Responsive utility classes
+.force-desktop-only {
+    @media (max-width: @screen-sm-max) {
+        display: none !important;
+    }
+}
+
+.force-mobile-only {
+    @media (min-width: @screen-md-min) {
+        display: none !important;
+    }
+}

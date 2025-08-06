@@ -1,0 +1,30 @@
+<!-- <HasNgPrivatePage /> -->
+@if( isAuthenticated() ) {
+    <ck-private-page />
+} @else {
+<ck-backoffice-layout
+    [navigationItems]="navSections"
+    [userName]="'user@demo.com'"
+    [displayThemeToggle]="true"
+    [displayLanguageChoices]="true"
+    [showGlobalSearchBtn]="true"
+    [globalSearchDebounceTime]="300"
+    [globalSearchPlaceholder]="'Placeholder test...'"
+    [defaultContentTpl]="defaultListTpl"
+    [searchResultTpl]="resultTpl"
+    (globalSearchRequested)="search($event)"
+    (globalSearchCleared)="clearSearch()"
+    (languageChanged)="switchLang($event)"
+    (logoClicked)="goToHome()"
+    (themeToggled)="toggleTheme()">
+    <router-outlet />
+</ck-backoffice-layout>
+
+<ng-template #defaultListTpl>
+    <div class="default-list">No search has been requested, here can be displayed a default list / recent items</div>
+</ng-template>
+
+<ng-template #resultTpl>
+    <div class="search-result">Search results</div>
+</ng-template>
+}

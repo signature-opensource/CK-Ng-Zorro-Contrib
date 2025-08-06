@@ -1,0 +1,51 @@
+.ck-backoffice-filters {
+    gap: 0.5%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filter-icon {
+    color: @primary-color;
+    font-size: @heading-4-size;
+}
+
+.clear-icon {
+    color: @primary-color;
+    font-size: 1.5em;
+    position: absolute;
+    transform: translate(-50%, -15%);
+}
+
+.ck-backoffice-filter {
+    box-shadow: @ck-filter-box-shadow;
+    border: @ck-filter-border;
+    border-radius: @ck-border-radius;
+    padding: 0 1%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50%;
+
+    &:not(:last-child) {
+        margin-right: @ck-filter-margin-right;
+    }
+
+    &.active {
+        border-color: @primary-color;
+    }
+
+    .label {
+        color: @grey;
+        font-weight: @font-weight-bold;
+        font-size: 1.1em;
+        user-select: none;
+    }
+
+    .select-filter {
+        min-width: 100px;
+    }
+
+    .switch-filter {
+        margin: 0 3%;
+    }
+}

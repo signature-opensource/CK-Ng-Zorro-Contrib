@@ -1,0 +1,33 @@
+<a (click)="itemClicked(item)">
+    <span [class]="item().disabled ? 'disabled-item' : 'enabled-item'">
+        <fa-icon class="ck-breadcrumb-item-icon" *ngIf="!!item().icon" [icon]="item().icon!"></fa-icon>
+        <span class="ck-breadcrumb-item-label">
+            {{ item().name }}
+        </span>
+    </span>
+</a>
+
+@if (!!item().children && item().children!.length >= 1) {
+    <span nz-dropdown [nzDropdownMenu]="childrenMenu">
+        <fa-icon class="separator" [icon]="breadcrumb.separator()"></fa-icon>
+    </span>
+    <nz-dropdown-menu #childrenMenu="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+            @for (child of item().children; track $index) {
+                @if (child.disabled) {
+                    <li nz-menu-item class="disabled-item">
+                        <fa-icon class="ck-breadcrumb-item-icon" *ngIf="child.icon" [icon]="child.icon"></fa-icon>
+                        {{ child.name }}
+                    </li>
+                } @else {
+                    <li nz-menu-item class="enabled-item" (click)="itemClicked(child)">
+                        <fa-icon class="ck-breadcrumb-item-icon" *ngIf="child.icon" [icon]="child.icon"></fa-icon>
+                        {{ child.name }}
+                    </li>
+                }
+            }
+        </ul>
+    </nz-dropdown-menu>
+} @else if (!isLast()) {
+    <fa-icon class="separator" [icon]="breadcrumb.separator()"></fa-icon>
+}

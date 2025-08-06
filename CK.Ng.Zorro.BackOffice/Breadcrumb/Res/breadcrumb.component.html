@@ -1,0 +1,5 @@
+@if (breadcrumbItems().length) {
+    @for (item of breadcrumbItems() | ckBreadcrumbItemShow: minItemsShow(); track $index; let isLast = $last) {
+        <ck-breadcrumb-item [item]="item" [isLast]="isLast" (navItemClicked)="itemClicked($event)"> </ck-breadcrumb-item>
+    }
+}

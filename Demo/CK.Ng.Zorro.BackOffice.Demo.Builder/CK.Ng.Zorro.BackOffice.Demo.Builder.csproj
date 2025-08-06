@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CK.AppBuilder" Version="30.0.1--0010-develop" />
+        <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0008-develop" />
+        <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0019-develop" />
+        <PackageReference Include="CK.TypeScript.Engine" Version="0.26.3--0019-develop" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.App\CK.Ng.Zorro.BackOffice.Demo.App.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="DotNet.ReproducibleBuilds" Version="1.2.25" />
+      <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+</Project>

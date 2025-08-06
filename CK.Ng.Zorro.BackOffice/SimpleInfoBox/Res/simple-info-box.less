@@ -1,0 +1,43 @@
+.ck-simple-info-box {
+    flex: 1;
+    height: 100%;
+    border: 1px solid @ck-simple-info-box-border-color;
+    border-radius: @ck-simple-info-box-border-radius;
+    box-shadow: @ck-simple-info-box-boxshadow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1%;
+
+    .label {
+        font-size: @ck-simple-info-box-label-fontsize;
+        text-align: center;
+    }
+
+    .value {
+        font-size: @ck-simple-info-box-value-fontsize;
+        font-weight: 600;
+        text-align: center;
+
+        &.count,
+        &.icon {
+            font-size: @ck-simple-info-box-value-icon-fontsize;
+        }
+
+
+        &.warn {
+            color: @warn-color;
+        }
+
+        &.true {
+            color: @primary-color;
+            font-size: @ck-simple-info-box-value-icon-fontsize;
+        }
+
+        &.false {
+            color: @error-color;
+            font-size: @ck-simple-info-box-value-icon-fontsize;
+        }
+    }
+}

@@ -1,0 +1,62 @@
+.ck-breadcrumb-item {
+    font-size: @ck-breadcrumb-item-font-size;
+
+    .ck-breadcrumb-item-icon {
+        margin-right: @ck-breadcrumb-item-icon-margin;
+    }
+
+    .enabled-item {
+        .ck-breadcrumb-item-icon {
+            color: @ck-breadcrumb-item-label-color;
+        }
+
+        .ck-breadcrumb-item-label {
+            cursor: pointer;
+            color: @ck-breadcrumb-item-label-color;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .disabled-item {
+        cursor: default;
+
+        .ck-breadcrumb-item-icon {
+            color: @ck-breadcrumb-item-disabled-label-color;
+        }
+
+        .ck-breadcrumb-item-label {
+            color: @ck-breadcrumb-item-disabled-label-color;
+        }
+    }
+
+    .separator {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: @ck-breadcrumb-item-label-color;
+    }
+}
+
+.ant-dropdown-menu {
+    .ck-breadcrumb-item-icon {
+        margin-right: 8px;
+    }
+
+    .enable-item {
+        .ck-breadcrumb-item-icon {
+            color: @ck-breadcrumb-item-label-color;
+        }
+
+        color: @ck-breadcrumb-item-label-color;
+    }
+
+    .disabled-item {
+        .ck-breadcrumb-item-icon {
+            color: @ck-breadcrumb-item-disabled-label-color;
+        }
+
+        color: @ck-breadcrumb-item-disabled-label-color;
+    }
+}

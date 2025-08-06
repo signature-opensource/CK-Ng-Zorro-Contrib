@@ -1,0 +1,9 @@
+<Setup>
+    <Aspect Type="CK.Setup.TypeScriptAspectConfiguration, CK.TypeScript" />
+
+    <BinPaths>
+        <BinPath>
+            <TypeScript IntegrationMode="Inline" TargetProjectPath="{ProjectPath}/Demo.Web" ActiveCultures="fr" />
+        </BinPath>
+    </BinPaths>
+</Setup>

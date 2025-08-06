@@ -1,0 +1,19 @@
+<ck-backoffice-layout-content
+    #content
+    [headerTitle]="'Demo'"
+    [showFilters]="true"
+    [filters]="filters"
+    [actions]="actions"
+    (filtersApplied)="applyFilters($event)"
+    (filtersCleared)="clearFilters()">
+    <ck-backoffice-table
+        [dataUniqueKey]="'id'"
+        [tableData]="items"
+        [columns]="columns"
+        [totalCount]="totalCount()"
+        [totalCountLabel]="'éléments'"
+        [searchbarDebounceTime]="500"
+        (searchRequested)="search($event)"
+        (searchCleared)="clearSearch()">
+    </ck-backoffice-table>
+</ck-backoffice-layout-content>

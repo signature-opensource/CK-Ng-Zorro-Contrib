@@ -1,0 +1,114 @@
+.ck-backoffice-layout-content-header {
+    display: flex;
+    align-items: center;
+    flex: @ck-backoffice-layout-content-header-flex;
+    background-color: @ck-backoffice-layout-content-header-background-color;
+    margin: @ck-backoffice-layout-content-header-margin;
+    padding: @ck-backoffice-layout-content-header-padding;
+
+    .header-title {
+        color: @ck-backoffice-layout-content-header-title-color;
+        font-weight: @ck-backoffice-layout-content-header-title-font-weight;
+        font-size: @ck-backoffice-layout-content-header-title-font-size;
+        margin-right: @ck-backoffice-layout-content-header-title-right-margin;
+
+        @media (max-width: @screen-md-max) {
+            font-size: @ck-backoffice-layout-content-header-title-smallscreen-font-size;
+        }
+    }
+
+    .header-divider {
+        border: @ck-backoffice-layout-content-header-divider-border;
+        height: @ck-backoffice-layout-content-header-divider-height;
+
+        @media (max-width: @screen-md-max) {
+            height: @ck-backoffice-layout-content-header-divider-smallscreen-height;
+        }
+    }
+
+    .ck-backoffice-layout-content-breadcrumb {
+        margin-left: @ck-backoffice-layout-content-breadcrumb-left-margin;
+
+        @media (max-width: @screen-md-max) {
+            margin-left: @ck-backoffice-layout-content-breadcrumb-smallscreen-left-margin;
+        }
+    }
+}
+
+.ck-backoffice-layout-content-middle {
+    display: flex;
+    align-items: center;
+    flex: @ck-backoffice-layout-content-middle-flex;
+    background-color: @ck-backoffice-layout-content-middle-background-color;
+    margin: 0;
+    margin-bottom: @ck-backoffice-layout-content-middle-bottom-margin;
+    padding: @ck-backoffice-layout-content-middle-padding;
+    max-height: 8%;
+    min-height: 8%;
+
+    .ck-backoffice-layout-content-filters {
+        flex: 2;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .ck-backoffice-layout-content-actions {
+        flex: 1;
+    }
+
+    .ck-backoffice-filter-btn {
+        display: flex;
+        align-items: center;
+        margin-right: 1%;
+        border-radius: @ck-border-radius;
+        height: 50%;
+        color: @grey;
+        box-shadow: @ck-backoffice-filter-btn-box-shadow;
+
+        &.complete {
+            border-color: @primary-color;
+        }
+
+        &.incomplete {
+            border-color: @primary-color;
+            border-style: dashed;
+        }
+
+        .ck-btn-icon {
+            color: @primary-color;
+        }
+
+        .count-badge {
+            margin: @ck-backoffice-filter-badge-margin;
+            color: @ck-backoffice-filter-badge-color;
+            border-radius: @ck-border-radius;
+            background-color: @ck-backoffice-filter-badge-bg-color;
+            font-weight: @font-weight-bold;
+            padding: @ck-backoffice-filter-badge-padding;
+        }
+    }
+}
+
+.ck-filter-choices-container {
+    display: flex;
+    flex-direction: column;
+
+    .ck-filters-actions {
+        margin-top: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.ck-backoffice-layout-content-main {
+    flex: @ck-backoffice-layout-content-main-flex;
+    background-color: @ck-backoffice-layout-content-main-background-color;
+    padding: @ck-backoffice-layout-content-main-padding;
+    margin-bottom: 1px;
+
+    .layout-content {
+        height: 100%;
+    }
+}

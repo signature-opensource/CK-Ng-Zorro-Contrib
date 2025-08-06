@@ -1,0 +1,7 @@
+{
+    "mappings": {
+        "es.svg": "flags",
+        "fr.svg": "flags",
+        "en.svg": "flags"
+    }
+}

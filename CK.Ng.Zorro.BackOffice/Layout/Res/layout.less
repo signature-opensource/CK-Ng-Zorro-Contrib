@@ -1,0 +1,85 @@
+.ck-backoffice-root-layout {
+    height: 100%;
+    width: 100%;
+    display: block;
+    padding: 0.5%;
+    background-color: @ck-backoffice-bg-color;
+
+    .router-layout {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        background-color: @ck-backoffice-bg-color;
+
+        .ck-backoffice-layout-sidebar-container {
+            max-width: @ck-backoffice-layout-sidebar-width;
+            width: @ck-backoffice-layout-sidebar-width;
+            min-width: @ck-backoffice-layout-sidebar-minwidth;
+            background-color: @ck-backoffice-layout-sidebar-background-color;
+            text-align: center;
+            clip-path: inset(0px -3px 0px 0px);
+            overflow-y: auto;
+            height: @ck-backoffice-layout-sidebar-height;
+            border-radius: @ck-backoffice-layout-sidebar-border-radius;
+            box-shadow: @ck-backoffice-layout-sidebar-boxshadow;
+            -webkit-transition: width 0.25s ease-in-out;
+            -moz-transition: width 0.25s ease-in-out;
+            -o-transition: width 0.25s ease-in-out;
+            transition: width 0.25s ease-in-out;
+
+            &.collapsed {
+                width: @ck-backoffice-layout-sidebar-collapsed-width;
+                min-width: @ck-backoffice-layout-sidebar-collapsed-minwidth;
+            }
+        }
+
+        .ck-backoffice-layout-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: @ck-backoffice-layout-content-padding;
+            width: 100%;
+
+            > * {
+                border-radius: @ck-backoffice-layout-content-children-border-radius;
+            }
+
+            ck-backoffice-side-bar {
+                height: @ck-backoffice-layout-topbar-height;
+
+                @media (max-width: (@screen-lg-max + 1)) {
+                    height: @ck-backoffice-layout-topbar-smallscreen-height;
+                }
+            }
+
+            ck-backoffice-top-bar {
+                background-color: @ck-backoffice-bg-color;
+                height: @ck-backoffice-layout-topbar-height;
+                padding: @ck-backoffice-top-bar-padding;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background-color: @ck-backoffice-bg-color;
+                z-index: 1;
+                box-shadow: 0px 2px 2px -2px rgba(0, 0, 0, 0.1);
+            }
+
+            ck-backoffice-mobile-bar {
+                height: @ck-backoffice-layout-topbar-height;
+                overflow-x: hidden;
+            }
+
+            .ck-backoffice-layout-inner-content {
+                background-color: @ck-backoffice-bg-color;
+                overflow-y: auto;
+                height: @ck-backoffice-layout-inner-content-height;
+                width: 100%;
+
+                @media (max-width: (@screen-lg-max + 1)) {
+                    height: @ck-backoffice-layout-inner-content-smallscreen-height;
+                }
+            }
+        }
+    }
+}

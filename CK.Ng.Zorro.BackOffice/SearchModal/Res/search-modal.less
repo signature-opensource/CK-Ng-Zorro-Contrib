@@ -1,0 +1,22 @@
+.ck-search-modal-header {
+    display: flex;
+    align-items: center;
+
+    .close-icon {
+        cursor: pointer;
+        font-size: @ck-search-modal-search-clear-font-size;
+    }
+
+    .ant-input-affix-wrapper {
+        border-radius: calc(@ck-border-radius / 2);
+    }
+}
+
+.ck-search-modal-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: @ck-search-modal-content-padding;
+    gap: @ck-search-modal-content-gap;
+}

@@ -1,0 +1,163 @@
+.ck-backoffice-mobile-bar-container {
+    height: 100%;
+    background-color: @ck-backoffice-mobile-bar-background-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: @ck-backoffice-mobile-bar-padding;
+
+    .ck-backoffice-mobile-bar-menu {
+        height: @ck-backoffice-mobile-bar-menu-height;
+        width: @ck-backoffice-mobile-bar-menu-width;
+        background-color: @ck-backoffice-mobile-bar-background-color;
+        z-index: @ck-backoffice-mobile-bar-menu-zindex;
+        position: absolute;
+        top: 0;
+        padding: @ck-backoffice-mobile-bar-menu-padding;
+
+        .ck-backoffice-mobile-bar-navigation-menu-icons {
+            position: absolute;
+            right: @ck-backoffice-mobile-bar-menu-icons-right;
+            z-index: @ck-backoffice-mobile-bar-menu-icons-zindex;
+        }
+
+        .ck-backoffice-mobile-bar-navigation-items {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            top: 0;
+            height: 100%;
+
+            .ck-backoffice-mobile-bar-navigation-section {
+                display: flex;
+                flex-direction: column;
+
+                &:not(:last-child) {
+                    margin-bottom: @ck-backoffice-mobile-bar-navigation-section-bottom-margin;
+                }
+
+                .ck-backoffice-mobile-bar-navigation-head-label {
+                    text-align: left;
+                    color: @ck-backoffice-mobile-bar-navigation-head-label-color;
+                    font-weight: @ck-backoffice-mobile-bar-navigation-head-label-font-weight;
+                    margin-bottom: @ck-backoffice-mobile-bar-navigation-head-label-bottom-margin;
+                    font-size: @ck-backoffice-mobile-bar-navigation-head-label-font-size;
+                    cursor: default;
+                }
+
+                .ck-backoffice-mobile-bar-navigation-item {
+                    text-align: left;
+                    color: @ck-backoffice-mobile-bar-navigation-head-label-color;
+                    margin-left: @ck-backoffice-mobile-bar-navigation-item-left-margin;
+                    cursor: pointer;
+                    font-size: @ck-backoffice-mobile-bar-navigation-item-font-size;
+
+                    &:not(:last-child) {
+                        margin-bottom: @ck-backoffice-mobile-bar-navigation-item-bottom-margin;
+                    }
+
+                    .ck-backoffice-mobile-bar-navigation-icon {
+                        margin-right: @ck-backoffice-mobile-bar-navigation-item-right-margin;
+                    }
+                }
+
+                &.bottom {
+                    margin-top: auto;
+                }
+            }
+        }
+    }
+
+    &.menu-open {
+        padding: 0;
+    }
+
+    &.searching {
+        padding: @ck-backoffice-mobile-bar-searching-padding;
+
+        .ck-backoffice-mobile-bar-search-input {
+            flex: @ck-backoffice-mobile-bar-searching-input-flex;
+            font-size: @ck-backoffice-mobile-bar-searching-input-font-size;
+        }
+
+        .ck-backoffice-mobile-bar-buttons {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            .ck-backoffice-mobile-bar-icons {
+                cursor: pointer;
+                margin-left: auto;
+                font-size: @ck-backoffice-mobile-bar-icons-font-size;
+            }
+        }
+    }
+
+    .left {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1;
+
+        .ck-backoffice-mobile-bar-dropdown {
+            margin-left: @ck-backoffice-mobile-bar-dropdown-left-margin;
+            cursor: pointer;
+            flex: 3;
+
+            .top-bar-select {
+                width: 100%;
+            }
+
+            .ck-backoffice-mobile-bar-dropdown-label {
+                font-size: @ck-backoffice-mobile-bar-dropdown-label-font-size;
+            }
+        }
+
+        .ck-backoffice-mobile-bar-icons {
+            &.search {
+                flex: 1;
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+        flex: 1;
+
+        .ck-backoffice-mobile-bar-flag-img {
+            width: @ck-backoffice-mobile-bar-flag-img-width;
+        }
+
+        > * {
+            margin: @ck-backoffice-mobile-bar-right-elements-margin;
+            margin-left: auto;
+            cursor: pointer;
+            font-size: @ck-backoffice-mobile-bar-searching-input-font-size;
+        }
+    }
+
+    .ck-backoffice-mobile-bar-search-input {
+        border: none;
+        width: 100%;
+        background-color: transparent;
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
+}
+
+.ck-backoffice-mobile-bar-searching-icons {
+    font-size: @ck-backoffice-mobile-bar-searching-icons-font-size;
+    cursor: pointer;
+
+    &.cancel-search {
+        color: @error-color;
+    }
+
+    &.request-search {
+        color: @primary-color;
+    }
+}
