@@ -8,8 +8,8 @@ import { Subject, debounceTime, distinctUntilChanged, first } from 'rxjs';
 import { faClose, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { TableColumn } from './models/table-column.model';
-import { TableAction } from './models/table-action.model';
+import { TableColumn } from './table-column.model';
+import { TableAction } from './table-action.model';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule, NzCheckboxOption } from 'ng-zorro-antd/checkbox';

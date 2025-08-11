@@ -6,8 +6,8 @@ namespace CK.Ng.Zorro;
 
 [NgComponent]
 [Package<BackOfficePackage>]
-[TypeScriptFile( "models/table-action.model.ts", "TableAction" )]
-[TypeScriptFile( "models/table-column.model.ts", "TableCellStyle", "TableCellContext", "TableColumn", "CKTableColumn", "ColumnFilter" )]
+[TypeScriptFile( "table-action.model.ts", "TableAction" )]
+[TypeScriptFile( "table-column.model.ts", "TableCellStyle", "TableCellContext", "TableColumn", "CKTableColumn", "ColumnFilter" )]
 public sealed class TableComponent : NgComponent
 {
 }

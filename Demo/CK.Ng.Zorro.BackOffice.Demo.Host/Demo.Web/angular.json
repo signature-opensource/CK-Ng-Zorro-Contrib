@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "yarn"
+    "packageManager": "yarn",
+    "analytics": "bb6857ec-8ba9-416d-9f05-3fc93417b0ec"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -49,7 +50,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "1GB"
                 },
                 {
                   "type": "anyComponentStyle",

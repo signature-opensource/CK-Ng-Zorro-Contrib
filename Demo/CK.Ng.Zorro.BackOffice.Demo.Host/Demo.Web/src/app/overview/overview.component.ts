@@ -205,8 +205,20 @@ export class OverviewComponent {
     const computedId = this.#allItems.sort( ( a, b ) => a.id - b.id )[this.#allItems.length - 1].id;
     const id = new FormControlConfig( 'number', 'Identifiant', computedId + 1 );
     id.disabled = true;
-    const label = new FormControlConfig( 'text', 'Label', `Label #${computedId + 1}`, 'Renseignez le label', true, [Validators.required, Validators.minLength( 3 )], { 'required': 'Veuillez renseigner le label', 'minLength': 'Le label doit contenir au moins 3 caractères' } );
-    const type = new FormControlConfig( 'select', 'Type', MyTypeEnum.Type1, 'Sélectionnez le type', true, [Validators.required], { 'required': 'Choisissez le type' }, undefined, [{ label: 'Type1', value: MyTypeEnum.Type1 }, { label: 'Type2', value: MyTypeEnum.Type2 }] );
+    const label = new FormControlConfig( 'text', 'Label', `Label #${computedId + 1}`, { 
+        placeholder: 'Renseignez le label', 
+        required: true,
+        validators: [Validators.required, Validators.minLength( 3 )],
+        errorMessages: { 'required': 'Veuillez renseigner le label', 'minLength': 'Le label doit contenir au moins 3 caractères' }
+    } );
+    const type = new FormControlConfig( 'select', 'Type', MyTypeEnum.Type1, {
+       placeholder: 'Sélectionnez le type', 
+       required: true,
+       validators: [Validators.required], 
+       errorMessages: { 'required': 'Choisissez le type' },
+       autocomplete: undefined,
+       options:[{ label: 'Type1', value: MyTypeEnum.Type1 }, { label: 'Type2', value: MyTypeEnum.Type2 }]
+   } );
 
     return { id, label, type };
   }

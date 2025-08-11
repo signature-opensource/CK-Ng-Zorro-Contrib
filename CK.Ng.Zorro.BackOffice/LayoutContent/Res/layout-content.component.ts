@@ -2,7 +2,12 @@ import { Component, computed, HostBinding, inject, input, linkedSignal, output, 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { ActionBarComponent, ActionBarContent, BreadcrumbComponent, BreadcrumbItem, Filter, FiltersComponent } from '@local/ck-gen';
+import { ActionBarComponent } from '../action-bar/action-bar.component';
+import { ActionBarContent } from '../action-bar/action-bar.model';
+import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { BreadcrumbItem } from '../breadcrumb-item/breadcrumb-item.model';
+import { Filter } from '../filters/filter.model';
+import { FiltersComponent } from '../filters/filters.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';

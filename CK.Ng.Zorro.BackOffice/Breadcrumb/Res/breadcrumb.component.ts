@@ -17,8 +17,8 @@ import { Direction, Directionality } from '@angular/cdk/bidi';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { BreadcrumbItem } from './models/breadcrumb-item.model';
-import { Breadcrumb } from './models/breadcrumb.model';
+import { BreadcrumbItem } from './breadcrumb-item.model';
+import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbItemShowPipe } from './breadcrumb-item-show.pipe';
 import { BreadcrumbItemComponent } from './breadcrumb-item.component';
 

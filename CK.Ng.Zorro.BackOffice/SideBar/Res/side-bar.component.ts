@@ -6,8 +6,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { NavigationItem, NavigationSection } from './models/navigation.model';
-import { VersionInfos } from './models/version-infos.model';
+import { NavigationItem, NavigationSection } from './navigation.model';
+import { VersionInfos } from './version-infos.model';
 import { SearchModalComponent } from '@local/ck-gen';
 
 import { NzDividerModule } from 'ng-zorro-antd/divider';

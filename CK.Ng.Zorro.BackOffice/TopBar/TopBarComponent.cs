@@ -6,7 +6,7 @@ namespace CK.Ng.Zorro;
 
 [NgComponent]
 [Package<BackOfficePackage>]
-[TypeScriptFile( "models/wcs-type.model.ts", "WCSType" )]
+[TypeScriptFile( "wcs-type.model.ts", "WCSType" )]
 [Requires<INgUserInfoBoxComponent>]
 public sealed class TopBarComponent : NgComponent
 {

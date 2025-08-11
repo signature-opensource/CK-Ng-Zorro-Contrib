@@ -1,11 +1,11 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export interface ActionBarContent<T> {
-    left: Array<Action<T>>;
-    right: Array<Action<T>>;
+    left: Array<ActionBarAction<T>>;
+    right: Array<ActionBarAction<T>>;
 }
 
-export interface Action<T> {
+export interface ActionBarAction<T> {
     name: string;
     displayName: string;
     isDanger: boolean;

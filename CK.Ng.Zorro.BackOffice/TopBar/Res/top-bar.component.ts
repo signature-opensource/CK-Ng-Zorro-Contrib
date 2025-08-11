@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBell, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faCaretDown, faChevronDown, faClose, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { WCSType } from './models/wcs-type.model';
+import { WCSType } from './wcs-type.model';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { TranslateService } from '@ngx-translate/core';
