@@ -18,7 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { BreadcrumbItem } from './breadcrumb-item.model';
-import { Breadcrumb } from './breadcrumb.model';
+import { Breadcrumb } from './breadcrumb.model'; // Useless ???
 import { BreadcrumbItemShowPipe } from './breadcrumb-item-show.pipe';
 import { BreadcrumbItemComponent } from './breadcrumb-item.component';
 

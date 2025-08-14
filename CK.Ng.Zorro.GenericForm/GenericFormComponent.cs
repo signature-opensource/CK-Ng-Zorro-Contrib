@@ -4,8 +4,8 @@ using CK.TypeScript;
 
 namespace CK.Ng.Zorro;
 
-[NgComponent]
-[Package<BackOfficePackage>]
+[NgComponent( IsOptional = true )]
+[Package<ZorroPackage>]
 [TypeScriptFile( "generic-form.model.ts", "GenericFormData, IFormControlConfig, FormControlConfig, FormControlType" )]
 public sealed class GenericFormComponent : NgComponent
 {

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net8.0-windows</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>false</IsPackable>
@@ -9,12 +9,7 @@
         <!-- It's a mess. See https://github.com/dotnet/project-system/issues/3619 -->
         <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Content Include="Demo.Web\ck-gen-app\ts-locales\en.jsonc" />
-      <Content Include="Demo.Web\ck-gen-app\ts-locales\fr.jsonc" />
-    </ItemGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.15" />
         <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.1" />
