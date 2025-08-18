@@ -24,7 +24,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 } )
 export class OverviewComponent {
   readonly #modal = inject( NzModalService );
-  // readonly #notif = inject( CKNotificationService );
+  // readonly #notif = inject( NotificationService );
   readonly #translateService = inject( TranslateService );
   #allItems: Array<MyItem> = [];
 
