@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActionBarComponent } from '../action-bar/action-bar.component';
 import { ActionBarContent } from '../action-bar/action-bar.model';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
-import { BreadcrumbItem } from '../breadcrumb-item/breadcrumb-item.model';
+import { BreadcrumbItem } from '../breadcrumb/breadcrumb-item.model';
 import { Filter } from '../filters/filter.model';
 import { FiltersComponent } from '../filters/filters.component';
 
