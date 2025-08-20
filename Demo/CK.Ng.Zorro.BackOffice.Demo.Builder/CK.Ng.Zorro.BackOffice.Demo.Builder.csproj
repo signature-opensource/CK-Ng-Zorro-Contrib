@@ -6,10 +6,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppBuilder" Version="30.0.1--0033-develop" />
-    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0037-develop" />
-    <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0077-develop" />
-    <PackageReference Include="CK.TypeScript.Engine" Version="0.26.3--0077-develop" />
+    <PackageReference Include="CK.AppBuilder" Version="30.0.1--0034-develop" />
+    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0039-develop" />
+    <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0079-develop" />
+    <PackageReference Include="CK.TypeScript.Engine" Version="0.26.3--0079-develop" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.App\CK.Ng.Zorro.BackOffice.Demo.App.csproj" />
