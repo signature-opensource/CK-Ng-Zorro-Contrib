@@ -21,7 +21,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component( {
     selector: 'ck-backoffice-layout-content',
-    templateUrl: './layout-content.component.html',
+    templateUrl: './layout-content.html',
     imports: [
         CommonModule,
         FormsModule,
@@ -35,11 +35,10 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
         NzToolTipModule,
         FontAwesomeModule,
         TranslateModule
-    ]
+    ],
+    host: { 'class': 'ck-backoffice-layout-content' }
 } )
 export class LayoutContentComponent<T> {
-    @HostBinding( 'class' ) class = 'ck-backoffice-layout-content';
-
     headerTitle = input<string>( '' );
     selectedItems = input<Array<T>>( [] );
     showFilters = input<boolean>( true );

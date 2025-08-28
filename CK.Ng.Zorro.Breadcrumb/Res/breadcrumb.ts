@@ -26,7 +26,7 @@ import { BreadcrumbItemComponent } from './breadcrumb-item.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     selector: 'ck-backoffice-breadcrumb',
-    templateUrl: './breadcrumb.component.html',
+    templateUrl: './breadcrumb.html',
     imports: [CommonModule, FormsModule, BreadcrumbItemShowPipe, BreadcrumbItemComponent],
     providers: [{ provide: Breadcrumb, useExisting: BreadcrumbComponent }],
 } )

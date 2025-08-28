@@ -13,7 +13,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 @Component( {
   selector: 'ck-search-modal',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, FontAwesomeModule, NzInputModule, NzToolTipModule, NgTemplateOutlet],
-  templateUrl: './search-modal.component.html'
+  templateUrl: './search-modal.html'
 } )
 export class SearchModalComponent implements OnDestroy {
   readonly #modal = inject( NzModalRef );

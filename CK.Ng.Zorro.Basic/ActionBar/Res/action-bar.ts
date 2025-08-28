@@ -8,7 +8,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
     selector: 'ck-action-bar',
-    templateUrl: './action-bar.component.html',
+    templateUrl: './action-bar.html',
     imports: [CommonModule, FormsModule, FontAwesomeModule, NzButtonModule, NzToolTipModule]
 })
 export class ActionBarComponent<T> {

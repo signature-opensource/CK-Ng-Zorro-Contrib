@@ -1,0 +1,56 @@
+<nz-layout class="ck-backoffice-root-layout">
+    <nz-layout class="router-layout">
+        <ng-container *appResponsive="'(min-width: 1025px)'">
+            <div [ngClass]="collapsed ? 'ck-backoffice-layout-sidebar-container collapsed' : 'ck-backoffice-layout-sidebar-container'">
+                <ck-backoffice-side-bar [logoSrc]="logoSrc()"
+                                        [navigationItems]="navigationItems()"
+                                        [isCollapsed]="collapsed"
+                                        [versionInfos]="versionInfos()"
+                                        [showGlobalSearchBtn]="showGlobalSearchBtn()"
+                                        [defaultContentTpl]="defaultContentTpl()"
+                                        [searchResultTpl]="searchResultTpl()"
+                                        [globalSearchPlaceholder]="globalSearchPlaceholder()"
+                                        [globalSearchDebounceTime]="globalSearchDebounceTime()"
+                                        (searchRequested)="requestGlobalSearch($event)"
+                                        (searchCleared)="clearGlobalSearch()"
+                                        (collapseChanged)="toggleCollapse()"
+                                        (logoClicked)="clickLogo()"
+                                        (navItemClicked)="itemClicked($event)">
+                </ck-backoffice-side-bar>
+            </div>
+        </ng-container>
+
+        <nz-content [class]="collapsed ? 'ck-backoffice-layout-content collapsed' : 'ck-backoffice-layout-content'">
+            <ng-container *appResponsive="'(min-width: 1025px)'">
+                <ck-backoffice-top-bar #topbar
+                                       [displayWCSDropdown]="displayWCSDropdown()"
+                                       [allWCS]="allWCS()"
+                                       [selectedWCS]="selectedWCS()"
+                                       [userName]="userName()"
+                                       [displayNotifIcon]="displayNotifIcon()"
+                                       [displayThemeToggle]="displayThemeToggle()"
+                                       (appIconClicked)="toggleAppIcon()"
+                                       (wcsSelected)="selectWCS($event)"
+                                       (disconnectClicked)="disconnect()"
+                                       (profileClicked)="goToProfile()"
+                                       (notificationClicked)="openNotifications()"
+                                       (searchCleared)="clearSearch()"
+                                       (themeToggled)="toggleTheme()">
+                </ck-backoffice-top-bar>
+            </ng-container>
+            <ng-container *appResponsive="'(max-width: 1024px)'">
+                <ck-backoffice-mobile-bar [navigationItems]="navigationItems()"
+                                          [allWCS]="allWCS()"
+                                          [selectedWCS]="selectedWCS()"
+                                          (wcsSelected)="selectWCS($event)"
+                                          (searchRequested)="requestSearch($event)"
+                                          (profileClicked)="goToProfile()"
+                                          (notificationClicked)="openNotifications()">
+                </ck-backoffice-mobile-bar>
+            </ng-container>
+            <div [class]="collapsed ? 'ck-backoffice-layout-inner-content collapsed' : 'ck-backoffice-layout-inner-content'">
+                <ng-content></ng-content>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>

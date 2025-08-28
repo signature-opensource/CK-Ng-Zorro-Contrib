@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
     encapsulation: ViewEncapsulation.None,
     selector: 'ck-breadcrumb-item',
     exportAs: 'BreadcrumbItem',
-    templateUrl: './breadcrumb-item.component.html',
+    templateUrl: './breadcrumb-item.html',
     imports: [
         CommonModule,
         FormsModule,

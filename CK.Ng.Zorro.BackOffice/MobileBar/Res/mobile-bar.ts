@@ -5,34 +5,33 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { faBars, faCheck, faMagnifyingGlass, faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { NavigationSection, WCSType } from '@local/ck-gen';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { RouterLink } from '@angular/router';
 
 @Component( {
     selector: 'ck-backoffice-mobile-bar',
-    templateUrl: './mobile-bar.component.html',
+    templateUrl: './mobile-bar.html',
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         FontAwesomeModule,
+        NzInputModule,
         NzSelectModule,
         RouterLink
-    ]
+    ],
+    host: { 'class': 'ck-backoffice-mobile-bar' }
 } )
 export class MobileBarComponent {
-    @HostBinding( 'class' ) class = 'ck-backoffice-mobile-bar';
-
     navigationItems = input<Array<NavigationSection>>( [] );
     selectedWCS = input<string | WCSType>();
     allWCS = input<Array<string> | Array<WCSType>>();
-    selectedLanguage = input<string>( 'fr' );
     displayNotifIcon = input<boolean>( false );
     searchPlaceholder = input<string>( 'N° de mission, emplacement, conteneur...' );
 
     searchRequested = output<string>();
     wcsSelected = output<string | WCSType>();
-    languageChanged = output<string>();
     profileClicked = output<void>();
     notificationClicked = output<void>();
 
@@ -46,7 +45,6 @@ export class MobileBarComponent {
     public searching: boolean;
     public searchString: string;
     public isMenuOpen: boolean;
-    public currentLanguage: string = this.selectedLanguage();
     public currentWCS?: string | WCSType = this.selectedWCS();
 
     constructor () {
@@ -75,11 +73,6 @@ export class MobileBarComponent {
         }
 
         return `ck-backoffice-mobile-bar-container`;
-    }
-
-    selectLanguage( lang: string ): void {
-        this.currentLanguage = lang;
-        this.languageChanged.emit( this.currentLanguage );
     }
 
     selectWCS( wcs: string | WCSType ): void {

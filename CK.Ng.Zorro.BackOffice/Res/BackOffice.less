@@ -1,3 +1,7 @@
+@title-font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+@subtitle-font-size: clamp(1.25rem, 1.5vw + 0.75rem, 1.6rem);
+@regular-font-size: clamp(1rem, 1vw + 0.5rem, 1.1rem);
+
 /*.ant-input-affix-wrapper,*/
 .ant-btn,
 .ant-modal-content {
@@ -11,17 +15,4 @@
 
 .ant-select-item-option {
     padding: 0 1%;
-}
-
-// Responsive utility classes
-.force-desktop-only {
-    @media (max-width: @screen-sm-max) {
-        display: none !important;
-    }
-}
-
-.force-mobile-only {
-    @media (min-width: @screen-md-min) {
-        display: none !important;
-    }
 }

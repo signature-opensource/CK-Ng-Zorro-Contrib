@@ -14,7 +14,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 @Component( {
   selector: 'ck-generic-form',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NzDatePickerModule, NzCheckboxModule, NzFormModule, NzInputModule, NzSelectModule],
-  templateUrl: './generic-form.component.html'
+  templateUrl: './generic-form.html'
 } )
 export class GenericFormComponent {
   @HostListener( 'document:keydown.enter', ['$event'] )

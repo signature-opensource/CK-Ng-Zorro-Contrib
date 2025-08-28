@@ -22,7 +22,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component( {
     selector: 'ck-backoffice-table',
-    templateUrl: './table.component.html',
+    templateUrl: './table.html',
     imports: [
         CommonModule,
         FormsModule,
@@ -37,11 +37,10 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
         NzTableModule,
         NzToolTipModule,
         TranslateModule
-    ]
+    ],
+    host: { 'class': 'ck-backoffice-table' }
 } )
 export class TableComponent<T> {
-    @HostBinding( 'class' ) class = 'ck-backoffice-table';
-
     readonly #translateService = inject( TranslateService );
 
     columns = input.required<Array<TableColumn<T>>>();

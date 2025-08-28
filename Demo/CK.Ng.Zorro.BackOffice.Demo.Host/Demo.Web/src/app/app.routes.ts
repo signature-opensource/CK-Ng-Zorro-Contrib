@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import CKGenRoutes from '@local/ck-gen/CK/Angular/routes';
 
 export const routes: Routes = [
-  ...CKGenRoutes,
   {
     path: 'overview',
     loadComponent: () => import( './overview/overview.component' ).then( c => c.OverviewComponent )
@@ -15,6 +14,6 @@ export const routes: Routes = [
       ),
   },
 
-
-  { path: '', redirectTo: 'overview', pathMatch: 'full' }
+  { path: '', redirectTo: 'overview', pathMatch: 'full' },
+  ...CKGenRoutes,
 ];

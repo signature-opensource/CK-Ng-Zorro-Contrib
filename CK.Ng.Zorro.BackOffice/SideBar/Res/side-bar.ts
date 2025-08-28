@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, HostBinding, inject, input, OnDestroy, output, OutputRefSubscription, signal, TemplateRef } from '@angular/core';
+import { Component, HostBinding, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -16,12 +16,11 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component( {
     selector: 'ck-backoffice-side-bar',
-    templateUrl: './side-bar.component.html',
-    imports: [CommonModule, FormsModule, FontAwesomeModule, NzDividerModule, NzModalModule, NzToolTipModule, TranslateModule]
+    templateUrl: './side-bar.html',
+    imports: [CommonModule, FormsModule, FontAwesomeModule, NzDividerModule, NzModalModule, NzToolTipModule, TranslateModule],
+    host: { 'class': 'ck-backoffice-side-bar' }
 } )
 export class SideBarComponent implements OnDestroy {
-    @HostBinding( 'class' ) class = 'ck-backoffice-side-bar';
-
     readonly #router = inject( Router );
     readonly #translateService = inject( TranslateService );
     readonly #modal = inject( NzModalService );
@@ -47,7 +46,7 @@ export class SideBarComponent implements OnDestroy {
     readonly searchIcon = faSearch;
 
     #subscriptions: Array<OutputRefSubscription> = [];
-    collapsed = signal<boolean>( this.isCollapsed() );
+    collapsed = linkedSignal<boolean>( this.isCollapsed );
 
     toggleCollapse(): void {
         this.collapsed.set( !this.collapsed() );

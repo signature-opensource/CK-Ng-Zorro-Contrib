@@ -1,24 +1,33 @@
 import { Component, HostBinding, input, output, TemplateRef, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MobileBarComponent, NavigationItem, NavigationSection, SideBarComponent, VersionInfos, TopBarComponent, WCSType } from '@local/ck-gen';
+import {
+    MobileBarComponent,
+    NavigationItem,
+    NavigationSection,
+    ResponsiveDirective,
+    SideBarComponent,
+    VersionInfos,
+    TopBarComponent,
+    WCSType
+} from '@local/ck-gen';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 @Component( {
     selector: 'ck-backoffice-layout',
-    templateUrl: './layout.component.html',
+    templateUrl: './layout.html',
     imports: [
         CommonModule,
         FormsModule,
         MobileBarComponent,
+        ResponsiveDirective,
         SideBarComponent,
         TopBarComponent,
         NzLayoutModule
-    ]
+    ],
+    host: { 'class': 'ck-backoffice-layout' }
 } )
 export class LayoutComponent {
-    @HostBinding( 'class' ) class = 'ck-backoffice-layout';
-
     topbarComponent = viewChild<TopBarComponent>( 'topbar' );
 
     logoSrc = input<string>( 'logos/signature-one-logo.png' );
@@ -54,11 +63,7 @@ export class LayoutComponent {
     globalSearchRequested = output<string>();
     globalSearchCleared = output<void>();
 
-    public collapsed: boolean;
-
-    constructor() {
-        this.collapsed = false;
-    }
+    public collapsed: boolean = false;
 
     toggleCollapse(): void {
         this.collapsed = !this.collapsed;

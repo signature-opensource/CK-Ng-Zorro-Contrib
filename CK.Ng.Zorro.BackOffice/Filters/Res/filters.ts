@@ -12,7 +12,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 @Component( {
   selector: 'ck-backoffice-filters',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NzSelectModule, NzSwitchModule, FontAwesomeModule],
-  templateUrl: './filters.component.html'
+  templateUrl: './filters.html'
 } )
 export class FiltersComponent<T> {
   filters = input.required<Array<Filter<T>>>();
