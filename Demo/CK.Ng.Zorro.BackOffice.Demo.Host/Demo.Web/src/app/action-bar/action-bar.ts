@@ -18,8 +18,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     CKActionBarComponent,
     NzDividerModule
   ],
-  templateUrl: './action-bar.component.html',
-  styleUrl: './action-bar.component.less',
+  templateUrl: './action-bar.html',
+  styleUrl: './action-bar.less',
 } )
 export class ActionBarComponent {
   actions: ActionBarContent<ActionBarData>;

@@ -4,12 +4,12 @@ import CKGenRoutes from '@local/ck-gen/CK/Angular/routes';
 export const routes: Routes = [
   {
     path: 'overview',
-    loadComponent: () => import( './overview/overview.component' ).then( c => c.OverviewComponent )
+    loadComponent: () => import( './overview/overview' ).then( c => c.OverviewComponent )
   },
   {
     path: 'action-bar',
     loadComponent: () =>
-      import( './action-bar/action-bar.component' ).then(
+      import( './action-bar/action-bar' ).then(
         ( c ) => c.ActionBarComponent
       ),
   },
