@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, HostBinding, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef } from '@angular/core';
+import { Component, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { NavigationItem, NavigationSection } from './navigation.model';
-import { VersionInfos } from './version-infos.model';
-import { SearchModalComponent } from '@local/ck-gen';
+import { NavigationItem, NavigationSection, SearchModalComponent, VersionInfos } from '@local/ck-gen';
 
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { ModalOptions, NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
@@ -133,7 +131,7 @@ export class SideBarComponent implements OnDestroy {
 
     #resetActiveItem(): void {
         this.navigationItems().forEach( ( n ) => {
-            n.items.forEach( ( i ) => ( i.isActive = false ) );
+            n.items.forEach( ( i: NavigationItem ) => ( i.isActive = false ) );
         } );
     }
 

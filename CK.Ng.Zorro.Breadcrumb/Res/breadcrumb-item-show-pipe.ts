@@ -1,5 +1,5 @@
 import { Pipe, type PipeTransform } from '@angular/core';
-import { BreadcrumbItem } from './breadcrumb-item.model';
+import { BreadcrumbItem } from './breadcrumb-item-model';
 
 @Pipe({
     name: 'ckBreadcrumbItemShow'

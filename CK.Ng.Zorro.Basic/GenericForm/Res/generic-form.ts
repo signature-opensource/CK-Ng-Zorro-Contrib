@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, HostListener, inject, input, output, signal, WritableSignal } from '@angular/core';
 import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IFormControlConfig, GenericFormData } from './generic-form.model';
+import { IFormControlConfig, GenericFormData } from './generic-form-model';
 
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
