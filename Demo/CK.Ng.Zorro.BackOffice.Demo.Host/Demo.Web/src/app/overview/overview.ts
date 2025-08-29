@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, Validators } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ActionBarContent, CKTableColumn, Filter, FormControlConfig, GenericFormComponent, IFormControlConfig, LayoutContentComponent, SelectFilter, SwitchFilter, TableAction, TableColumn, TableComponent } from '@local/ck-gen';
+import { ActionBarContent, DefaultTableColumn, Filter, FormControlConfig, GenericFormComponent, IFormControlConfig, LayoutContentComponent, SelectFilter, SwitchFilter, TableAction, TableColumn, TableComponent } from '@local/ck-gen';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 
@@ -128,7 +128,7 @@ export class OverviewComponent {
       showInMobile: true,
       sortable: false,
     },
-    new CKTableColumn(
+    new DefaultTableColumn(
       'displayed',
       'Affiché',
       false,
