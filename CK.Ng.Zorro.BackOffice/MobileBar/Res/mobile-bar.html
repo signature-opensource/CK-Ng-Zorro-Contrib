@@ -1,7 +1,7 @@
 <div [class]="getContainerClass()">
     <ng-container *ngIf="isMenuOpen; else menuClosed">
         <div class="ck-backoffice-mobile-bar-menu">
-            <fa-icon class="ck-backoffice-mobile-bar-navigation-menu-icons" [icon]="closeIcon" (click)="isMenuOpen = false"></fa-icon>
+            <fa-icon class="ck-backoffice-mobile-bar-navigation-menu-close-icon" [icon]="closeIcon" (click)="isMenuOpen = false"></fa-icon>
             <div class="ck-backoffice-mobile-bar-navigation-items">
                 <ng-container *ngFor="let section of navigationItems()">
                     <div class="ck-backoffice-mobile-bar-navigation-section" *ngIf="section.bottom === false; else bottom">
@@ -67,20 +67,12 @@
                 @if (displayNotifIcon()) {
                     <fa-icon class="ck-backoffice-mobile-bar-icons" [icon]="bellIcon" (click)="openNotifications()"></fa-icon>
                 }
-                <!-- <img class="mobile-bar-flag-img" src="../../../../assets/fr.svg" /> -->
-                <svg class="mobile-bar-flag-img" xmlns="http://www.w3.org/2000/svg" id="flag-icons-fr" viewBox="0 0 640 480">
-                    <g fill-rule="evenodd" stroke-width="1pt">
-                        <path fill="#fff" d="M0 0h640v480H0z" />
-                        <path fill="#002654" d="M0 0h213.3v480H0z" />
-                        <path fill="#ce1126" d="M426.7 0H640v480H426.7z" />
-                    </g>
-                </svg>
                 <fa-icon class="ck-backoffice-mobile-bar-icons" [icon]="userIcon" (click)="goToProfile()"></fa-icon>
                 <fa-icon class="ck-backoffice-mobile-bar-icons" [icon]="barsIcon" (click)="isMenuOpen = true"></fa-icon>
             </div>
         </ng-container>
         <ng-template #searchTemplate>
-            <input class="mobile-bar-search-input" [(ngModel)]="searchString" [placeholder]="searchPlaceholder()" />
+            <input nz-input nzType="text" class="ck-backoffice-mobile-bar-search-input" [(ngModel)]="searchString" [placeholder]="searchPlaceholder()" />
             <div class="ck-backoffice-mobile-bar-buttons">
                 <fa-icon class="ck-backoffice-mobile-bar-searching-icons cancel-search" [icon]="closeIcon" (click)="cancelSearch()"></fa-icon>
                 <fa-icon class="ck-backoffice-mobile-bar-searching-icons request-search" [icon]="checkIcon" (click)="requestSearch()"></fa-icon>

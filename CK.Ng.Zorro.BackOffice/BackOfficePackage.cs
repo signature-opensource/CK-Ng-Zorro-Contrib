@@ -1,11 +1,12 @@
 using CK.Core;
-using CK.TS.Angular;
 using CK.TypeScript;
 
-namespace CK.Ng.Zorro;
+namespace CK.Ng.Zorro.BackOffice;
 
 [TypeScriptPackage]
-[Requires<CK.Ng.Zorro.ZorroPackage>]
+[Requires<BlockquoteComponent>]
+[Requires<GenericFormComponent>]
+[Requires<LoaderComponent>]
 public class BackOfficePackage : TypeScriptPackage
 {
 }

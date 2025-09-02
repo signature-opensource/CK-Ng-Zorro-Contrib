@@ -1,14 +1,14 @@
 import { Component, HostBinding, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // TODO: useless?
-import { ActionBarAction, ActionBarContent } from './action-bar.model';
+import { ActionBarAction, ActionBarContent } from './action-bar-model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
     selector: 'ck-action-bar',
-    templateUrl: './action-bar.component.html',
+    templateUrl: './action-bar.html',
     imports: [CommonModule, FormsModule, FontAwesomeModule, NzButtonModule, NzToolTipModule]
 })
 export class ActionBarComponent<T> {

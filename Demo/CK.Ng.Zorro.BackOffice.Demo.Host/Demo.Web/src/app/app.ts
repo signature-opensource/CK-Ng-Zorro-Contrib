@@ -18,8 +18,8 @@ import { CommonModule } from '@angular/common';
     LayoutComponent,
     TranslateModule
   ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.less',
+  templateUrl: './app.html',
+  styleUrl: './app.less',
 } )
 export class AppComponent {
 

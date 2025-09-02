@@ -42,29 +42,6 @@
         </nz-dropdown-menu>
     }
 </div>
-<div id="langage-dropdown" class="ck-backoffice-top-bar-dropdown language">
-    @if (displayLanguageChoices()) {
-        <nz-select
-            class="ck-backoffice-top-bar-select"
-            [(ngModel)]="currentLanguage"
-            [nzCustomTemplate]="selectedLang"
-            (ngModelChange)="selectLanguage($event)"
-            nzBorderless>
-            @for (c of activeCultures | keyvalue; track c.value.name) {
-                <nz-option nzCustomContent [nzLabel]="c.value.nativeName" [nzValue]="c.value.name">
-                    <img class="ck-backoffice-top-bar-flag" [src]="'flags/' + c.value.name + '.svg'" />
-                    <span class="ck-backoffice-top-bar-language">{{ c.value.nativeName }}</span>
-                </nz-option>
-            }
-        </nz-select>
-        <ng-template #selectedLang let-selected>
-            <div class="dropdown-label">
-                <img class="ck-backoffice-top-bar-flag" [src]="'flags/' + selected.nzValue + '.svg'" />
-                <span class="language">{{ selected.nzLabel }}</span>
-            </div>
-        </ng-template>
-    }
-</div>
 @if (displayNotifIcon()) {
     <div class="ck-backoffice-top-bar-icon-button notifs">
         <fa-icon [icon]="bellIcon" (click)="openNotifications()"></fa-icon>

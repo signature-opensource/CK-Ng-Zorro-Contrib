@@ -31,6 +31,8 @@
     }
 
     .button-icon {
-        margin-right: @ck-action-bar-button-icon-right-margin;
+        @media (min-width: @screen-md-max) {
+            margin-right: @ck-action-bar-button-icon-right-margin;
+        }
     }
 }

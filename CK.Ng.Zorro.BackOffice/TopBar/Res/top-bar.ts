@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBell, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faCaretDown, faChevronDown, faClose, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { WCSType } from './wcs-type.model';
+import { WCSType } from './wcs-type-model';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,7 +13,7 @@ import { locales } from '@local/ck-gen/ts-locales/locales';
 
 @Component( {
     selector: 'ck-backoffice-top-bar',
-    templateUrl: './top-bar.component.html',
+    templateUrl: './top-bar.html',
 
     imports: [
         CommonModule,
@@ -22,18 +22,16 @@ import { locales } from '@local/ck-gen/ts-locales/locales';
         FontAwesomeModule,
         NzDropDownModule,
         NzSelectModule,
-    ]
+    ],
+    host: { 'class': 'ck-backoffice-top-bar' }
 } )
 export class TopBarComponent {
-    @HostBinding( 'class' ) class = 'ck-backoffice-top-bar';
-
     readonly #translateService = inject( TranslateService );
 
     selectedWCS = input<string | WCSType>();
     allWCS = input<Array<string> | Array<WCSType>>();
     selectedLanguage = input<string>( 'fr' );
     userName = input<string>( '' );
-    displayLanguageChoices = input<boolean>( false );
     displayNotifIcon = input<boolean>( false );
     searchPlaceholder = input<string>( 'Vous pouvez rechercher ici un N° de mission, un emplacement, un conteneur ...' );
     displayWCSDropdown = input<boolean>( false );
@@ -43,7 +41,6 @@ export class TopBarComponent {
 
     appIconClicked = output<void>();
     wcsSelected = output<string | WCSType>();
-    languageChanged = output<string>();
     profileClicked = output<void>();
     disconnectClicked = output<void>();
     notificationClicked = output<void>();
@@ -70,11 +67,6 @@ export class TopBarComponent {
 
     toggleAppIcon(): void {
         this.appIconClicked.emit();
-    }
-
-    selectLanguage( lang: string ): void {
-        this.currentLanguage = lang;
-        this.languageChanged.emit( this.currentLanguage );
     }
 
     selectWCS( wcs: WCSType | string ): void {

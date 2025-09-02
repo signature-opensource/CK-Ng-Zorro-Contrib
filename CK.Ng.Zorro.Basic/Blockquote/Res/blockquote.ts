@@ -3,10 +3,9 @@ import { Component, HostBinding, input } from '@angular/core';
 @Component( {
   selector: 'ck-blockquote',
   imports: [],
-  templateUrl: './blockquote.component.html'
+    templateUrl: './blockquote.html',
+    host: { 'class': 'ck-blockquote' }
 } )
 export class BlockquoteComponent {
-    @HostBinding( 'class' ) class = 'ck-blockquote';
-
     message = input.required<string>();
 }

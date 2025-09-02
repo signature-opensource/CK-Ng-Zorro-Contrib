@@ -28,7 +28,7 @@ export interface TableColumn<T> {
     style?: ( (value: T) => TableCellStyle ) | TableCellStyle;
 }
 
-export class CKTableColumn<T> implements TableColumn<T> {
+export class DefaultTableColumn<T> implements TableColumn<T> {
     name: keyof T;
     displayedName: string;
     hidden: boolean;

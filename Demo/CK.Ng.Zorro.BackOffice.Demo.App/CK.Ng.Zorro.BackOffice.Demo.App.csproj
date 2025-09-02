@@ -8,11 +8,11 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="0.10.1--0014-develop" />
-    <PackageReference Include="CK.AspNet" Version="18.0.1--0020-develop" />
-    <PackageReference Include="CK.Cris.TypeScript" Version="0.50.0-a00-00-0045-develop" />
-    <PackageReference Include="CK.Ng.AspNet.Auth" Version="0.26.3--0107-develop" />
-    <PackageReference Include="CK.TS.Angular" Version="0.26.3--0107-develop" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="0.10.1--0012-develop" />
+    <PackageReference Include="CK.AspNet" Version="18.0.1--0018-develop" />
+    <PackageReference Include="CK.Cris.TypeScript" Version="0.50.0-a00-00-0041-develop" />
+    <PackageReference Include="CK.Ng.AspNet.Auth" Version="0.26.3--0091-develop" />
+    <PackageReference Include="CK.TS.Angular" Version="0.26.3--0091-develop" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Ng.Zorro.BackOffice\CK.Ng.Zorro.BackOffice.csproj" />

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'ck-loader',
-    templateUrl: './loader.component.html',
+    templateUrl: './loader.html',
     imports: [CommonModule]
 })
 export class LoaderComponent {

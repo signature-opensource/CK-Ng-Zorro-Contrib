@@ -6,7 +6,7 @@ namespace CK.Ng.Zorro;
 
 [NgComponent( IsOptional = true )]
 [Package<ZorroPackage>]
-[TypeScriptFile( "generic-form.model.ts", "GenericFormData", "IFormControlConfig", "FormControlConfig", "FormControlType" )]
+[TypeScriptFile( "generic-form-model.ts", "GenericFormData", "IFormControlConfig", "FormControlConfig", "FormControlType" )]
 public sealed class GenericFormComponent : NgComponent
 {
 }
