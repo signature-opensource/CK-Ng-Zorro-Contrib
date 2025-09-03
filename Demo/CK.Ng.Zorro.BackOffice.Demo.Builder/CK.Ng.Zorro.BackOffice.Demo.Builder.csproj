@@ -7,9 +7,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.AppBuilder" Version="30.0.1--0038-develop" />
-    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0048-develop" />
-    <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0118-develop" />
-    <PackageReference Include="CK.TypeScript.Engine" Version="0.26.3--0118-develop" />
+    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0049-develop" />
+    <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0119-develop" />
+    <PackageReference Include="CK.TypeScript.Engine" Version="0.26.3--0119-develop" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.App\CK.Ng.Zorro.BackOffice.Demo.App.csproj" />
