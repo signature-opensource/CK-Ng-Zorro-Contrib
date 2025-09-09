@@ -9,10 +9,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.AppIdentity.Hosting" Version="0.10.1--0019-develop" />
-    <PackageReference Include="CK.AspNet" Version="18.0.1--0031-develop" />
-    <PackageReference Include="CK.Cris.TypeScript" Version="0.50.0-a00-00-0061-develop" />
-    <PackageReference Include="CK.Ng.AspNet.Auth" Version="0.26.3--0131-develop" />
-    <PackageReference Include="CK.TS.Angular" Version="0.26.3--0131-develop" />
+    <PackageReference Include="CK.AspNet" Version="18.0.1--0032-develop" />
+    <PackageReference Include="CK.Cris.TypeScript" Version="0.50.0-a00-00-0062-develop" />
+    <PackageReference Include="CK.Ng.AspNet.Auth" Version="0.26.3--0132-develop" />
+    <PackageReference Include="CK.TS.Angular" Version="0.26.3--0132-develop" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Ng.Zorro.BackOffice\CK.Ng.Zorro.BackOffice.csproj" />
