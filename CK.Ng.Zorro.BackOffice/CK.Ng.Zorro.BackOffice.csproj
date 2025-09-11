@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -7,15 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CK.Ng.Zorro" Version="0.26.3--0019-develop" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Update="DotNet.ReproducibleBuilds" Version="1.2.25" />
-      <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      </PackageReference>
+        <ProjectReference Include="..\CK.Ng.Zorro.Basic\CK.Ng.Zorro.Basic.csproj" />
+        <ProjectReference Include="..\CK.Ng.Zorro.Breadcrumb\CK.Ng.Zorro.Breadcrumb.csproj" />
     </ItemGroup>
 
 </Project>

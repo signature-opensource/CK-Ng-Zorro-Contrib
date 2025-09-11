@@ -1,0 +1,23 @@
+.ck-loader {
+    width: @ck-loader-width;
+    height: @ck-loader-height;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: @ck-loader-zindex;
+    background: rgba(0, 0, 0, 0.4);
+
+    svg {
+        position: relative;
+        left: @ck-loader-svg-left;
+        width: @ck-loader-svg-width;
+        top: @ck-loader-svg-top;
+        z-index: 1;
+
+        @media (max-width: @screen-md-min) {
+            top: @ck-loader-svg-midscreen-top;
+            width: @ck-loader-svg-midscreen-width;
+            left: @ck-loader-svg-midscreen-left;
+        }
+    }
+}

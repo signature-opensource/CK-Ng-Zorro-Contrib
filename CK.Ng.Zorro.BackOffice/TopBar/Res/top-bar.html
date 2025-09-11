@@ -1,0 +1,52 @@
+<div id="ck-wcs-dropdown" class="ck-backoffice-top-bar-dropdown">
+    @if (displayWCSDropdown()) {
+        <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu4" class="selected-wcs">
+            <ng-container *ngIf="selectedWCS()">
+                @if (isWCSType(selectedWCS()!)) {
+                    <span class="dropdown-label">{{ asWCSType(selectedWCS()!).wcsName }}</span>
+                } @else {
+                    <span class="dropdown-label">{{ selectedWCS() }}</span>
+                }
+            </ng-container>
+            <fa-icon class="down-icon" [icon]="down"></fa-icon>
+        </a>
+        <nz-dropdown-menu #menu4="nzDropdownMenu">
+            <ul nz-menu>
+                @if (selectedWCS()) {
+                    @if (allWCS() && allWCS()!.length > 0) {
+                        @if (isWCSTypeArray()) {
+                            @for (w of asWCSArray(allWCS()!); track w.wcsId) {
+                                <li nz-menu-item (click)="selectWCS(w)">
+                                    <span class="ck-main-wcs-option">{{ w.wcsName }}</span>
+                                </li>
+                                @if (w.children) {
+                                    @for (c of getChildren(w); track c.wcsId) {
+                                        <li nz-menu-item (click)="selectWCS(c)">{{ c.wcsName }}</li>
+                                    }
+                                }
+                            }
+                        } @else {
+                            @for (o of asStringArray(); track o) {
+                                <li nz-menu-item (click)="selectWCS(o)">{{ o }}</li>
+                            }
+                        }
+                    } @else {
+                        @if (isWCSType(selectedWCS()!)) {
+                            <span class="dropdown-label">{{ asWCSType(selectedWCS()!).wcsName }}</span>
+                        } @else {
+                            <span class="dropdown-label">{{ selectedWCS() }}</span>
+                        }
+                    }
+                }
+            </ul>
+        </nz-dropdown-menu>
+    }
+</div>
+@if (displayNotifIcon()) {
+    <div class="ck-backoffice-top-bar-icon-button notifs">
+        <fa-icon [icon]="bellIcon" (click)="openNotifications()"></fa-icon>
+    </div>
+}
+<div class="ck-backoffice-top-bar-profile-menu">
+    <ck-user-info-box />
+</div>

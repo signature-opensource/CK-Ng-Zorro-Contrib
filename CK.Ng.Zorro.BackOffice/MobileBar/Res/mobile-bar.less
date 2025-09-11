@@ -15,10 +15,13 @@
         top: 0;
         padding: @ck-backoffice-mobile-bar-menu-padding;
 
-        .ck-backoffice-mobile-bar-navigation-menu-icons {
+        .ck-backoffice-mobile-bar-navigation-menu-close-icon {
             position: absolute;
             right: @ck-backoffice-mobile-bar-menu-icons-right;
             z-index: @ck-backoffice-mobile-bar-menu-icons-zindex;
+            top: @ck-backoffice-mobile-bar-menu-icons-top;
+            cursor: pointer;
+            font-size: @ck-backoffice-mobile-bar-menu-close-icon-font-size;
         }
 
         .ck-backoffice-mobile-bar-navigation-items {
@@ -100,6 +103,12 @@
         justify-content: space-between;
         flex: 1;
 
+        .ck-backoffice-mobile-bar-icons {
+            cursor: pointer;
+            margin-left: auto;
+            font-size: @ck-backoffice-mobile-bar-icons-font-size;
+        }
+
         .ck-backoffice-mobile-bar-dropdown {
             margin-left: @ck-backoffice-mobile-bar-dropdown-left-margin;
             cursor: pointer;
@@ -126,10 +135,6 @@
         align-items: center;
         flex: 1;
 
-        .ck-backoffice-mobile-bar-flag-img {
-            width: @ck-backoffice-mobile-bar-flag-img-width;
-        }
-
         > * {
             margin: @ck-backoffice-mobile-bar-right-elements-margin;
             margin-left: auto;
@@ -139,7 +144,7 @@
     }
 
     .ck-backoffice-mobile-bar-search-input {
-        border: none;
+        border-color: @ck-backoffice-mobile-bar-input-border-color;
         width: 100%;
         background-color: transparent;
 

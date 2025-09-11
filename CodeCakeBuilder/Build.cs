@@ -46,7 +46,7 @@ public partial class Build : CodeCakeHost
            .Does( () =>
            {
                 
-              globalInfo.GetDotnetSolution().Test();
+              globalInfo.GetDotnetSolution().SolutionTest();
            } );
 
         Task( "Create-NuGet-Packages" )

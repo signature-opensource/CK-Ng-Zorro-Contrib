@@ -1,14 +1,12 @@
 using CK.Core;
-using CK.TS.Angular;
 using CK.TypeScript;
 
-namespace CK.Ng.Zorro;
+namespace CK.Ng.Zorro.BackOffice;
 
 [TypeScriptPackage]
-[TypeScriptImportLibrary( "@angular/cdk", "^19", DependencyKind.Dependency, ForceUse = true )]
-[NgProviderImport( "provideAnimationsAsync", LibraryName = "@angular/platform-browser/animations/async" )]
-[NgProvider( "provideAnimationsAsync()" )]
-[Requires<CK.Ng.Zorro.TSPackage>]
+[Requires<BlockquoteComponent>]
+[Requires<GenericFormComponent>]
+[Requires<LoaderComponent>]
 public class BackOfficePackage : TypeScriptPackage
 {
 }

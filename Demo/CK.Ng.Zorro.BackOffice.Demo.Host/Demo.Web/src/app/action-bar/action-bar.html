@@ -1,0 +1,37 @@
+<ck-backoffice-layout-content [headerTitle]="'Action bar component'" [showFilters]="false">
+    <div class="doc-container">
+        <div class="card">
+            <ck-action-bar class="action-bar" [actions]="actions"> </ck-action-bar>
+
+            <div class="content">
+                <div class="description">
+                    <p>
+                        This component is an action bar. It takes a typed ActionBarContent.
+                        <br />
+                        It is used in the <a href="docs/layout">Layout component</a> but you can use it as a standalone component as well. <br />
+                    </p>
+                    <!-- <p class="usage" [innerHTML]="getUsage()"></p> -->
+                    <p>
+                        You can specify an
+                        <span class="highlight">IconDefinition</span> from <span class="highlight">FontAwesomeModule</span> on each
+                        <span class="highlight">Action</span> button.
+                    </p>
+                    <p>
+                        Each icon has a <span class="highlight">margin-right</span> that you can modify by assigning
+                        <span class="highlight">&#64;ck-action-bar-button-margin</span>
+                        variable in your global less stylesheet.
+                    </p>
+                    <p>
+                        Each button holds
+                        <span class="highlight">ck-action-bar-button</span>
+                        class.
+                    </p>
+                </div>
+                <div class="divider">
+                    <nz-divider nzType="vertical"></nz-divider>
+                </div>
+                <!-- <p class="types" [innerHTML]="getTypes()"></p> -->
+            </div>
+        </div>
+    </div>
+</ck-backoffice-layout-content>
