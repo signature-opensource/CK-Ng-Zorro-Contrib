@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef } from '@angular/core';
+import { Component, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef, effect, computed, signal, WritableSignal, afterNextRender } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -50,16 +50,17 @@ export class SideBarComponent implements OnDestroy {
     #subscriptions: Array<OutputRefSubscription> = [];
     collapsed = linkedSignal<boolean>( this.isCollapsed );
     menuOpenMap: { [name: string]: boolean } = {};
+    navItems = linkedSignal( () => this.navigationItems() );
 
     constructor() {
+        effect( () => {
+            const items = this.navigationItems();
+            if ( !items.length ) return;
+            this.#resetActiveItem();
+        } );
+
         this.#router.events.pipe( filter( event => event instanceof NavigationEnd ), takeUntilDestroyed() ).subscribe( _ => {
             this.#resetActiveItem();
-            const currentPath = this.#router.url.split( '/' )[1];
-            const navItems = this.navigationItems().flatMap( ns => ns.items );
-            const activeItem = navItems.find( i => i.routerLink === currentPath );
-            if ( activeItem ) {
-                activeItem.isActive = true;
-            }
         } );
     }
 
@@ -75,8 +76,6 @@ export class SideBarComponent implements OnDestroy {
     itemClicked( e: MouseEvent, i: NavigationItem ): void {
         if ( i.disabled ) return;
         this.navItemClicked.emit( i );
-        this.#resetActiveItem();
-        i.isActive = true;
         if ( i.routerLink ) {
             if ( e.ctrlKey ) {
                 const url = this.#generateUrl( i.routerLink );
@@ -101,7 +100,7 @@ export class SideBarComponent implements OnDestroy {
     public getNavItemClass( item: NavigationItem ): string {
         const classes = ['sidebar-item'];
         if ( this.collapsed() ) classes.push( 'collapsed' );
-        if ( item.isActive || item.children?.some( c => c.isActive ) ) classes.push( 'active' );
+        if ( item.isActive || item.children?.some( c => c.isActive ) ) classes.push( 'active ant-menu-item-selected' );
         if ( item.disabled ) classes.push( 'disabled' );
         return classes.join( ' ' );
     }
@@ -109,7 +108,7 @@ export class SideBarComponent implements OnDestroy {
     public getNavItemChildClass( child: NavigationItem ): string {
         const classes = ['sidebar-item'];
         if ( this.collapsed() ) classes.push( 'collapsed' );
-        if ( child.isActive ) classes.push( 'active' );
+        if ( child.isActive ) classes.push( 'active ant-menu-item-selected' );
         if ( child.disabled ) classes.push( 'disabled' );
         return classes.join( ' ' );
     }
@@ -139,7 +138,6 @@ export class SideBarComponent implements OnDestroy {
         const comp = ref.getContentComponent();
         this.#subscriptions.push( comp.searchRequested.subscribe( ( s: string ) => {
             this.searchRequested.emit( s );
-            console.log( s )
         } ) );
         this.#subscriptions.push( comp.searchCleared.subscribe( () => {
             this.searchCleared.emit();
@@ -155,9 +153,40 @@ export class SideBarComponent implements OnDestroy {
     }
 
     #resetActiveItem(): void {
-        this.navigationItems().forEach( ( n ) => {
-            n.items.forEach( ( i: NavigationItem ) => { i.isActive = false; i.children?.forEach( c => c.isActive = false ) } );
+        const sections = [...this.navigationItems()];
+
+        sections.forEach( ( n ) => {
+            n.items.forEach( ( i: NavigationItem ) => {
+                i.isActive = false;
+                i.children?.forEach( c => c.isActive = false );
+            } );
         } );
+
+        let currentPath = this.#router.url;
+        if ( currentPath.startsWith( '/' ) ) {
+            currentPath = currentPath.substring( 1 );
+        }
+        const navItems = sections.flatMap( ns => ns.items );
+        const activeItem = this.#findItemByRouterLink( navItems, currentPath );
+        if ( activeItem ) {
+            activeItem.isActive = true;
+        }
+
+        this.navItems.set( sections );
+    }
+
+    #findItemByRouterLink( items: Array<NavigationItem>, routerLink: string ): NavigationItem | undefined {
+        for ( const item of items ) {
+            if ( item.routerLink === routerLink ) {
+                return item;
+            }
+
+            if ( item.children?.length ) {
+                const found = this.#findItemByRouterLink( item.children, routerLink );
+                if ( found ) return found;
+            }
+        }
+        return undefined;
     }
 
     ngOnDestroy(): void {
