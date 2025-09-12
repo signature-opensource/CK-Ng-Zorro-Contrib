@@ -141,18 +141,6 @@ export class AppComponent {
         },
       ],
     } );
-
-    this.#router.events.pipe( filter( event => event instanceof NavigationEnd ), takeUntilDestroyed() ).subscribe( _ => {
-      const currentPath = this.#router.url.split( '/' )[1];
-      const navItems = this.navSections.flatMap( ns => ns.items );
-      const activeItem = navItems.find( i => i.routerLink === currentPath );
-      if ( activeItem ) {
-        activeItem.isActive = true;
-        navItems.filter( i => i !== activeItem ).forEach( i => {
-          i.isActive = false;
-        } );
-      }
-    } );
   }
 
   goToHome(): void {
