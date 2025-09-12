@@ -43,6 +43,59 @@ export class AppComponent {
           routerLink: 'overview',
           icon: faHome
         },
+        {
+          label: 'Components',
+          routerLink: 'action-bar',
+          children: [
+            {
+              label: 'ActionBar',
+              routerLink: 'action-bar',
+            },
+            {
+              label: 'Blockquote',
+            },
+            {
+              label: 'Breadcrumb',
+            },
+            {
+              label: 'Filter',
+            },
+            {
+              label: 'GenericForm',
+            },
+            {
+              label: 'Layout',
+            },
+            {
+              label: 'LayoutContent',
+            },
+            {
+              label: 'Loader',
+            },
+            {
+              label: 'MobileBar',
+            },
+            {
+              label: 'SideBar',
+            },
+            {
+              label: 'Table',
+            },
+            {
+              label: 'TopBar',
+            },
+          ]
+        },
+        {
+          label: 'Components1',
+          routerLink: 'action-bar',
+          children: [
+            {
+              label: 'ActionBar1',
+              routerLink: 'action-bar',
+            }
+          ]
+        }
       ]
     } );
     this.navSections.push( {

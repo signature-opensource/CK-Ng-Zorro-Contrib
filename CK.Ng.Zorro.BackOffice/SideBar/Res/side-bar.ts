@@ -6,16 +6,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { NavigationItem, NavigationSection, SearchModalComponent, VersionInfos } from '@local/ck-gen';
-
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { ModalOptions, NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+import { NavigationItem, NavigationSection } from '@local/ck-gen/CK/Ng/Zorro/side-bar/navigation-model';
+import { SearchModalComponent } from '@local/ck-gen/CK/Ng/Zorro/search-modal/search-modal';
+import { VersionInfos } from '@local/ck-gen/CK/Ng/Zorro/side-bar/version-infos-model';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 @Component( {
     selector: 'ck-backoffice-side-bar',
     templateUrl: './side-bar.html',
-    imports: [CommonModule, FormsModule, FontAwesomeModule, NzDividerModule, NzModalModule, NzToolTipModule, TranslateModule],
+    imports: [CommonModule, FormsModule, FontAwesomeModule, NzDividerModule, NzModalModule, NzMenuModule, NzTooltipModule, TranslateModule],
     host: { 'class': 'ck-backoffice-side-bar' }
 } )
 export class SideBarComponent implements OnDestroy {
@@ -45,6 +47,7 @@ export class SideBarComponent implements OnDestroy {
 
     #subscriptions: Array<OutputRefSubscription> = [];
     collapsed = linkedSignal<boolean>( this.isCollapsed );
+    menuOpenMap: { [name: string]: boolean } = {};
 
     toggleCollapse(): void {
         this.collapsed.set( !this.collapsed() );
@@ -84,8 +87,16 @@ export class SideBarComponent implements OnDestroy {
     public getNavItemClass( item: NavigationItem ): string {
         const classes = ['sidebar-item'];
         if ( this.collapsed() ) classes.push( 'collapsed' );
-        if ( item.isActive ) classes.push( 'active' );
+        if ( item.isActive || item.children?.some( c => c.isActive ) ) classes.push( 'active' );
         if ( item.disabled ) classes.push( 'disabled' );
+        return classes.join( ' ' );
+    }
+
+    public getNavItemChildClass( child: NavigationItem ): string {
+        const classes = ['sidebar-item'];
+        if ( this.collapsed() ) classes.push( 'collapsed' );
+        if ( child.isActive ) classes.push( 'active' );
+        if ( child.disabled ) classes.push( 'disabled' );
         return classes.join( ' ' );
     }
 
@@ -131,7 +142,7 @@ export class SideBarComponent implements OnDestroy {
 
     #resetActiveItem(): void {
         this.navigationItems().forEach( ( n ) => {
-            n.items.forEach( ( i: NavigationItem ) => ( i.isActive = false ) );
+            n.items.forEach( ( i: NavigationItem ) => { i.isActive = false; i.children?.forEach( c => c.isActive = false ) } );
         } );
     }
 

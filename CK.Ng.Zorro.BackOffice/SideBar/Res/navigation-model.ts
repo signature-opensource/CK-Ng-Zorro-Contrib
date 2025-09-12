@@ -12,4 +12,5 @@ export interface NavigationItem {
     routerLink?: string;
     isActive?: boolean;
     disabled?: boolean;
+    children?: Array<NavigationItem>;
 }
