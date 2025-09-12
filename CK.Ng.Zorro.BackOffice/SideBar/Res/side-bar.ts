@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter } from 'rxjs';
 
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { ModalOptions, NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
@@ -48,6 +50,18 @@ export class SideBarComponent implements OnDestroy {
     #subscriptions: Array<OutputRefSubscription> = [];
     collapsed = linkedSignal<boolean>( this.isCollapsed );
     menuOpenMap: { [name: string]: boolean } = {};
+
+    constructor() {
+        this.#router.events.pipe( filter( event => event instanceof NavigationEnd ), takeUntilDestroyed() ).subscribe( _ => {
+            this.#resetActiveItem();
+            const currentPath = this.#router.url.split( '/' )[1];
+            const navItems = this.navigationItems().flatMap( ns => ns.items );
+            const activeItem = navItems.find( i => i.routerLink === currentPath );
+            if ( activeItem ) {
+                activeItem.isActive = true;
+            }
+        } );
+    }
 
     toggleCollapse(): void {
         this.collapsed.set( !this.collapsed() );
