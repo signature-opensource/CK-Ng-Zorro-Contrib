@@ -8,7 +8,7 @@
   "arrowParens": "always",
   "overrides": [
     {
-      "files": "*.component.html",
+      "files": "*.html",
       "options": {
         "parser": "angular",
         "printWidth": 173,

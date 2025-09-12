@@ -210,10 +210,33 @@
             line-height: 1;
             font-size: @ck-sidebar-version-infos-size;
             color: @ck-sidebar-version-infos-color;
+            margin-top: auto;
         }
 
         .version-icon {
             color: @ck-sidebar-navigation-label-color;
+            margin-top: auto;
+        }
+    }
+
+    .ant-menu-sub.ant-menu-inline {
+        background-color: @ck-backoffice-layout-sidebar-background-color;
+
+        .submenu {
+            background-color: @ck-backoffice-layout-sidebar-background-color;
+        }
+    }
+
+    .ant-menu-item-selected {
+        font-weight: @font-weight-bold;
+        border-radius: @ck-border-radius;
+    }
+
+    .ant-menu-submenu-selected {
+        .ant-menu-submenu-title {
+            background-color: @primary-color-outline;
+            font-weight: @font-weight-bold;
+            border-radius: @ck-border-radius;
         }
     }
 }
