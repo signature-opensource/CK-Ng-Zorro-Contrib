@@ -18,19 +18,19 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { BreadcrumbItem } from './breadcrumb-item-model';
-import { Breadcrumb } from './breadcrumb-model'; // Useless ???
+import { BreadcrumbBase } from './breadcrumb-model'; // Useless ???
 import { BreadcrumbItemShowPipe } from './breadcrumb-item-show-pipe';
-import { BreadcrumbItemComponent } from './breadcrumb-item';
+import { CKBreadcrumbItem } from './breadcrumb-item';
 
 @Component( {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     selector: 'ck-backoffice-breadcrumb',
     templateUrl: './breadcrumb.html',
-    imports: [CommonModule, FormsModule, BreadcrumbItemShowPipe, BreadcrumbItemComponent],
-    providers: [{ provide: Breadcrumb, useExisting: BreadcrumbComponent }],
+    imports: [CommonModule, FormsModule, BreadcrumbItemShowPipe, CKBreadcrumbItem],
+    providers: [{ provide: Breadcrumb, useExisting: Breadcrumb }],
 } )
-export class BreadcrumbComponent implements Breadcrumb {
+export class Breadcrumb implements BreadcrumbBase {
     @HostBinding( 'class' ) class = 'ck-backoffice-breadcrumb';
 
     separator = input<IconDefinition>( faChevronRight );

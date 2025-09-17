@@ -14,7 +14,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NzSelectModule, NzSwitchModule, FontAwesomeModule],
   templateUrl: './filters.html'
 } )
-export class FiltersComponent<T> {
+export class Filters<T> {
   filters = input.required<Array<Filter<T>>>();
   show = input<boolean>();
   filtersChanged = output<void>();

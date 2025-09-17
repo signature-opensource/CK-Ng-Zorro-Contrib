@@ -23,7 +23,7 @@ import { RouterLink } from '@angular/router';
     ],
     host: { 'class': 'ck-backoffice-mobile-bar' }
 } )
-export class MobileBarComponent {
+export class MobileBar {
     navigationItems = input<Array<NavigationSection>>( [] );
     selectedWCS = input<string | WCSType>();
     allWCS = input<Array<string> | Array<WCSType>>();

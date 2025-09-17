@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
         NzDropDownModule,
     ]
 } )
-export class BreadcrumbItemComponent {
+export class CKBreadcrumbItem {
     @HostBinding( 'class' ) class = 'ck-breadcrumb-item';
 
     item = input.required<BreadcrumbItem>();

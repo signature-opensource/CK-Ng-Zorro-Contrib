@@ -2,13 +2,13 @@ import { Component, HostBinding, input, output, TemplateRef, viewChild } from '@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-    MobileBarComponent,
+    MobileBar,
     NavigationItem,
     NavigationSection,
     ResponsiveDirective,
-    SideBarComponent,
+    SideBar,
     VersionInfos,
-    TopBarComponent,
+    TopBar,
     WCSType
 } from '@local/ck-gen';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -19,16 +19,16 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     imports: [
         CommonModule,
         FormsModule,
-        MobileBarComponent,
+        MobileBar,
         ResponsiveDirective,
-        SideBarComponent,
-        TopBarComponent,
+        SideBar,
+        TopBar,
         NzLayoutModule
     ],
     host: { 'class': 'ck-backoffice-layout' }
 } )
-export class LayoutComponent {
-    topbarComponent = viewChild<TopBarComponent>( 'topbar' );
+export class Layout {
+    topbarComponent = viewChild<TopBar>( 'topbar' );
 
     logoSrc = input<string>( 'logos/signature-one-logo.png' );
     navigationItems = input<Array<NavigationSection>>( [] );

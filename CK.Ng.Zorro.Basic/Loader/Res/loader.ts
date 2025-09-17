@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
     templateUrl: './loader.html',
     imports: [CommonModule]
 })
-export class LoaderComponent {
+export class Loader {
     @HostBinding( 'class' ) class = 'ck-loader';
 
     isLoading = input<boolean>( false );

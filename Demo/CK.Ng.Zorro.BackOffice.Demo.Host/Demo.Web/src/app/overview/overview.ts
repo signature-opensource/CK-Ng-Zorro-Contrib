@@ -22,7 +22,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
   templateUrl: './overview.html',
   styleUrl: './overview.less'
 } )
-export class OverviewComponent {
+export class Overview {
   readonly #modal = inject( NzModalService );
   // readonly #notif = inject( NotificationService );
   readonly #translateService = inject( TranslateService );

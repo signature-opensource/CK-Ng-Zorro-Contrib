@@ -1,4 +1,4 @@
-import { Component, HostBinding, WritableSignal, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
+import { Component, WritableSignal, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -40,7 +40,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     ],
     host: { 'class': 'ck-backoffice-table' }
 } )
-export class TableComponent<T> {
+export class Table<T> {
     readonly #translateService = inject( TranslateService );
 
     columns = input.required<Array<TableColumn<T>>>();

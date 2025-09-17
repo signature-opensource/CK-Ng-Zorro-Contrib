@@ -21,7 +21,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
   templateUrl: './action-bar.html',
   styleUrl: './action-bar.less',
 } )
-export class ActionBarComponent {
+export class ActionBar {
   actions: ActionBarContent<ActionBarData>;
 
   constructor() {

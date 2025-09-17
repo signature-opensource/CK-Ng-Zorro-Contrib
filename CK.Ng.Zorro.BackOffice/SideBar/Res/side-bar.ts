@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef, effect, computed, signal, WritableSignal, afterNextRender } from '@angular/core';
+import { Component, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef, effect } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { ModalOptions, NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NavigationItem, NavigationSection } from '@local/ck-gen/CK/Ng/Zorro/side-bar/navigation-model';
-import { SearchModalComponent } from '@local/ck-gen/CK/Ng/Zorro/search-modal/search-modal';
+import { SearchModal } from '@local/ck-gen/CK/Ng/Zorro/search-modal/search-modal';
 import { VersionInfos } from '@local/ck-gen/CK/Ng/Zorro/side-bar/version-infos-model';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 
@@ -22,7 +22,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
     imports: [CommonModule, FormsModule, FontAwesomeModule, NzDividerModule, NzModalModule, NzMenuModule, NzTooltipModule, TranslateModule],
     host: { 'class': 'ck-backoffice-side-bar' }
 } )
-export class SideBarComponent implements OnDestroy {
+export class SideBar implements OnDestroy {
     readonly #router = inject( Router );
     readonly #translateService = inject( TranslateService );
     readonly #modal = inject( NzModalService );
@@ -114,10 +114,10 @@ export class SideBarComponent implements OnDestroy {
     }
 
     openSearchModal(): void {
-        const opts: ModalOptions<SearchModalComponent> = {
+        const opts: ModalOptions<SearchModal> = {
             nzClosable: false,
             nzWidth: window.innerWidth * 0.4,
-            nzContent: SearchModalComponent,
+            nzContent: SearchModal,
             nzData: { placeholder: this.globalSearchPlaceholder(), inputDebounceTime: this.globalSearchDebounceTime(), defaultContentTpl: this.defaultContentTpl(), searchResultTpl: this.searchResultTpl() },
             nzStyle: { top: '20px' },
             nzBodyStyle: { height: `${window.innerHeight * 0.7}px`, padding: '2%' },
@@ -134,7 +134,7 @@ export class SideBarComponent implements OnDestroy {
             ]
         };
 
-        const ref: NzModalRef<SearchModalComponent> = this.#modal.create( opts );
+        const ref: NzModalRef<SearchModal> = this.#modal.create( opts );
         const comp = ref.getContentComponent();
         this.#subscriptions.push( comp.searchRequested.subscribe( ( s: string ) => {
             this.searchRequested.emit( s );

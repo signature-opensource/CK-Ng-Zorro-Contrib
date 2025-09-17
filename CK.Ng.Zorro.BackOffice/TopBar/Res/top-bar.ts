@@ -25,7 +25,7 @@ import { locales } from '@local/ck-gen/ts-locales/locales';
     ],
     host: { 'class': 'ck-backoffice-top-bar' }
 } )
-export class TopBarComponent {
+export class TopBar {
     readonly #translateService = inject( TranslateService );
 
     selectedWCS = input<string | WCSType>();

@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.html',
   styleUrl: './app.less',
 } )
-export class AppComponent {
+export class App {
 
   readonly #authService = inject( NgAuthService );
   isAuthenticated = computed( () => this.#authService.authenticationInfo().user.userId !== 0 );

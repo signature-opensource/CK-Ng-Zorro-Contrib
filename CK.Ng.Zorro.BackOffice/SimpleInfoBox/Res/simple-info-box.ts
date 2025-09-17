@@ -1,4 +1,4 @@
-import { Component, input, HostBinding } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component( {
   selector: 'ck-simple-info-box',
@@ -6,7 +6,7 @@ import { Component, input, HostBinding } from '@angular/core';
   templateUrl: './simple-info-box.html',
   host: { 'class': 'ck-simple-info-box' }
 } )
-export class SimpleInfoBoxComponent {
+export class SimpleInfoBox {
   label = input.required<string>();
   value = input.required<string | number>();
 }
