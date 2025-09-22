@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   ActionBarContent,
-  ActionBarComponent as CKActionBarComponent,
-  LayoutContentComponent,
+  ActionBar as CKActionBarComponent,
+  LayoutContent,
 } from '@local/ck-gen';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 
@@ -14,7 +14,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
   imports: [
     CommonModule,
     FormsModule,
-    LayoutContentComponent,
+    LayoutContent,
     CKActionBarComponent,
     NzDividerModule
   ],

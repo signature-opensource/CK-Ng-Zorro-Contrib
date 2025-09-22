@@ -1,19 +1,18 @@
-import { Component, HostBinding, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // TODO: useless?
+import { FormsModule } from '@angular/forms';
 import { ActionBarAction, ActionBarContent } from './action-bar-model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
     selector: 'ck-action-bar',
     templateUrl: './action-bar.html',
-    imports: [CommonModule, FormsModule, FontAwesomeModule, NzButtonModule, NzToolTipModule]
+    imports: [CommonModule, FormsModule, FontAwesomeModule, NzButtonModule, NzTooltipModule],
+    host: { 'class': 'ck-action-bar' }
 })
-export class ActionBarComponent<T> {
-    @HostBinding('class') class = 'ck-action-bar';
-
+export class ActionBar<T> {
     actions = input<ActionBarContent<T>>({ left: [], right: [] });
     selectedItems = input<Array<T>>([]);
 

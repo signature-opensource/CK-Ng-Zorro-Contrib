@@ -18,10 +18,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 @Component( {
-    selector: 'ck-backoffice-table',
+    selector: 'ck-table',
     templateUrl: './table.html',
     imports: [
         CommonModule,
@@ -35,10 +35,10 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
         NzInputModule,
         NzPopoverModule,
         NzTableModule,
-        NzToolTipModule,
+        NzTooltipModule,
         TranslateModule
     ],
-    host: { 'class': 'ck-backoffice-table' }
+    host: { 'class': 'ck-table' }
 } )
 export class Table<T> {
     readonly #translateService = inject( TranslateService );

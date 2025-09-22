@@ -6,7 +6,7 @@
     [actions]="actions"
     (filtersApplied)="applyFilters($event)"
     (filtersCleared)="clearFilters()">
-    <ck-backoffice-table
+    <ck-table
         [dataUniqueKey]="'id'"
         [tableData]="items"
         [columns]="columns"
@@ -15,5 +15,5 @@
         [searchbarDebounceTime]="500"
         (searchRequested)="search($event)"
         (searchCleared)="clearSearch()">
-    </ck-backoffice-table>
+    </ck-table>
 </ck-backoffice-layout-content>

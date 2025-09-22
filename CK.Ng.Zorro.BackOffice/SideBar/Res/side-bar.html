@@ -32,7 +32,7 @@
                             (click)="itemClicked($event, item)"
                             (auxclick)="handleAuxClick($event, item)">
                             @if (item.icon) {
-                                <fa-icon class="icon" [icon]="item.icon"> </fa-icon>
+                                <fa-icon class="ck-btn-icon" [icon]="item.icon"> </fa-icon>
                             } @else {
                                 @if (item.label.length > 0) {
                                     {{ item.label[0] }}
@@ -48,7 +48,7 @@
                                     (click)="itemClicked($event, child)"
                                     (auxclick)="handleAuxClick($event, child)">
                                     @if (child.icon) {
-                                        <fa-icon class="icon" [icon]="child.icon"> </fa-icon>
+                                        <fa-icon class="ck-btn-icon" [icon]="child.icon"> </fa-icon>
                                     } @else {
                                         @if (child.label.length > 0) {
                                             {{ child.label[0] }}

@@ -40,7 +40,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     ],
     host: { 'class': 'ck-backoffice-layout-content' }
 } )
-export class LayoutContentComponent<T> {
+export class LayoutContent<T> {
     headerTitle = input<string>( '' );
     selectedItems = input<Array<T>>( [] );
     showFilters = input<boolean>( true );

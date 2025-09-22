@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output, ViewEncapsulation, HostBinding, inject } from '@angular/core';
 
 import { BreadcrumbItem } from './breadcrumb-item-model';
-import { Breadcrumb } from './breadcrumb-model';
+import { Breadcrumb } from './breadcrumb';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { CommonModule } from '@angular/common';

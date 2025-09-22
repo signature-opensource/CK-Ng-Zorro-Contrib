@@ -2,7 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, Validators } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ActionBarContent, DefaultTableColumn, Filter, FormControlConfig, GenericFormComponent, IFormControlConfig, LayoutContentComponent, SelectFilter, SwitchFilter, TableAction, TableColumn, TableComponent } from '@local/ck-gen';
+import {
+  ActionBarContent,
+  DefaultTableColumn,
+  Filter,
+  FormControlConfig,
+  GenericForm,
+  IFormControlConfig,
+  LayoutContent,
+  SelectFilter,
+  SwitchFilter,
+  TableColumn,
+  Table
+} from '@local/ck-gen';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 
@@ -14,8 +26,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
   imports: [
     CommonModule,
     FormsModule,
-    LayoutContentComponent,
-    TableComponent,
+    LayoutContent,
+    Table,
     NzModalModule,
     NzTabsModule,
   ],
@@ -175,7 +187,7 @@ export class Overview {
       nzTitle: 'Ajouter un item',
       nzCancelText: 'Annuler',
       nzOkText: this.#translateService.instant( 'Button.Add' ),
-      nzContent: GenericFormComponent,
+      nzContent: GenericForm,
       nzData: { formData: { formControls: form } },
       nzOnOk: async () => {
         const formComponent = modalRef.componentRef?.instance;
