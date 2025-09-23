@@ -60,11 +60,10 @@
             }
             @for (col of displayedColumns(); track col.name) {
                 @if (col.sortable) {
-                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzSortOrder]="col.sortOrder!" [nzSortFn]="col.sortFn!">
+                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align" [nzSortOrder]="col.sortOrder!" [nzSortFn]="col.sortFn!">
                         {{ col.displayedName }}
                         @if (col.filter) {
                             <nz-filter-trigger
-                                *ngIf="col.filter"
                                 [(nzVisible)]="col.filter.visible"
                                 [nzActive]="col.filter.searchValue.length > 0"
                                 [nzDropdownMenu]="searchMenu">
@@ -72,7 +71,7 @@
                             </nz-filter-trigger>
                             <nz-dropdown-menu #searchMenu="nzDropdownMenu">
                                 <div class="ck-table-filter-dropdown">
-                                    <div class="search-box" *ngIf="col.filter">
+                                    <div class="search-box">
                                         <input type="text" nz-input [(ngModel)]="col.filter.searchValue" />
                                         <div class="search-box-buttons">
                                             <button nz-button nzSize="small" nzType="primary" (click)="search(col)" class="search-button">
@@ -86,13 +85,13 @@
                         }
                     </th>
                 } @else {
-                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'">
+                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align">
                         {{ col.displayedName }}
                     </th>
                 }
             }
             @if (tableActions().length > 0) {
-                <th nzRight>{{ actionsHeaderLabel() }}</th>
+                <th nzRight class="ck-table-header">{{ actionsHeaderLabel() }}</th>
             }
         </tr>
     </thead>
@@ -106,19 +105,17 @@
 
                 <!-- Displaying each column's value -->
                 @for (column of displayedColumns(); track column) {
-                    <td
-                        *ngIf="column.template; else defaultCell"
-                        [style]="getColumnStyle(column.name, data)"
-                        [class]="!shouldDisplayValue(column) ? 'ck-cell-value ck-table-desktop-only' : 'ck-cell-value'">
-                        <ng-container *ngTemplateOutlet="column.template; context: { $implicit: data[column.name], row: data }"></ng-container>
-                    </td>
-
-                    <!-- Default cell rendering -->
-                    <ng-template #defaultCell>
+                    @if( column.template ) {
+                        <td
+                            [style]="getColumnStyle(column.name, data)"
+                            [class]="!shouldDisplayValue(column) ? 'ck-cell-value ck-table-desktop-only' : 'ck-cell-value'">
+                            <ng-container *ngTemplateOutlet="column.template; context: { $implicit: data[column.name], row: data }"></ng-container>
+                        </td>
+                    } @else {
                         <td [style]="getColumnStyle(column.name, data)" [class]="!shouldDisplayValue(column) ? 'ck-cell-value ck-table-desktop-only' : 'ck-cell-value'">
                             {{ column.valueFormatter ? column.valueFormatter(data[column.name], data) : data[column.name] }}
                         </td>
-                    </ng-template>
+                    }
                 }
 
                 <!-- Displaying TableActions in the last column if any -->
