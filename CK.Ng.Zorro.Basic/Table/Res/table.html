@@ -109,12 +109,16 @@
                 @for (column of displayedColumns(); track column) {
                     @if( column.template ) {
                         <td
+                            [nzAlign]="column.align ?? 'left'"
                             [style]="getColumnStyle(column.name, data)"
                             [class]="!shouldDisplayValue(column) ? 'ck-cell-value ck-table-desktop-only' : 'ck-cell-value'">
                             <ng-container *ngTemplateOutlet="column.template; context: { $implicit: data[column.name], row: data }"></ng-container>
                         </td>
                     } @else {
-                        <td [style]="getColumnStyle(column.name, data)" [class]="!shouldDisplayValue(column) ? 'ck-cell-value ck-table-desktop-only' : 'ck-cell-value'">
+                        <td
+                            [nzAlign]="column.align ?? 'left'"
+                            [style]="getColumnStyle(column.name, data)"
+                            [class]="!shouldDisplayValue(column) ? 'ck-cell-value ck-table-desktop-only' : 'ck-cell-value'">
                             {{ column.valueFormatter ? column.valueFormatter(data[column.name], data) : data[column.name] }}
                         </td>
                     }
