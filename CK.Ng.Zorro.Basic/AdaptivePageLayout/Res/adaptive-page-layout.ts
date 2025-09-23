@@ -20,7 +20,7 @@ import { ActionBar, ActionBarContent, ListView, ResponsiveDirective, Table, Tabl
     ListView
   ],
   templateUrl: './adaptive-page-layout.html',
-  styleUrl: './adaptive-page-layout.less'
+  host: { 'class': 'ck-adaptive-page-layout' }
 } )
 export class AdaptivePageLayout<T> {
   title = input.required<string>();

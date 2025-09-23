@@ -22,7 +22,7 @@ import { TableAction } from '@local/ck-gen';
     FontAwesomeModule
   ],
   templateUrl: './list-view.html',
-  styleUrl: './list-view.less'
+  host: { 'class': 'ck-list-view' }
 } )
 export class ListView<T> {
   items = input.required<Array<T>>();
