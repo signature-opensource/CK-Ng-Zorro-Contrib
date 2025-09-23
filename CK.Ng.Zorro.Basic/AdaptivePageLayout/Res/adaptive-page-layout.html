@@ -1,0 +1,32 @@
+<header class="ck-adaptive-page-header">
+  <span class="title">{{ title() }}</span>
+</header>
+
+@if(actions()) {
+<div class="ck-adaptive-page-actions">
+  <ck-action-bar [actions]="actions()!" />
+</div>
+}
+
+<div class="ck-adaptive-page-content">
+  <ng-container *appResponsive="'(min-width: 1025px)'">
+    <ck-table [dataUniqueKey]="itemUniqueKey()"
+              [columns]="columns()"
+              [tableData]="displayedItems()"
+              [tableActions]="itemActions() ?? []"
+              [searchbarEnabled]="searchbarEnabled()"
+              [searchbarDebounceTime]="searchbarDebounceTime()"
+              (searchRequested)="search($event)"
+              (searchCleared)="clearSearch()" />
+  </ng-container>
+  <ng-container *appResponsive="'(max-width: 1024px)'">
+    <ck-list-view [items]="displayedItems()"
+                  [itemActions]="itemActions() ?? []"
+                  [itemTemplateRef]="itemTemplateRef()"
+                  [itemUniqueKey]="itemUniqueKey()"
+                  [searchbarEnabled]="searchbarEnabled()"
+                  [searchbarDebounceTime]="searchbarDebounceTime()"
+                  (searchRequested)="search($event)"
+                  (searchCleared)="clearSearch()" />
+  </ng-container>
+</div>
