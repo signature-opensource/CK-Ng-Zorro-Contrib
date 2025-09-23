@@ -60,32 +60,34 @@
             }
             @for (col of displayedColumns(); track col.name) {
                 @if (col.sortable) {
-                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align" [nzSortOrder]="col.sortOrder!" [nzSortFn]="col.sortFn!">
+                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align ?? 'left'" [nzSortOrder]="col.sortOrder!" [nzSortFn]="col.sortFn!">
                         {{ col.displayedName }}
                         @if (col.filter) {
-                            <nz-filter-trigger
-                                [(nzVisible)]="col.filter.visible"
-                                [nzActive]="col.filter.searchValue.length > 0"
-                                [nzDropdownMenu]="searchMenu">
-                                <span nz-icon nzType="search"></span>
-                            </nz-filter-trigger>
-                            <nz-dropdown-menu #searchMenu="nzDropdownMenu">
-                                <div class="ck-table-filter-dropdown">
-                                    <div class="search-box">
-                                        <input type="text" nz-input [(ngModel)]="col.filter.searchValue" />
-                                        <div class="search-box-buttons">
-                                            <button nz-button nzSize="small" nzType="primary" (click)="search(col)" class="search-button">
-                                                {{ searchLabel() }}
-                                            </button>
-                                            <button nz-button nzSize="small" (click)="reset(col)">{{ cancelLabel() }}</button>
+                            <ng-container>
+                                <nz-filter-trigger
+                                    [(nzVisible)]="col.filter.visible"
+                                    [nzActive]="col.filter.searchValue.length > 0"
+                                    [nzDropdownMenu]="searchMenu">
+                                    <span nz-icon nzType="search"></span>
+                                </nz-filter-trigger>
+                                <nz-dropdown-menu #searchMenu="nzDropdownMenu">
+                                    <div class="ck-table-filter-dropdown">
+                                        <div class="search-box">
+                                            <input type="text" nz-input [(ngModel)]="col.filter.searchValue" />
+                                            <div class="search-box-buttons">
+                                                <button nz-button nzSize="small" nzType="primary" (click)="search(col)" class="search-button">
+                                                    {{ searchLabel() }}
+                                                </button>
+                                                <button nz-button nzSize="small" (click)="reset(col)">{{ cancelLabel() }}</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </nz-dropdown-menu>
+                                </nz-dropdown-menu>
+                            </ng-container>
                         }
                     </th>
                 } @else {
-                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align">
+                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align ?? 'left'">
                         {{ col.displayedName }}
                     </th>
                 }
