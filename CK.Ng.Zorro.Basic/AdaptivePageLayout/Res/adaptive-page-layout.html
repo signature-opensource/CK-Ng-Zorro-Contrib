@@ -2,12 +2,16 @@
   <span class="title">{{ title() }}</span>
 </header>
 
-@if(actions()) {
-<div class="ck-adaptive-page-actions">
-  <ck-action-bar [actions]="actions()!" />
-</div>
+@if(filters()) {
+  <ck-filters class="ck-adaptive-page-filters" [filters]="filters()!" (filtersChanged)="filterData()" />
 }
 
+@if(actions()) {
+  <div class="ck-adaptive-page-actions">
+    <ck-action-bar [actions]="actions()!" />
+  </div>
+}
+    
 <div class="ck-adaptive-page-content">
   <ng-container *appResponsive="'(min-width: 1025px)'">
     <ck-table [dataUniqueKey]="itemUniqueKey()"

@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
-import { ActionBar, ActionBarContent, ListView, ResponsiveDirective, Table, TableAction, TableColumn } from '@local/ck-gen';
+import { ActionBar, ActionBarContent, Filter, Filters, ListView, ResponsiveDirective, Table, TableAction, TableColumn } from '@local/ck-gen';
 
 @Component( {
   selector: 'ck-adaptive-page-layout',
@@ -17,7 +17,8 @@ import { ActionBar, ActionBarContent, ListView, ResponsiveDirective, Table, Tabl
     FontAwesomeModule,
     TranslateModule,
     ResponsiveDirective,
-    ListView
+    ListView,
+    Filters
   ],
   templateUrl: './adaptive-page-layout.html',
   host: { 'class': 'ck-adaptive-page-layout' }
@@ -33,6 +34,8 @@ export class AdaptivePageLayout<T> {
   searchbarEnabled = input<boolean>( true );
   searchbarDebounceTime = input<number>( 1000 );
   searchFunc = input<( input: string ) => Array<T>>();
+  filters = input<Array<Filter<unknown>>>();
+  filterFunc = input<() => Array<T>>();
 
   displayedItems = linkedSignal( () => this.items() );
 
@@ -42,5 +45,9 @@ export class AdaptivePageLayout<T> {
 
   clearSearch(): void {
     this.displayedItems.set( this.items() );
+  }
+
+  filterData(): void {
+    this.displayedItems.set( this.filterFunc ? this.filterFunc()!() : this.items() );
   }
 }

@@ -44,7 +44,7 @@
                                     [nzPlaceHolder]="formData.formControls[controlName.key].placeholder" />
                             }
                             @case ('checkbox') {
-                                <label nz-checkbox> <input type="checkbox" [formControlName]="controlName.key" /> {{ formData.formControls[controlName.key].label }} </label>
+                                <label nz-checkbox [formControlName]="controlName.key">{{ formData.formControls[controlName.key].label }}</label>
                             }
                             @case ('select') {
                                 <nz-select [formControlName]="controlName.key" [nzPlaceHolder]="formData.formControls[controlName.key].placeholder">
