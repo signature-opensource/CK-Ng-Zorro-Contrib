@@ -1,4 +1,4 @@
-.ck-filters {
+ck-filters {
     gap: 0.5%;
     display: flex;
     flex-wrap: wrap;
@@ -6,12 +6,12 @@
 
 .filter-icon {
     color: @primary-color;
-    font-size: @heading-4-size;
+    font-size: @regular-font-size;
 }
 
 .clear-icon {
     color: @primary-color;
-    font-size: 1.5em;
+    font-size: @regular-font-size;
     position: absolute;
     transform: translate(-50%, -15%);
 }
@@ -24,7 +24,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 50%;
+
+    @media (max-width: 1024px) {
+        flex: 0 0 45%;
+    }
+
+    @media (min-width: 1025px) {
+        flex: 0 0 23%;
+    }
 
     &:not(:last-child) {
         margin-right: @ck-filter-margin-right;
@@ -42,7 +49,7 @@
     }
 
     .select-filter {
-        min-width: 100px;
+        width: 70%;
     }
 
     .switch-filter {

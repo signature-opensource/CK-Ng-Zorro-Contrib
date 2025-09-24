@@ -15,7 +15,6 @@ ck-adaptive-page-layout {
   align-items: center;
   justify-content: space-between;
   flex: 1;
-  padding-bottom: 1%;
 
   .title {
     font-weight: @ck-adaptive-page-header-font-weight;
@@ -23,13 +22,49 @@ ck-adaptive-page-layout {
   }
 }
 
+.filter-btn {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+
+  &.complete {
+    border-color: @primary-color;
+  }
+
+  &.incomplete {
+    border-color: @primary-color;
+    border-style: dashed;
+  }
+
+  .ck-btn-icon {
+    color: @primary-color;
+  }
+
+  .count-badge {
+    color: @primary-color;
+    border-radius: @ck-border-radius;
+    font-weight: @font-weight-bold;
+  }
+}
+
+.filter-popover-title {
+    font-size: @regular-font-size;
+}
+
+.filter-choices-container {
+    padding-bottom: 5%;
+}
+
 .ck-adaptive-page-filters,
 .ck-adaptive-page-actions {
     flex: 0.5;
+
+    &.empty {
+        flex: 0;
+    }
 }
 
 .ck-adaptive-page-content {
-  padding-top: 1%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;

@@ -8,6 +8,7 @@ namespace CK.Ng.Zorro;
 [Requires<ActionBarComponent>]
 [Requires<TableComponent>]
 [Requires<ListViewComponent>]
+[Requires<FiltersComponent>]
 public sealed class AdaptivePageLayoutComponent : NgComponent
 {
 }
