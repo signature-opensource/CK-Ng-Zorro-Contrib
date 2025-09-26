@@ -46,9 +46,11 @@ export class Overview {
       'tags',
       'Type',
       [{ label: 'Type1', value: MyTypeEnum.Type1 }, { label: 'Type2', value: MyTypeEnum.Type2 }],
-      [MyTypeEnum.Type1, MyTypeEnum.Type2],
-      false,
-      'Sélectionner les types à afficher'
+      {
+        defaultValue: [MyTypeEnum.Type1, MyTypeEnum.Type2],
+        active: false,
+        placeholder: 'Sélectionner les types à afficher'
+      }
     )
   ];
 
@@ -143,17 +145,12 @@ export class Overview {
     new DefaultTableColumn(
       'displayed',
       'Affiché',
-      false,
-      true,
-      false,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      ( value: unknown, row: MyItem ) => {
-        if ( value ) return 'Oui';
-        return 'Non'
+      {
+        hidden: false,
+        valueFormatter: ( value: unknown, row: MyItem ) => {
+          if ( value ) return 'Oui';
+          return 'Non'
+        }
       }
     )
   ];

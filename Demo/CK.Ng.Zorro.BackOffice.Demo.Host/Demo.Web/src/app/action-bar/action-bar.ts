@@ -42,6 +42,15 @@ export class ActionBar {
       name: 'right',
       shouldBeDisplayed: () => true,
     } );
+
+    this.actions.right.push( {
+      displayName: 'Disabled',
+      execute: () => { },
+      isDanger: true,
+      name: 'right',
+      shouldBeDisplayed: () => true,
+      shouldBeDisabled: () => true
+    } );
   }
 }
 
