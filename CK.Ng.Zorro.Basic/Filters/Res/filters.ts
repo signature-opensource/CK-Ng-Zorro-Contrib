@@ -10,11 +10,11 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 
 @Component( {
-  selector: 'ck-backoffice-filters',
+  selector: 'ck-filters',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NzSelectModule, NzSwitchModule, FontAwesomeModule],
   templateUrl: './filters.html'
 } )
-export class FiltersComponent<T> {
+export class Filters<T> {
   filters = input.required<Array<Filter<T>>>();
   show = input<boolean>();
   filtersChanged = output<void>();
@@ -50,7 +50,7 @@ export class FiltersComponent<T> {
   }
 
   getFilterClassName( filter: Filter<T> ): string {
-    let res = 'ck-backoffice-filter';
+    let res = 'ck-filter';
     if ( this.instanceOfSelect( filter ) ) {
       const selectFilter = this.asSelectFilter( filter );
       if ( selectFilter.active && selectFilter.value && ( selectFilter.value as Array<T> ).length > 0 ) {

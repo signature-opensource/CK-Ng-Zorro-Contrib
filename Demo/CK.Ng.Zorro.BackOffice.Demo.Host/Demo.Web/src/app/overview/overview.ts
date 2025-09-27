@@ -2,7 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, Validators } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ActionBarContent, DefaultTableColumn, Filter, FormControlConfig, GenericFormComponent, IFormControlConfig, LayoutContentComponent, SelectFilter, SwitchFilter, TableAction, TableColumn, TableComponent } from '@local/ck-gen';
+import {
+  ActionBarContent,
+  DefaultTableColumn,
+  Filter,
+  FormControlConfig,
+  GenericForm,
+  IFormControlConfig,
+  LayoutContent,
+  SelectFilter,
+  SwitchFilter,
+  TableColumn,
+  Table
+} from '@local/ck-gen';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 
@@ -14,15 +26,15 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
   imports: [
     CommonModule,
     FormsModule,
-    LayoutContentComponent,
-    TableComponent,
+    LayoutContent,
+    Table,
     NzModalModule,
     NzTabsModule,
   ],
   templateUrl: './overview.html',
   styleUrl: './overview.less'
 } )
-export class OverviewComponent {
+export class Overview {
   readonly #modal = inject( NzModalService );
   // readonly #notif = inject( NotificationService );
   readonly #translateService = inject( TranslateService );
@@ -34,9 +46,11 @@ export class OverviewComponent {
       'tags',
       'Type',
       [{ label: 'Type1', value: MyTypeEnum.Type1 }, { label: 'Type2', value: MyTypeEnum.Type2 }],
-      [MyTypeEnum.Type1, MyTypeEnum.Type2],
-      false,
-      'Sélectionner les types à afficher'
+      {
+        defaultValue: [MyTypeEnum.Type1, MyTypeEnum.Type2],
+        active: false,
+        placeholder: 'Sélectionner les types à afficher'
+      }
     )
   ];
 
@@ -131,17 +145,12 @@ export class OverviewComponent {
     new DefaultTableColumn(
       'displayed',
       'Affiché',
-      false,
-      true,
-      false,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      ( value: unknown, row: MyItem ) => {
-        if ( value ) return 'Oui';
-        return 'Non'
+      {
+        hidden: false,
+        valueFormatter: ( value: unknown, row: MyItem ) => {
+          if ( value ) return 'Oui';
+          return 'Non'
+        }
       }
     )
   ];
@@ -175,7 +184,7 @@ export class OverviewComponent {
       nzTitle: 'Ajouter un item',
       nzCancelText: 'Annuler',
       nzOkText: this.#translateService.instant( 'Button.Add' ),
-      nzContent: GenericFormComponent,
+      nzContent: GenericForm,
       nzData: { formData: { formControls: form } },
       nzOnOk: async () => {
         const formComponent = modalRef.componentRef?.instance;

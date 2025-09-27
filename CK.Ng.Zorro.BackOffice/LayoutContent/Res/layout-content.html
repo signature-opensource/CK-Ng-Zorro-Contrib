@@ -46,9 +46,12 @@
         <ng-template #badgeText>
             <span>{{ selectedFilters().length }} / {{ filters().length }}</span>
         </ng-template>
-        <ck-backoffice-filters class="ck-backoffice-layout-content-filters" [filters]="filters()" [show]="showFilters()" (filtersChanged)="onFilterApplied(filters())">
-        </ck-backoffice-filters>
-        <ck-action-bar class="ck-backoffice-layout-content-actions" [actions]="actions()" [selectedItems]="selectedItems()"> </ck-action-bar>
+        <ck-filters
+            class="ck-backoffice-layout-content-filters"
+            [filters]="filters()"
+            [show]="showFilters()"
+            (filtersChanged)="onFilterApplied(filters())" />
+        <ck-action-bar class="ck-backoffice-layout-content-actions" [actions]="actions()" [selectedItems]="selectedItems()" />
     </div>
 }
 <div class="ck-backoffice-layout-content-main">

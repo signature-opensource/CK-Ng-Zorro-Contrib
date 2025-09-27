@@ -46,6 +46,7 @@
         height: @ck-sidebar-navigation-items-height;
         width: 100%;
         overflow-y: auto;
+        padding-bottom: 2%;
 
         .ck-sidebar-search-btn {
             display: flex;
@@ -62,6 +63,7 @@
 
             &.collapsed {
                 padding: 10% 0;
+                width: 65%;
             }
 
             &:hover {
@@ -151,45 +153,19 @@
                 }
 
                 &.active {
-                    font-weight: 600;
-                    color: @ck-sidebar-navigation-item-active-color;
-                    background-color: @primary-color;
-                    border-top-left-radius: 10px;
-                    border-bottom-left-radius: 10px;
-
-                    &:not(.collapsed) {
-                        color: @white;
-                        font-size: @ck-sidebar-navigation-item-active-font-size;
-                    }
+                    font-weight: @font-weight-bold;
+                    color: @primary-color;
+                    background-color: @primary-color-outline;
 
                     &.collapsed {
-                        background: none;
-                    }
-
-                    &::before {
-                        position: absolute;
-                        content: '';
-                        height: 30px;
-                        width: 30px;
-                        background: rgba(255, 255, 255, 0.9);
-                        right: 0;
-                        bottom: 100%;
-                        border-bottom-right-radius: 10px;
-                        box-shadow: 0 17px 0 @primary-color;
-                        z-index: -1;
-                    }
-
-                    &::after {
-                        position: absolute;
-                        content: '';
-                        height: 30px;
-                        width: 30px;
-                        background-color: rgba(255, 255, 255, 0.9);
-                        right: 0;
-                        top: 100%;
-                        border-top-right-radius: 10px;
-                        box-shadow: 0 -17px 0 @primary-color;
-                        z-index: -1;
+                        background: @primary-color;
+                        color: @white;
+                        width: 50%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: @ck-border-radius;
                     }
                 }
 

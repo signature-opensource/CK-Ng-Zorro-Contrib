@@ -18,7 +18,7 @@
                 }
             </div>
         }
-        @for (section of navigationItems(); track section.sectionHeadline; let idx = $index) {
+        @for (section of navItems(); track section.sectionHeadline; let idx = $index) {
             @if (collapsed()) {
                 <div [class]="section.bottom ? 'ck-sidebar-navigation-section collapsed bottom' : 'ck-sidebar-navigation-section collapsed'">
                     @if (idx > 0) {
@@ -32,7 +32,7 @@
                             (click)="itemClicked($event, item)"
                             (auxclick)="handleAuxClick($event, item)">
                             @if (item.icon) {
-                                <fa-icon class="icon" [icon]="item.icon"> </fa-icon>
+                                <fa-icon class="ck-btn-icon" [icon]="item.icon"> </fa-icon>
                             } @else {
                                 @if (item.label.length > 0) {
                                     {{ item.label[0] }}
@@ -48,7 +48,7 @@
                                     (click)="itemClicked($event, child)"
                                     (auxclick)="handleAuxClick($event, child)">
                                     @if (child.icon) {
-                                        <fa-icon class="icon" [icon]="child.icon"> </fa-icon>
+                                        <fa-icon class="ck-btn-icon" [icon]="child.icon"> </fa-icon>
                                     } @else {
                                         @if (child.label.length > 0) {
                                             {{ child.label[0] }}
@@ -64,52 +64,33 @@
                     <span class="sidebar-head-label">
                         {{ section.sectionHeadline }}
                     </span>
-                    @for (item of section.items; track item.label) {
-                        @if (item.children && item.children.length > 0) {
-                            <ul nz-menu nzMode="inline">
-                                <li nz-submenu [nzTitle]="item.label" [(nzOpen)]="menuOpenMap[item.label]" nzTooltipPlacement="right">
-                                    <ul class="submenu">
-                                        <li nz-menu-item [nzSelected]="item.isActive" (click)="itemClicked($event, item)">
-                                            {{ "Vue d'ensemble" | translate }}
-                                        </li>
-                                        @for (child of item.children; track child) {
-                                            <li
-                                                nz-menu-item
-                                                [nzSelected]="child.isActive"
-                                                (click)="itemClicked($event, child)"
-                                                [nz-tooltip]="child.label"
-                                                nzTooltipPlacement="right">
-                                                {{ child.label }}
-                                            </li>
-                                        }
-                                    </ul>
-                                </li>
-                            </ul>
-                        } @else {
-                            <div [class]="getNavItemClass(item)" (click)="itemClicked($event, item)" (auxclick)="handleAuxClick($event, item)">
-                                <fa-icon *ngIf="item.icon" class="icon" [icon]="item.icon"></fa-icon>
-                                <span class="item-label">{{ item.label }}</span>
-                            </div>
+                    <ul nz-menu nzMode="inline">
+                        @for (item of section.items; track item.label) {
                             @if (item.children && item.children.length > 0) {
-                                @for (child of item.children; track child) {
-                                    <div
-                                        [class]="getNavItemChildClass(child)"
-                                        [nz-tooltip]="child.label"
-                                        nzTooltipPlacement="right"
-                                        (click)="itemClicked($event, child)"
-                                        (auxclick)="handleAuxClick($event, child)">
-                                        @if (child.icon) {
-                                            <fa-icon class="icon" [icon]="child.icon"> </fa-icon>
-                                        } @else {
-                                            @if (child.label.length > 0) {
-                                                {{ child.label }}
+                                <ul nz-menu nzMode="inline">
+                                    <li nz-submenu [nzTitle]="item.label" [(nzOpen)]="menuOpenMap[item.label]" nzTooltipPlacement="right">
+                                        <ul class="submenu">
+                                            <li nz-menu-item [nzSelected]="item.isActive" (click)="itemClicked($event, item)">
+                                                {{ "Vue d'ensemble" | translate }}
+                                            </li>
+                                            @for (child of item.children; track child) {
+                                                <li
+                                                    nz-menu-item
+                                                    [nzSelected]="child.isActive"
+                                                    (click)="itemClicked($event, child)"
+                                                    [nz-tooltip]="child.label"
+                                                    nzTooltipPlacement="right">
+                                                    {{ child.label }}
+                                                </li>
                                             }
-                                        }
-                                    </div>
-                                }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            } @else {
+                                <li nz-menu-item [nzSelected]="item.isActive" (click)="itemClicked($event, item)">{{ item.label }}</li>
                             }
                         }
-                    }
+                    </ul>
                 </div>
             }
         }

@@ -15,7 +15,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
   imports: [CommonModule, FormsModule, ReactiveFormsModule, FontAwesomeModule, NzInputModule, NzToolTipModule, NgTemplateOutlet],
   templateUrl: './search-modal.html'
 } )
-export class SearchModalComponent implements OnDestroy {
+export class SearchModal implements OnDestroy {
   readonly #modal = inject( NzModalRef );
   readonly #nzData = inject( NZ_MODAL_DATA );
 

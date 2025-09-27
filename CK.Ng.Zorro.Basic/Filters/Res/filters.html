@@ -11,6 +11,7 @@
                             class="select-filter"
                             [nzMode]="'tags'"
                             [nzMaxMultipleCount]="1"
+                            [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
                             [(ngModel)]="asSelectFilter(filter).value"
                             nzBorderless
                             nzAllowClear
@@ -27,6 +28,7 @@
                             [nzMaxMultipleCount]="asSelectFilter(filter).maxSelectionCount"
                             [nzMaxTagCount]="asSelectFilter(filter).maxDisplayedCount"
                             [nzMaxTagPlaceholder]="asSelectFilter(filter).maxDisplayedTemplate ?? defaultMaxTagPlaceholder"
+                            [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
                             nzBorderless
                             nzAllowClear
                             (ngModelChange)="filterValueChanged()">

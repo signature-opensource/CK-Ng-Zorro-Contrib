@@ -1,0 +1,38 @@
+@if (searchbarEnabled()) {
+    <div class="ck-list-view-searchbar">
+        <fa-icon class="ck-list-view-search-icon search" [icon]="searchIcon"></fa-icon>
+        <input nz-input [(ngModel)]="searchString" (ngModelChange)="onSearchInputChange($event)" />
+        @if (debouncing) {
+            <span nz-icon nzType="loading" nzTheme="outline"></span>
+        }
+        <fa-icon class="ck-list-view-search-icon close" [icon]="closeIcon" (click)="clearSearch()"></fa-icon>
+    </div>
+}
+<nz-list nzItemLayout="horizontal">
+    @if( !displayedItems().length ) {
+        <nz-list-empty />
+    } @else {
+        @for( item of displayedItems(); track item[itemUniqueKey()] ) {
+            <nz-list-item class="ck-list-item">
+                <div class="ck-list-item-left">
+                    <ng-template [ngTemplateOutlet]="itemTemplateRef()" [ngTemplateOutletContext]="{ $implicit: item }" />
+                </div>
+                <div class="ck-list-item-actions">
+                    @for( action of itemActions(); track action.name ) {
+                        @if( action.shouldBeDisplayed( item ) ) {
+                            <button 
+                                nz-button 
+                                class="ck-list-item-action-btn"
+                                [nzType]="action.type" 
+                                [nzDanger]="action.isDanger" 
+                                (click)="action.execute( item )"
+                                [nz-tooltip]="action.tooltip">
+                                <fa-icon class="ck-btn-icon" [icon]="action.icon"></fa-icon>
+                            </button>
+                        }
+                    }
+                </div>
+            </nz-list-item>
+        }
+    }
+</nz-list>

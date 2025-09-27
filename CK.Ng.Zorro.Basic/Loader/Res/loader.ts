@@ -1,13 +1,12 @@
-import { Component, HostBinding, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'ck-loader',
     templateUrl: './loader.html',
-    imports: [CommonModule]
+    imports: [CommonModule],
+    host: { 'class': 'ck-loader' }
 })
-export class LoaderComponent {
-    @HostBinding( 'class' ) class = 'ck-loader';
-
+export class Loader {
     isLoading = input<boolean>( false );
 }

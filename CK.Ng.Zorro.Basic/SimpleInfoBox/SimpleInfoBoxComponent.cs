@@ -1,11 +1,10 @@
 using CK.Core;
-using CK.Ng.Zorro.BackOffice;
 using CK.TS.Angular;
 
 namespace CK.Ng.Zorro;
 
-[NgComponent]
-[Package<BackOfficePackage>]
+[NgComponent( IsOptional = true )]
+[Package<ZorroPackage>]
 public sealed class SimpleInfoBoxComponent : NgComponent
 {
 }

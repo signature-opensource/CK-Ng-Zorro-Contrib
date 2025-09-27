@@ -7,6 +7,6 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
  *
  * Doesn't seem useful!!!
  */
-export abstract class Breadcrumb {
+export abstract class BreadcrumbBase {
     abstract separator: InputSignal<IconDefinition>;
 }

@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import {
-    ActionBarComponent,
+    ActionBar,
     ActionBarContent,
-    BreadcrumbComponent,
+    Breadcrumb,
     BreadcrumbItem,
     Filter,
-    FiltersComponent
+    Filters
 } from '@local/ck-gen';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -27,9 +27,9 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     imports: [
         CommonModule,
         FormsModule,
-        ActionBarComponent,
-        BreadcrumbComponent,
-        FiltersComponent,
+        ActionBar,
+        Breadcrumb,
+        Filters,
         NzBadgeModule,
         NzButtonModule,
         NzCheckboxModule,
@@ -40,7 +40,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     ],
     host: { 'class': 'ck-backoffice-layout-content' }
 } )
-export class LayoutContentComponent<T> {
+export class LayoutContent<T> {
     headerTitle = input<string>( '' );
     selectedItems = input<Array<T>>( [] );
     showFilters = input<boolean>( true );

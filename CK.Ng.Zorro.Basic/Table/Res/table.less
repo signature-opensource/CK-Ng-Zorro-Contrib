@@ -1,15 +1,20 @@
-.ck-backoffice-table {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+ck-table {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    nz-table {
+        overflow-y: auto;
+    }
 }
 
 .ck-table-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1%;
+    margin: 0.5% 0;
     height: @ck-table-top-height;
+    min-height: @ck-table-top-min-height;
 
     .ck-table-searchbar {
         display: flex;
@@ -90,6 +95,7 @@
 
   .ck-cell-value {
     color: @ck-table-cell-value-color;
+    font-size: @regular-font-size;
 
     .cell-value-icon {
       margin-left: @ck-table-cell-value-icon-margin;

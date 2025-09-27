@@ -1,27 +1,25 @@
 // <HasNgPrivatePage />
 import { Component, inject, computed } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
-import { LayoutComponent, NavigationSection, PrivatePageComponent, NgAuthService } from '@local/ck-gen';
+import { Layout, NavigationSection, PrivatePage, NgAuthService } from '@local/ck-gen';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
 // Private Page is from CK.Ng.AspNet.Auth package.
 
 @Component( {
   selector: 'app-root',
   imports: [
-    RouterOutlet, CommonModule, PrivatePageComponent,
+    RouterOutlet, CommonModule, PrivatePage,
     CKGenAppModule,
-    LayoutComponent,
+    Layout,
     TranslateModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.less',
 } )
-export class AppComponent {
+export class App {
 
   readonly #authService = inject( NgAuthService );
   isAuthenticated = computed( () => this.#authService.authenticationInfo().user.userId !== 0 );
@@ -140,18 +138,6 @@ export class AppComponent {
           label: 'TopBar',
         },
       ],
-    } );
-
-    this.#router.events.pipe( filter( event => event instanceof NavigationEnd ), takeUntilDestroyed() ).subscribe( _ => {
-      const currentPath = this.#router.url.split( '/' )[1];
-      const navItems = this.navSections.flatMap( ns => ns.items );
-      const activeItem = navItems.find( i => i.routerLink === currentPath );
-      if ( activeItem ) {
-        activeItem.isActive = true;
-        navItems.filter( i => i !== activeItem ).forEach( i => {
-          i.isActive = false;
-        } );
-      }
     } );
   }
 

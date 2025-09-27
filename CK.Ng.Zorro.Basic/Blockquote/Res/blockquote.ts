@@ -1,4 +1,4 @@
-import { Component, HostBinding, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component( {
   selector: 'ck-blockquote',
@@ -6,6 +6,6 @@ import { Component, HostBinding, input } from '@angular/core';
     templateUrl: './blockquote.html',
     host: { 'class': 'ck-blockquote' }
 } )
-export class BlockquoteComponent {
+export class Blockquote {
     message = input.required<string>();
 }

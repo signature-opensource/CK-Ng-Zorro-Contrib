@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   ActionBarContent,
-  ActionBarComponent as CKActionBarComponent,
-  LayoutContentComponent,
+  ActionBar as CKActionBarComponent,
+  LayoutContent,
 } from '@local/ck-gen';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 
@@ -14,14 +14,14 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
   imports: [
     CommonModule,
     FormsModule,
-    LayoutContentComponent,
+    LayoutContent,
     CKActionBarComponent,
     NzDividerModule
   ],
   templateUrl: './action-bar.html',
   styleUrl: './action-bar.less',
 } )
-export class ActionBarComponent {
+export class ActionBar {
   actions: ActionBarContent<ActionBarData>;
 
   constructor() {
@@ -41,6 +41,15 @@ export class ActionBarComponent {
       isDanger: true,
       name: 'right',
       shouldBeDisplayed: () => true,
+    } );
+
+    this.actions.right.push( {
+      displayName: 'Disabled',
+      execute: () => { },
+      isDanger: true,
+      name: 'right',
+      shouldBeDisplayed: () => true,
+      shouldBeDisabled: () => true
     } );
   }
 }

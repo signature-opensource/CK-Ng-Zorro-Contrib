@@ -1,0 +1,72 @@
+ck-adaptive-page-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1%;
+  overflow-y: auto;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: @ck-adaptive-page-layout-padding;
+  border-radius: @ck-adaptive-page-layout-border;
+  background-color: @ck-adaptive-page-layout-bg-color;
+}
+
+.ck-adaptive-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+
+  .title {
+    font-weight: @ck-adaptive-page-header-font-weight;
+    font-size: @ck-adaptive-page-header-font-size;
+  }
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+
+  &.complete {
+    border-color: @primary-color;
+  }
+
+  &.incomplete {
+    border-color: @primary-color;
+    border-style: dashed;
+  }
+
+  .ck-btn-icon {
+    color: @primary-color;
+  }
+
+  .count-badge {
+    color: @primary-color;
+    border-radius: @ck-border-radius;
+    font-weight: @font-weight-bold;
+  }
+}
+
+.filter-popover-title {
+    font-size: @regular-font-size;
+}
+
+.filter-choices-container {
+    padding-bottom: 5%;
+}
+
+.ck-adaptive-page-filters,
+.ck-adaptive-page-actions {
+    flex: 0.5;
+
+    &.empty {
+        flex: 0;
+    }
+}
+
+.ck-adaptive-page-content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 8.5;
+}
