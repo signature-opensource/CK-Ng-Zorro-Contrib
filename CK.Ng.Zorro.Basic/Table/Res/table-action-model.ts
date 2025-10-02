@@ -9,5 +9,5 @@ export interface TableAction<T> {
     tooltip?: string;
     execute: (item: T) => void;
     shouldBeDisplayed: (item: T) => boolean;
-    shouldBeDisabled: (item: T) => boolean;
+    shouldBeDisabled?: (item: T) => boolean;
 }

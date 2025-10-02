@@ -6,7 +6,7 @@ using CK.TypeScript;
 namespace CK.Ng.Zorro;
 
 [NgComponent]
-[Package<BackOfficePackage>]
+[Package<ZorroBackOfficePackage>]
 [TypeScriptFile( "navigation-model.ts", "NavigationSection", "NavigationItem" )]
 [TypeScriptFile( "version-infos-model.ts", "VersionInfos" )]
 public sealed class SideBarComponent : NgComponent

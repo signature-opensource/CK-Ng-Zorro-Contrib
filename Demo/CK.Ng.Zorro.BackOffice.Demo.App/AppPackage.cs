@@ -4,7 +4,7 @@ using CK.TypeScript;
 namespace CK.Ng.Zorro.BackOffice.Demo.App;
 
 [TypeScriptPackage]
-[Requires<BackOfficePackage>]
+[Requires<ZorroBackOfficePackage>]
 [Requires<BlockquoteComponent>]
 [Requires<GenericFormComponent>]
 [Requires<LoaderComponent>]

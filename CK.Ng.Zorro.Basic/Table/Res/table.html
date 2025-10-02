@@ -133,13 +133,13 @@
                                     @if (a.isDanger) {
                                         @if (a.tooltip && a.tooltip.length > 0) {
                                             <!-- Danger + Tooltip + DisplayedName -->
-                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" (click)="a.execute(data)" [nzType]="a.type">
+                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" (click)="execAction($event, a, data)" [nzType]="a.type">
                                                 <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
                                                 {{ a.displayedName }}
                                             </button>
                                         } @else {
                                             <!-- Danger + DisplayedName -->
-                                            <button nz-button nzDanger [nzType]="a.type" (click)="a.execute(data)">
+                                            <button nz-button nzDanger [nzType]="a.type" (click)="execAction($event, a, data)">
                                                 <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
                                                 {{ a.displayedName }}
                                             </button>
@@ -147,13 +147,13 @@
                                     } @else {
                                         @if (a.tooltip && a.tooltip.length > 0) {
                                             <!-- Tooltip + DisplayedName -->
-                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="a.execute(data)">
+                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)">
                                                 <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
                                                 {{ a.displayedName }}
                                             </button>
                                         } @else {
                                             <!-- DisplayedName -->
-                                            <button nz-button [nzType]="a.type" (click)="a.execute(data)">
+                                            <button nz-button [nzType]="a.type" (click)="execAction($event, a, data)">
                                                 <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
                                                 {{ a.displayedName }}
                                             </button>
@@ -163,24 +163,24 @@
                                     @if (a.isDanger) {
                                         @if (a.tooltip && a.tooltip.length > 0) {
                                             <!-- Danger + Tooltip -->
-                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="a.execute(data)">
+                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)">
                                                 <fa-icon [icon]="a.icon"></fa-icon>
                                             </button>
                                         } @else {
                                             <!-- Danger -->
-                                            <button nz-button nzDanger [nzType]="a.type" (click)="a.execute(data)">
+                                            <button nz-button nzDanger [nzType]="a.type" (click)="execAction($event, a, data)">
                                                 <fa-icon [icon]="a.icon"></fa-icon>
                                             </button>
                                         }
                                     } @else {
                                         @if (a.tooltip && a.tooltip.length > 0) {
                                             <!-- Tooltip -->
-                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="a.execute(data)">
+                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)">
                                                 <fa-icon [icon]="a.icon"></fa-icon>
                                             </button>
                                         } @else {
                                             <!-- Nothing -->
-                                            <button nz-button [nzType]="a.type" (click)="a.execute(data)">
+                                            <button nz-button [nzType]="a.type" (click)="execAction($event, a, data)">
                                                 <fa-icon [icon]="a.icon"></fa-icon>
                                             </button>
                                         }

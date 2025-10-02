@@ -67,7 +67,7 @@
                 @if (displayNotifIcon()) {
                     <fa-icon class="ck-backoffice-mobile-bar-icons" [icon]="bellIcon" (click)="openNotifications()"></fa-icon>
                 }
-                <fa-icon class="ck-backoffice-mobile-bar-icons" [icon]="userIcon" (click)="goToProfile()"></fa-icon>
+                <ck-user-info-box />
                 <fa-icon class="ck-backoffice-mobile-bar-icons" [icon]="barsIcon" (click)="isMenuOpen = true"></fa-icon>
             </div>
         </ng-container>

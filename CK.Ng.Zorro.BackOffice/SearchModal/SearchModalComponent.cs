@@ -5,7 +5,7 @@ using CK.TS.Angular;
 namespace CK.Ng.Zorro;
 
 [NgComponent]
-[Package<BackOfficePackage>]
+[Package<ZorroBackOfficePackage>]
 public sealed class SearchModalComponent : NgComponent
 {
 }
