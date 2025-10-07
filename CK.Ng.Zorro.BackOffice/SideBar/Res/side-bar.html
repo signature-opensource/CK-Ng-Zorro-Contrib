@@ -3,7 +3,7 @@
         @if (!collapsed()) {
             <img [src]="logoSrc()" (click)="clickLogo()" />
         }
-        <fa-icon class="collapse-button" [icon]="barsIcon" (click)="toggleCollapse()"></fa-icon>
+        <fa-icon class="collapse-button" [icon]="barsIcon" (click)="toggleCollapse()" />
     </div>
     <div class="ck-sidebar-navigation-items">
         @if (showGlobalSearchBtn()) {
@@ -12,7 +12,7 @@
                 [nz-tooltip]="isCollapsed() ? getSearchTooltip() : ''"
                 nzTooltipPlacement="right"
                 (click)="openSearchModal()">
-                <fa-icon [icon]="searchIcon" class="search"></fa-icon>
+                <fa-icon [icon]="searchIcon" class="search" />
                 @if (!collapsed()) {
                     <span class="label">{{ 'Button.Search' | translate }}</span>
                 }
@@ -32,7 +32,7 @@
                             (click)="itemClicked($event, item)"
                             (auxclick)="handleAuxClick($event, item)">
                             @if (item.icon) {
-                                <fa-icon class="ck-btn-icon" [icon]="item.icon"> </fa-icon>
+                                <fa-icon class="ck-btn-icon" [icon]="item.icon" />
                             } @else {
                                 @if (item.label.length > 0) {
                                     {{ item.label[0] }}
@@ -48,7 +48,7 @@
                                     (click)="itemClicked($event, child)"
                                     (auxclick)="handleAuxClick($event, child)">
                                     @if (child.icon) {
-                                        <fa-icon class="ck-btn-icon" [icon]="child.icon"> </fa-icon>
+                                        <fa-icon class="ck-btn-icon" [icon]="child.icon" />
                                     } @else {
                                         @if (child.label.length > 0) {
                                             {{ child.label[0] }}
@@ -87,7 +87,12 @@
                                     </li>
                                 </ul>
                             } @else {
-                                <li nz-menu-item [nzSelected]="item.isActive" (click)="itemClicked($event, item)">{{ item.label }}</li>
+                                <li [class]="getNavItemChildClass(item)" nz-menu-item [nzSelected]="item.isActive" (click)="itemClicked($event, item)">
+                                    @if (item.icon) {
+                                        <fa-icon class="ck-btn-icon" [icon]="item.icon" />
+                                    }
+                                    {{ item.label }}
+                                </li>
                             }
                         }
                     </ul>

@@ -5,7 +5,8 @@ using CK.TS.Angular;
 namespace CK.Ng.Zorro;
 
 [NgComponent]
-[Package<BackOfficePackage>]
+[Package<ZorroBackOfficePackage>]
+[Requires<INgUserInfoBoxComponent>]
 public sealed class MobileBarComponent : NgComponent
 {
 }

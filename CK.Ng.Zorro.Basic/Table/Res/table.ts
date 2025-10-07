@@ -1,10 +1,11 @@
 import { Component, WritableSignal, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faQuestion, faTableColumns } from '@fortawesome/free-solid-svg-icons';
-import { Subject, debounceTime, distinctUntilChanged, first } from 'rxjs';
+import { Subject, debounceTime, first } from 'rxjs';
 import { faClose, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
@@ -253,7 +254,7 @@ export class Table<T> {
     }
 
     setupSearchDebouncer(): void {
-        this.#searchDecouncer$.pipe( debounceTime( this.searchbarDebounceTime() ), distinctUntilChanged() ).subscribe( ( term: string ) => {
+        this.#searchDecouncer$.pipe( debounceTime( this.searchbarDebounceTime() ), takeUntilDestroyed() ).subscribe( ( term: string ) => {
             if ( this.debouncing ) {
                 this.debouncing = false;
                 this.searchString = term;
@@ -300,5 +301,11 @@ export class Table<T> {
         this.displayedColumns.set( [] );
         this.columnsConfig.set( [] );
         this.columns().forEach( c => c.hidden = true );
+    }
+
+    execAction( event: Event, action: TableAction<T>, data: T ): void {
+        action.execute( data );
+        event.preventDefault();
+        event.stopPropagation();
     }
 }

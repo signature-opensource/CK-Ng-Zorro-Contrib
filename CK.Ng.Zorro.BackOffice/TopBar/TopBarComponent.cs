@@ -5,7 +5,7 @@ using CK.TypeScript;
 
 namespace CK.Ng.Zorro;
 [NgComponent]
-[Package<BackOfficePackage>]
+[Package<ZorroBackOfficePackage>]
 [TypeScriptFile( "wcs-type-model.ts", "WCSType" )]
 [Requires<INgUserInfoBoxComponent>]
 public sealed class TopBarComponent : NgComponent
