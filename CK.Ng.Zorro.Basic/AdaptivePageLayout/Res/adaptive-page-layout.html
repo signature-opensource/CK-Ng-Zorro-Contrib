@@ -7,7 +7,7 @@
 @if(filters()) {
     <button nz-button
             nzType="default"
-            [class]="selectedFilters.length === filters.length ? 'filter-btn complete' : selectedFilters.length > 0 ? 'filter-btn incomplete' : 'filter-btn'"
+            [class]="selectedFilters.length === filters()!.length ? 'filter-btn complete' : selectedFilters.length > 0 ? 'filter-btn incomplete' : 'filter-btn'"
             nz-popover
             [nzPopoverTitle]="filterPopoverTitle"
             nzPopoverTrigger="click"
