@@ -1,6 +1,8 @@
-<header class="ck-adaptive-page-header">
-    <span class="title">{{ title() }}</span>
-</header>
+@if( title().length ) {
+    <header class="ck-adaptive-page-header">
+        <span class="title">{{ title() }}</span>
+    </header>
+}
 
 @if(filters()) {
     <button nz-button
