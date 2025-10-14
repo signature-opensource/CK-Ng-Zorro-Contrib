@@ -4,6 +4,7 @@ using CK.TS.Angular;
 using CK.TypeScript;
 
 namespace CK.Ng.Zorro;
+
 [NgComponent]
 [Package<ZorroBackOfficePackage>]
 [TypeScriptFile( "wcs-type-model.ts", "WCSType" )]
