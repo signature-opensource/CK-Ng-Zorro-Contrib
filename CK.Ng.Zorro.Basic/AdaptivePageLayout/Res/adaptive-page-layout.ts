@@ -1,4 +1,4 @@
-import { Component, computed, input, linkedSignal, TemplateRef } from '@angular/core';
+import { Component, computed, input, linkedSignal, output, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -38,6 +38,7 @@ export class AdaptivePageLayout<T> {
   itemUniqueKey = input.required<keyof T>();
   columns = input.required<Array<TableColumn<T>>>();
   itemTemplateRef = input.required<TemplateRef<{ $implicit: T }>>();
+  pageSize = input<number>( 10 );
   actions = input<ActionBarContent<T>>();
   itemActions = input<Array<TableAction<T>>>();
   searchbarEnabled = input<boolean>( true );
@@ -45,6 +46,8 @@ export class AdaptivePageLayout<T> {
   searchFunc = input<( input: string ) => Array<T>>();
   filters = input<Array<Filter<unknown>>>();
   filterFunc = input<() => Array<T>>();
+  pageSizeSet = output<number>();
+  columnsSet = output<void>();
 
   readonly filterIcon = faFilter;
 

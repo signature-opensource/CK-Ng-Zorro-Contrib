@@ -42,13 +42,16 @@
 <div class="ck-adaptive-page-content">
     <ng-container *appResponsive="'(min-width: 1025px)'">
         <ck-table [dataUniqueKey]="itemUniqueKey()"
+                  [defaultPageSize]="pageSize()"
                   [columns]="columns()"
                   [tableData]="displayedItems()"
                   [tableActions]="itemActions() ?? []"
                   [searchbarEnabled]="searchbarEnabled()"
                   [searchbarDebounceTime]="searchbarDebounceTime()"
                   (searchRequested)="search($event)"
-                  (searchCleared)="clearSearch()" />
+                  (searchCleared)="clearSearch()"
+                  (pageSizeChanged)="pageSizeSet.emit($event)"
+                  (columnsChanged)="columnsSet.emit()" />
     </ng-container>
     <ng-container *appResponsive="'(max-width: 1024px)'">
         <ck-list-view [items]="displayedItems()"
