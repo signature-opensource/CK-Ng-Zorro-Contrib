@@ -1,4 +1,4 @@
-import { Component, computed, input, linkedSignal, output, TemplateRef } from '@angular/core';
+import { Component, computed, effect, input, linkedSignal, output, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -8,8 +8,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule, NzCheckboxOption } from 'ng-zorro-antd/checkbox';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
-import { ActionBar, ActionBarContent, Filter, Filters, ListView, ResponsiveDirective, Table, TableAction, TableColumn } from '@local/ck-gen';
+import { ActionBar, ActionBarContent, Filter, Filters, LayoutRadioChoice, ListView, ResponsiveDirective, Table, TableAction, TableColumn } from '@local/ck-gen';
 
 @Component( {
   selector: 'ck-adaptive-page-layout',
@@ -22,6 +23,7 @@ import { ActionBar, ActionBarContent, Filter, Filters, ListView, ResponsiveDirec
     NzCheckboxModule,
     NzListModule,
     NzPopoverModule,
+    NzRadioModule,
     NzTooltipModule,
     FontAwesomeModule,
     TranslateModule,
@@ -46,6 +48,9 @@ export class AdaptivePageLayout<T> {
   searchFunc = input<( input: string ) => Array<T>>();
   filters = input<Array<Filter<unknown>>>();
   filterFunc = input<() => Array<T>>();
+  radioChoices = input<Array<LayoutRadioChoice>>();
+  radioValue = input<LayoutRadioChoice>();
+  radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
   columnsSet = output<void>();
 
@@ -54,6 +59,13 @@ export class AdaptivePageLayout<T> {
   displayedItems = linkedSignal( () => this.items() );
   selectedFilters: Array<string> = this.filters()?.filter( f => f.active ).map( f => f.label ) ?? [];
   filterChoices = computed( () => this.filters()?.map( f => { return { label: f.label, value: f.label } as NzCheckboxOption } ) ?? [] );
+
+  constructor() {
+    effect( () => {
+      if ( !this.filters() ) return;
+      this.selectedFilters = this.filters()!.filter( f => f.active ).map( f => f.label );
+    } );
+  }
 
   search( input: string ): void {
     this.displayedItems.set( this.searchFunc ? this.searchFunc()!( input ) : this.items() );
