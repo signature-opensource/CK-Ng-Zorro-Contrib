@@ -50,7 +50,7 @@ export class AdaptivePageLayout<T> {
   filterFunc = input<() => Array<T>>();
   radioChoices = input<Array<LayoutRadioChoice>>();
   radioValue = input<LayoutRadioChoice>();
-  dblClickFunc = input<( item: T ) => Array<T>>();
+  dblClickFunc = input<( item: T ) => void>();
   radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
   columnsSet = output<void>();
