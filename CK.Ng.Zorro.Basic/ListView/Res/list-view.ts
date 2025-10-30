@@ -50,7 +50,7 @@ export class ListView<T> {
 
   doubleClick( item: T ): void {
     if( this.dblClickFunc() ) {
-      this.dblClickFunc()( item );
+      this.dblClickFunc()!( item );
     }
   }
 
