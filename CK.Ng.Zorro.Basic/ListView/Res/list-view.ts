@@ -35,6 +35,7 @@ export class ListView<T> {
 
   searchRequested = output<string>();
   searchCleared = output<void>();
+  dblClicked = output<T>();
 
   searchIcon = faSearch;
   closeIcon = faClose;
@@ -49,9 +50,7 @@ export class ListView<T> {
   }
 
   doubleClick( item: T ): void {
-    if( this.dblClickFunc() ) {
-      this.dblClickFunc()!( item );
-    }
+    this.dblClicked.emit( item );
   }
 
   onSearchInputChange( term: string ): void {
