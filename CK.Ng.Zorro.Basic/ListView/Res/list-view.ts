@@ -31,6 +31,7 @@ export class ListView<T> {
   itemTemplateRef = input.required<TemplateRef<{ $implicit: T }>>();
   searchbarEnabled = input<boolean>( true );
   searchbarDebounceTime = input<number>( 1000 );
+  dblClickFunc = input<( item: T ) => Array<T>>();
 
   searchRequested = output<string>();
   searchCleared = output<void>();
@@ -45,6 +46,12 @@ export class ListView<T> {
 
   constructor() {
     this.setupSearchInputChange();
+  }
+
+  doubleClick( item: T ): void {
+    if( this.dblClickFunc() ) {
+      this.dblClickFunc()( item );
+    }
   }
 
   onSearchInputChange( term: string ): void {

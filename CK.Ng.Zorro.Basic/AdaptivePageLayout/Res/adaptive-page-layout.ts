@@ -50,6 +50,7 @@ export class AdaptivePageLayout<T> {
   filterFunc = input<() => Array<T>>();
   radioChoices = input<Array<LayoutRadioChoice>>();
   radioValue = input<LayoutRadioChoice>();
+  dblClickFunc = input<( item: T ) => Array<T>>();
   radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
   columnsSet = output<void>();
@@ -65,6 +66,12 @@ export class AdaptivePageLayout<T> {
       if ( !this.filters() ) return;
       this.selectedFilters = this.filters()!.filter( f => f.active ).map( f => f.label );
     } );
+  }
+
+  doubleClick( item: T ): void {
+    if( this.dblClickFunc() ) {
+      this.dblClickFunc()( item );
+    }
   }
 
   search( input: string ): void {

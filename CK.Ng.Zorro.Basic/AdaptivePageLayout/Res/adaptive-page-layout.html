@@ -67,7 +67,8 @@
               (searchRequested)="search($event)"
               (searchCleared)="clearSearch()"
               (pageSizeChanged)="pageSizeSet.emit($event)"
-              (columnsChanged)="columnsSet.emit()" />
+              (columnsChanged)="columnsSet.emit()"
+              (dblClicked)="doubleClick($event)" />
   </ng-container>
   <ng-container *appResponsive="'(max-width: 1024px)'">
     <ck-list-view [items]="displayedItems()"
@@ -77,6 +78,7 @@
                   [searchbarEnabled]="searchbarEnabled()"
                   [searchbarDebounceTime]="searchbarDebounceTime()"
                   (searchRequested)="search($event)"
-                  (searchCleared)="clearSearch()" />
+                  (searchCleared)="clearSearch()"
+                  (dblClicked)="doubleClick($event)" />
   </ng-container>
 </div>
