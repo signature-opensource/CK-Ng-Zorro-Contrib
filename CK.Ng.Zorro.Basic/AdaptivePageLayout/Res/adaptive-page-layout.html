@@ -1,63 +1,84 @@
 @if( title().length ) {
-    <header class="ck-adaptive-page-header">
-        <span class="title">{{ title() }}</span>
-    </header>
+  <header class="ck-adaptive-page-header">
+    <span class="title">{{ title() }}</span>
+  </header>
 }
 
-@if(filters()) {
-    <button nz-button
-            nzType="default"
-            [class]="selectedFilters.length === filters()!.length ? 'filter-btn complete' : selectedFilters.length > 0 ? 'filter-btn incomplete' : 'filter-btn'"
-            nz-popover
-            [nzPopoverTitle]="filterPopoverTitle"
-            nzPopoverTrigger="click"
-            [nzPopoverContent]="filterChoice"
-            nzPopoverPlacement="right">
+@if(filters() || (radioValue() && radioChoices())) {
+  <div class="filter-btn-and-radio">
+    @if( filters() ) {
+      <button nz-button
+              nzType="default"
+              [class]="selectedFilters.length === filters()!.length ? 'filter-btn complete' : selectedFilters.length > 0 ? 'filter-btn incomplete' : 'filter-btn'"
+              nz-popover
+              [nzPopoverTitle]="filterPopoverTitle"
+              nzPopoverTrigger="click"
+              [nzPopoverContent]="filterChoice"
+              nzPopoverPlacement="right">
         <fa-icon [icon]="filterIcon" class="ck-btn-icon" />
         {{ 'Button.Filters' | translate }}
         <nz-badge [nzCount]="badgeText" nzStandalone class="count-badge ck-btn-icon-right" />
-    </button>
-    <ng-template #filterPopoverTitle>
-        <span class="filter-popover-title">{{ 'Filters.Instruction' | translate }}</span>
-    </ng-template>
-    <ng-template #filterChoice>
-        <nz-checkbox-group class="filter-choices-container" [nzOptions]="filterChoices()" [(ngModel)]="selectedFilters" (ngModelChange)="updateFilterChecked()" />
-        <div class="filters-actions">
-            <a nz-button nzDanger nzType="link" (click)="clearFilters()" [disabled]="selectedFilters.length === 0">{{ 'Button.DeactivateAll' | translate }}</a>
-            <button nz-button nzType="primary" (click)="activateAllFilters()" [disabled]="selectedFilters.length === filters()!.length">{{ 'Button.ActivateAll' | translate }}</button>
-        </div>
-    </ng-template>
-    <ng-template #badgeText>
-        <span>{{ selectedFilters.length }} / {{ filters()!.length }}</span>
-    </ng-template>
-    <ck-filters [class]="selectedFilters.length ? 'ck-adaptive-page-filters' : 'ck-adaptive-page-filters empty'" [filters]="filters()!" (filtersChanged)="filterData()" />
+      </button>
+    }
+    @if( radioValue() && radioChoices() ) {
+      <nz-radio-group class="radio-choices" [ngModel]="radioValue()" (ngModelChange)="radioValueChanged.emit($event)" nzButtonStyle="solid">
+        @for( opt of radioChoices(); track opt ) {
+          <label nz-radio-button [nzValue]="opt">
+            @if( opt.icon ) {
+              <fa-icon [icon]="opt.icon" [nz-tooltip]="opt.label" />
+            }
+          </label>
+        }
+      </nz-radio-group>
+    }
+  </div>
+
+  <ng-template #filterPopoverTitle>
+    <span class="filter-popover-title">{{ 'Filters.Instruction' | translate }}</span>
+  </ng-template>
+  <ng-template #filterChoice>
+    <nz-checkbox-group class="filter-choices-container" [nzOptions]="filterChoices()" [(ngModel)]="selectedFilters" (ngModelChange)="updateFilterChecked()" />
+    <div class="filters-actions">
+      <a nz-button nzDanger nzType="link" (click)="clearFilters()" [disabled]="selectedFilters.length === 0">{{ 'Button.DeactivateAll' | translate }}</a>
+      <button nz-button nzType="primary" (click)="activateAllFilters()" [disabled]="selectedFilters.length === filters()!.length">{{ 'Button.ActivateAll' | translate }}</button>
+    </div>
+  </ng-template>
+  <ng-template #badgeText>
+    <span>{{ selectedFilters.length }} / {{ filters()!.length }}</span>
+  </ng-template>
+  <ck-filters [class]="selectedFilters.length ? 'ck-adaptive-page-filters' : 'ck-adaptive-page-filters empty'" [filters]="filters()!" (filtersChanged)="filterData()" />
 }
 
 @if(actions()) {
-    <div class="ck-adaptive-page-actions">
-        <ck-action-bar [actions]="actions()!" />
-    </div>
+  <div class="ck-adaptive-page-actions">
+    <ck-action-bar [actions]="actions()!" />
+  </div>
 }
 
 <div class="ck-adaptive-page-content">
-    <ng-container *appResponsive="'(min-width: 1025px)'">
-        <ck-table [dataUniqueKey]="itemUniqueKey()"
-                  [columns]="columns()"
-                  [tableData]="displayedItems()"
-                  [tableActions]="itemActions() ?? []"
+  <ng-container *appResponsive="'(min-width: 1025px)'">
+    <ck-table [dataUniqueKey]="itemUniqueKey()"
+              [defaultPageSize]="pageSize()"
+              [columns]="columns()"
+              [tableData]="displayedItems()"
+              [tableActions]="itemActions() ?? []"
+              [searchbarEnabled]="searchbarEnabled()"
+              [searchbarDebounceTime]="searchbarDebounceTime()"
+              (searchRequested)="search($event)"
+              (searchCleared)="clearSearch()"
+              (pageSizeChanged)="pageSizeSet.emit($event)"
+              (columnsChanged)="columnsSet.emit()"
+              (dblClicked)="doubleClick($event)" />
+  </ng-container>
+  <ng-container *appResponsive="'(max-width: 1024px)'">
+    <ck-list-view [items]="displayedItems()"
+                  [itemActions]="itemActions() ?? []"
+                  [itemTemplateRef]="itemTemplateRef()"
+                  [itemUniqueKey]="itemUniqueKey()"
                   [searchbarEnabled]="searchbarEnabled()"
                   [searchbarDebounceTime]="searchbarDebounceTime()"
                   (searchRequested)="search($event)"
-                  (searchCleared)="clearSearch()" />
-    </ng-container>
-    <ng-container *appResponsive="'(max-width: 1024px)'">
-        <ck-list-view [items]="displayedItems()"
-                      [itemActions]="itemActions() ?? []"
-                      [itemTemplateRef]="itemTemplateRef()"
-                      [itemUniqueKey]="itemUniqueKey()"
-                      [searchbarEnabled]="searchbarEnabled()"
-                      [searchbarDebounceTime]="searchbarDebounceTime()"
-                      (searchRequested)="search($event)"
-                      (searchCleared)="clearSearch()" />
-    </ng-container>
+                  (searchCleared)="clearSearch()"
+                  (dblClicked)="doubleClick($event)" />
+  </ng-container>
 </div>

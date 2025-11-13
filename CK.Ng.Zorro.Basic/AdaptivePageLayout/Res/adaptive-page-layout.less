@@ -17,28 +17,37 @@ ck-adaptive-page-layout {
   }
 }
 
-.filter-btn {
+.filter-btn-and-radio {
   display: flex;
   align-items: center;
-  margin-right: auto;
 
-  &.complete {
-    border-color: @primary-color;
+  .filter-btn {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+  
+    &.complete {
+      border-color: @primary-color;
+    }
+  
+    &.incomplete {
+      border-color: @primary-color;
+      border-style: dashed;
+    }
+  
+    .ck-btn-icon {
+      color: @primary-color;
+    }
+  
+    .count-badge {
+      color: @primary-color;
+      border-radius: @ck-border-radius;
+      font-weight: @font-weight-bold;
+    }
   }
 
-  &.incomplete {
-    border-color: @primary-color;
-    border-style: dashed;
-  }
-
-  .ck-btn-icon {
-    color: @primary-color;
-  }
-
-  .count-badge {
-    color: @primary-color;
-    border-radius: @ck-border-radius;
-    font-weight: @font-weight-bold;
+  .radio-choices {
+    margin-left: auto;
   }
 }
 

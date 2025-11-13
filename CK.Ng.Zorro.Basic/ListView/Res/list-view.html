@@ -13,7 +13,7 @@
         <nz-list-empty />
     } @else {
         @for( item of displayedItems(); track item[itemUniqueKey()] ) {
-        <nz-list-item class="ck-list-item">
+        <nz-list-item class="ck-list-item" (dblclick)="doubleClick( item )">
             <div class="ck-list-item-left">
                 <ng-template [ngTemplateOutlet]="itemTemplateRef()" [ngTemplateOutletContext]="{ $implicit: item }" />
             </div>
