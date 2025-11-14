@@ -12,7 +12,7 @@ export interface IFormControlConfig<T, TFormValues> {
   type: FormControlType;
   label: string;
   placeholder: string;
-  defaultValue: T;
+  defaultValue: T | T[];
   errorMessages: { [key: string]: string };
   required?: boolean;
   autocomplete?: string;
@@ -29,8 +29,8 @@ export class FormControlConfig<T, TFormValues> implements IFormControlConfig<T, 
   type: FormControlType;
   label: string;
   placeholder: string;
-  value: T;
-  defaultValue: T;
+  value: T | T[];
+  defaultValue: T | T[];
   validators?: ValidatorFn[];
   errorMessages: { [key: string]: string; };
   required?: boolean;
@@ -45,7 +45,7 @@ export class FormControlConfig<T, TFormValues> implements IFormControlConfig<T, 
   constructor(
     type: FormControlType,
     label: string,
-    defaultValue: T,
+    defaultValue: T | T[],
     {
       placeholder = '',
       required,
