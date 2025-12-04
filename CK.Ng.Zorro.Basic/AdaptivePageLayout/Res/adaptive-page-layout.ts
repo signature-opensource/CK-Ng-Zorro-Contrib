@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, linkedSignal, output, signal, TemplateRef, WritableSignal } from '@angular/core';
+import { Component, computed, effect, input, linkedSignal, output, signal, viewChild, TemplateRef, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -59,6 +59,8 @@ export class AdaptivePageLayout<T> {
   pageSizeSet = output<number>();
   columnsSet = output<void>();
   tableSelectionChanged = output<Array<T>>();
+
+  table = viewChild<Table<T>>( 'table' );
 
   readonly filterIcon = faFilter;
 
@@ -148,5 +150,9 @@ export class AdaptivePageLayout<T> {
   updateSelectedItems( items: Array<T> ): void {
     this.selectedItems.set( [...items] );
     this.tableSelectionChanged.emit( items );
+  }
+
+  clearSelection(): void {
+    this.table()?.clearSelection();
   }
 }

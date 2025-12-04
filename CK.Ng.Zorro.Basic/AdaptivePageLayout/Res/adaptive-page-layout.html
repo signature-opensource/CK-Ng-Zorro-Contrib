@@ -67,7 +67,8 @@
     }
   </div>
   <ng-container *appResponsive="'(min-width: 1025px)'">
-    <ck-table [dataUniqueKey]="itemUniqueKey()"
+    <ck-table #table
+              [dataUniqueKey]="itemUniqueKey()"
               [defaultPageSize]="pageSize()"
               [columns]="columns()"
               [tableData]="displayedItems()"
