@@ -51,6 +51,9 @@ export class AdaptivePageLayout<T> {
   radioChoices = input<Array<LayoutRadioChoice>>();
   radioValue = input<LayoutRadioChoice>();
   dblClickFunc = input<( item: T ) => void>();
+  inputRadioFilter = input<string>();
+  radioFilterOptions = input<Array<NzCheckboxOption>>();
+  radioFilterChanged = output<string>();
   radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
   columnsSet = output<void>();
@@ -60,6 +63,7 @@ export class AdaptivePageLayout<T> {
   displayedItems = linkedSignal( () => this.items() );
   selectedFilters: Array<string> = this.filters()?.filter( f => f.active ).map( f => f.label ) ?? [];
   filterChoices = computed( () => this.filters()?.map( f => { return { label: f.label, value: f.label } as NzCheckboxOption } ) ?? [] );
+  radioFilterValue = linkedSignal( () => this.inputRadioFilter() ?? '' );
 
   constructor() {
     effect( () => {
@@ -130,5 +134,10 @@ export class AdaptivePageLayout<T> {
     } );
 
     this.filterData();
+  }
+
+  updateRadioFilterValue( value: string ): void {
+    this.radioFilterValue.set( value );
+    this.radioFilterChanged.emit( value );
   }
 }

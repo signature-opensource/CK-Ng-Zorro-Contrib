@@ -20,16 +20,11 @@
         <nz-badge [nzCount]="badgeText" nzStandalone class="count-badge ck-btn-icon-right" />
       </button>
     }
-    @if( radioValue() && radioChoices() ) {
-      <nz-radio-group class="radio-choices" [ngModel]="radioValue()" (ngModelChange)="radioValueChanged.emit($event)" nzButtonStyle="solid">
-        @for( opt of radioChoices(); track opt ) {
-          <label nz-radio-button [nzValue]="opt">
-            @if( opt.icon ) {
-              <fa-icon [icon]="opt.icon" [nz-tooltip]="opt.label" />
-            }
-          </label>
-        }
-      </nz-radio-group>
+
+    @if(actions()) {
+      <div class="ck-adaptive-page-actions">
+        <ck-action-bar [actions]="actions()!" />
+      </div>
     }
   </div>
 
@@ -49,13 +44,28 @@
   <ck-filters [class]="selectedFilters.length ? 'ck-adaptive-page-filters' : 'ck-adaptive-page-filters empty'" [filters]="filters()!" (filtersChanged)="filterData()" />
 }
 
-@if(actions()) {
-  <div class="ck-adaptive-page-actions">
-    <ck-action-bar [actions]="actions()!" />
-  </div>
-}
-
 <div class="ck-adaptive-page-content">
+  <div class="ck-adaptive-page-radios-row">
+    @if( radioFilterOptions() && radioFilterOptions()!.length > 0 ) {
+      <nz-radio-group class="radio-filter-group" [ngModel]="radioFilterValue()" (ngModelChange)="updateRadioFilterValue($event)" nzButtonStyle="solid" nzSize="large">
+        @for( opt of radioFilterOptions(); track opt ) {
+          <label nz-radio-button [nzValue]="opt.value">{{ opt.label }}</label>
+        }
+      </nz-radio-group>
+    }
+    
+    @if( radioValue() && radioChoices() ) {
+      <nz-radio-group class="radio-choices" [ngModel]="radioValue()" (ngModelChange)="radioValueChanged.emit($event)" nzButtonStyle="solid">
+        @for( opt of radioChoices(); track opt ) {
+          <label nz-radio-button [nzValue]="opt">
+            @if( opt.icon ) {
+              <fa-icon [icon]="opt.icon" [nz-tooltip]="opt.label" />
+            }
+          </label>
+        }
+      </nz-radio-group>
+    }
+  </div>
   <ng-container *appResponsive="'(min-width: 1025px)'">
     <ck-table [dataUniqueKey]="itemUniqueKey()"
               [defaultPageSize]="pageSize()"
