@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, linkedSignal, output, TemplateRef } from '@angular/core';
+import { Component, computed, effect, input, linkedSignal, output, signal, TemplateRef, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -57,6 +57,7 @@ export class AdaptivePageLayout<T> {
   radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
   columnsSet = output<void>();
+  tableSelectionChanged = output<Array<T>>();
 
   readonly filterIcon = faFilter;
 
@@ -64,6 +65,7 @@ export class AdaptivePageLayout<T> {
   selectedFilters: Array<string> = this.filters()?.filter( f => f.active ).map( f => f.label ) ?? [];
   filterChoices = computed( () => this.filters()?.map( f => { return { label: f.label, value: f.label } as NzCheckboxOption } ) ?? [] );
   radioFilterValue = linkedSignal( () => this.inputRadioFilter() ?? '' );
+  selectedItems: WritableSignal<Array<T>> = signal( [] );
 
   constructor() {
     effect( () => {
@@ -139,5 +141,10 @@ export class AdaptivePageLayout<T> {
   updateRadioFilterValue( value: string ): void {
     this.radioFilterValue.set( value );
     this.radioFilterChanged.emit( value );
+  }
+
+  updateSelectedItems( items: Array<T> ): void {
+    this.selectedItems.set( [...items] );
+    this.tableSelectionChanged.emit( items );
   }
 }

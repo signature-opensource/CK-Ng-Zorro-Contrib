@@ -78,6 +78,7 @@
               (searchCleared)="clearSearch()"
               (pageSizeChanged)="pageSizeSet.emit($event)"
               (columnsChanged)="columnsSet.emit()"
+              (selectionChanged)="updateSelectedItems($event)"
               (dblClicked)="doubleClick($event)" />
   </ng-container>
   <ng-container *appResponsive="'(max-width: 1024px)'">
