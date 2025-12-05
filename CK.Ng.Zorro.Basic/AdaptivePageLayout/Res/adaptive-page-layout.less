@@ -72,4 +72,17 @@ ck-adaptive-page-layout {
   display: flex;
   flex-direction: column;
   flex: 8.5;
+
+  .ck-adaptive-page-radios-row {
+    display: flex;
+    align-items: center;
+    
+    .radio-filter-group {
+      user-select: none;
+
+      @media (min-width: @screen-md-min) {
+          padding: 1rem 0;
+      }
+    }
+  }
 }
