@@ -1,0 +1,70 @@
+@import (reference) "./theme.less";
+
+@xxxs: @m * .golden-scale(-4)[];
+@xxs: @m * .golden-scale(-3)[];
+@xs: @m * .golden-scale(-2)[];
+@s: @m * .golden-scale(-1)[];
+@m: 1rem;
+@l: @m * .golden-scale(1)[];
+@xl: @m * .golden-scale(2)[];
+@xxl: @m * .golden-scale(3)[];
+@xxxl: @m * .golden-scale(4)[];
+@xxxxl: @m * .golden-scale(5)[];
+
+each(xxxs xxs xs s m l xl xxl xxxl xxxxl, {
+  .@{ck-prefix}-m-top-@{value} {
+    margin-top: @@value;
+  }
+
+  .@{ck-prefix}-m-right-@{value} {
+    margin-right: @@value;
+  }
+
+  .@{ck-prefix}-m-bottom-@{value} {
+    margin-bottom: @@value;
+  }
+
+  .@{ck-prefix}-m-left-@{value} {
+    margin-left: @@value;
+  }
+
+  .@{ck-prefix}-m-x-@{value} {
+    margin-left: @@value;
+    margin-right: @@value;
+  }
+
+  .@{ck-prefix}-m-y-@{value} {
+    margin-top: @@value;
+    margin-bottom: @@value;
+  }
+
+  .@{ck-prefix}-p-top-@{value} {
+    padding-top: @@value;
+  }
+
+  .@{ck-prefix}-p-right-@{value} {
+    padding-right: @@value;
+  }
+
+  .@{ck-prefix}-p-bottom-@{value} {
+    padding-bottom: @@value;
+  }
+
+  .@{ck-prefix}-p-left-@{value} {
+    padding-left: @@value;
+  }
+
+  .@{ck-prefix}-p-x-@{value} {
+    padding-left: @@value;
+    padding-right: @@value;
+  }
+
+  .@{ck-prefix}-p-y-@{value} {
+    padding-top: @@value;
+    padding-bottom: @@value;
+  }
+
+  .@{ck-prefix}-gap-@{value} {
+    gap: @@value;
+  }
+});

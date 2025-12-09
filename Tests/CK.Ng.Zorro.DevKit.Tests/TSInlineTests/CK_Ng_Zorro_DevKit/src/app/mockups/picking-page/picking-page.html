@@ -1,0 +1,64 @@
+<div class="information-bar ck-gap-m ck-p-right-s">
+  <nz-statistic nzValue="dev-23000100100" nzTitle="Agent" class="ck-m-left-m" />
+  <nz-statistic nzValue="Prélèvement" nzTitle="Mission" />
+  <div class="logo right-aligned">
+    <img ngSrc="signature.png" alt="Signature Logo" fill priority>
+  </div>
+</div>
+
+<div class="sidebar ck-p-top-s">
+  <nz-avatar class="sidebar-avatar ck-m-bottom-s" nzIcon="user" nzSize="large"></nz-avatar>
+  <span class="sidebar-typography username ck-m-bottom-xs" nz-typography>John Doe</span>
+  <span class="sidebar-typography date ck-m-bottom-3xs" nz-typography>Mardi 21 Oct</span>
+  <span class="sidebar-typography time ck-m-bottom-m" nz-typography>13:37:42</span>
+
+  <button nz-button class="sidebar-button">
+    <nz-icon nzType="home" nzTheme="fill" />
+  </button>
+  <button nz-button class="sidebar-button active">
+    <nz-icon nzType="api" nzTheme="fill" />
+  </button>
+  <button nz-button class="sidebar-button">
+    <nz-icon nzType="setting" nzTheme="fill" />
+  </button>
+
+  <button nz-button class="sidebar-button end-aligned">
+    <nz-icon nzType="flag" nzTheme="fill" />
+    <span nz-typography>FR</span>
+  </button>
+</div>
+
+<div class="content">
+  <nz-progress [nzPercent]="42" [nzShowInfo]="false" nzStrokeLinecap="square" [nzStrokeWidth]="14"></nz-progress>
+  <div class="picking-information ck-p-x-xxxxl ck-p-y-xxxxl ck-gap-xxxxl">
+    <nz-card class="product-details-card">
+      <h5 nz-typography class="product-details-header">Code Produit</h5>
+      <p nz-typography class="product-details-value">WWWWWWWWWWWWWWWWWW</p>
+      <h5 nz-typography class="product-details-header">Code Lot</h5>
+      <p nz-typography class="product-details-value">WWWWWWWWWWWWWWWWWW</p>
+      <h5 nz-typography class="product-details-header">Emplacement</h5>
+      <p nz-typography class="product-details-value">303-13-03-00</p>
+      <h5 nz-typography class="product-details-header">Quantité Totale</h5>
+      <p nz-typography class="product-details-value accent">1</p>
+      <h5 nz-typography class="product-details-header">Commentaires</h5>
+      <p nz-typography class="product-details-value accent">Comment displayed SO</p>
+    </nz-card>
+    <nz-card class="instructions-card">
+      <p class="instructions" nz-typography>Allez à l'emplacement et scanner le code barres du produit</p>
+    </nz-card>
+  </div>
+  <div class="action-bar ck-p-x-xl ck-gap-m">
+    <button nz-button nzSize="large">
+      <nz-icon  nzType="barcode" nzTheme="outline" />
+      Saisir
+    </button>
+    <button nz-button nzSize="large" nzDanger class="right-aligned">
+      <nz-icon nzType="warning" nzTheme="outline" />
+      Illisible
+    </button>
+    <button nz-button nzSize="large" nzDanger>
+      <nz-icon nzType="double-right" nzTheme="outline" />
+      Suivant
+    </button>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+@import (reference) "ck-gen/CK/Ng/Zorro/DevKit/DevKit.less";
+
+:host {
+  height: 100%;
+  width: 100%;
+
+
+  @top-padding: @xxl - @l;
+  padding: @top-padding @xxl @l @l;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: @l 3fr 1fr;
+  grid-template-areas:
+    "date logo"
+    "status information"
+    "status details";
+}
+
+.status {
+  grid-area: status;
+  background: linear-gradient(0deg, #007F82 0%, @tiffany-blue 100%);
+
+  display: flex;
+  flex-direction: column;
+
+  > .status-logo {
+    flex: 3;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: @m * .golden-scale(7)[];
+    color: @white;
+  }
+
+  > .status-label {
+    flex: 1;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: @xxxl;
+    color: @white;
+  }
+}
+
+.information {
+  grid-area: information;
+  background: @dim-grey;
+
+  display: flex;
+  flex-direction: column;
+
+  > .information-label {
+    font-size: @m * .golden-scale(1)[];
+    color: @white;
+  }
+
+  > .information-value {
+    font-size: @m * .golden-scale(2)[];
+    color: @white;
+  }
+
+  > .wave {
+    margin-top: auto;
+    font-size: @m * .golden-scale(3)[];
+    color: @white;
+  }
+}
+
+.details {
+  grid-area: details;
+  background: @white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

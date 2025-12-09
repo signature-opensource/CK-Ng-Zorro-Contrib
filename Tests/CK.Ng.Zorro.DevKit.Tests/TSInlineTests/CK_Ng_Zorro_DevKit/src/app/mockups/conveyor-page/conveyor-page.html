@@ -1,0 +1,94 @@
+<div class="information-bar ck-gap-m ck-p-right-s">
+  <div class="status ck-p-x-m">
+    <h5 nz-typography class="status-label">
+      <nz-icon nzType="play-circle" nzTheme="outline" class="ck-p-right-s"/>
+      ACTIF
+    </h5>
+  </div>
+  <nz-statistic nzValue="dev-23000100100" nzTitle="Agent" />
+  <nz-badge [nzCount]="3" class="notifications right-aligned">
+    <button nz-button class="notification-button">
+      <nz-icon nzType="message" nzTheme="outline" />
+    </button>
+  </nz-badge>
+  <div class="logo">
+    <img ngSrc="somefi.png" alt="Somefi Logo" fill priority>
+  </div>
+</div>
+
+<div class="sidebar ck-p-top-s">
+  <nz-avatar class="sidebar-avatar ck-m-bottom-s" nzIcon="user" nzSize="large"></nz-avatar>
+  <span class="sidebar-typography username ck-m-bottom-xs" nz-typography>John Doe</span>
+  <span class="sidebar-typography date ck-m-bottom-3xs" nz-typography>Mardi 21 Oct</span>
+  <span class="sidebar-typography time ck-m-bottom-m" nz-typography>13:37:42</span>
+
+  <button nz-button class="sidebar-button">
+    <nz-icon nzType="home" nzTheme="fill" />
+  </button>
+  <button nz-button class="sidebar-button active">
+    <nz-icon nzType="api" nzTheme="fill" />
+  </button>
+  <button nz-button class="sidebar-button">
+    <nz-icon nzType="setting" nzTheme="fill" />
+  </button>
+
+  <button nz-button class="sidebar-button end-aligned">
+    <nz-icon nzType="flag" nzTheme="fill" />
+    <span nz-typography>FR</span>
+  </button>
+</div>
+
+<div class="content ck-p-x-xl ck-p-y-xl ck-gap-xl">
+  <div class="schematic">
+    <img ngSrc="floor-plan.jpg" alt="Floor plan" fill priority/>
+  </div>
+
+  <nz-card class="widget1 card" [nzTitle]="widget1">
+    <div class="defaults-container">
+      <nz-statistic nzValue="0" nzTitle="Ramp Cible" nzSuffix="s" />
+      <nz-statistic nzValue="40" nzTitle="Vitesse Cible" nzSuffix="%" />
+    </div>
+    <div class="current-speed-container">
+      <nz-progress nzPercent="40" nzType="circle" [nzWidth]="132" [nzFormat]="motorSpeed" class="speedometer"></nz-progress>
+      <ng-template #motorSpeed let-percent>
+        <nz-statistic [nzValue]="percent" nzTitle="Vitesse" nzSuffix="%" class="title-average"/>
+      </ng-template>
+    </div>
+  </nz-card>
+  <ng-template #widget1>
+    <span nz-typography>
+      <nz-icon nzType="setting" nzTheme="outline" class="ck-m-right-xs" />Vitesse Rouleaux Moteurs
+    </span>
+  </ng-template>
+
+  <nz-card class="widget2 card" [nzTitle]="widget2">
+    <nz-progress nzStrokeLinecap="square" nzPercent="85" [nzShowInfo]="false" />
+    <div class="legend ck-m-bottom-xxxs margin-top-l">
+      <span nz-typography>0</span>
+      <span nz-typography>2000</span>
+    </div>
+    <div class="values">
+      <nz-statistic nzValue="1702" nzTitle="Actuel" nzSuffix="p/h" class="value-accent" />
+      <nz-statistic nzValue="2000" nzTitle="Cible" nzSuffix="p/h" />
+    </div>
+  </nz-card>
+  <ng-template #widget2>
+    <span nz-typography>
+      <nz-icon nzType="truck" nzTheme="outline" class="ck-m-right-xs" />Préparations
+    </span>
+  </ng-template>
+
+  <nz-card class="widget3 card">
+    <span nz-typography>
+      Lorem ipsum dolor sit amet qui kasd assum sadipscing rebum mazim ex consetetur.
+      Diam sit takimata ipsum diam. Eum at ex dolore sit vero blandit diam vulputate erat diam diam eum duis et eu.
+      Lorem exerci sadipscing nulla duis sit et et gubergren voluptua sit enim accusam sed sit volutpat et et vulputate.
+      Ea kasd no dolor et ipsum stet amet ut takimata minim et rebum et accusam eros kasd et magna.
+      Amet et clita congue dolore autem.
+    </span>
+  </nz-card>
+
+  <nz-card class="widget4 card">
+
+  </nz-card>
+</div>

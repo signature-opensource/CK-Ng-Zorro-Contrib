@@ -1,0 +1,198 @@
+@import "./colors.less";
+@import (reference) "ng-zorro-antd/ng-zorro-antd.less";
+@import (reference) "./spacings.less";
+@import (reference) "./golden-scale.less";
+
+@theme: signature;
+
+// The prefix to use on all css classes from signature.
+@ck-prefix: ck;
+
+// -------- Colors -----------
+// >>> Primary
+@primary-color: @teal;
+
+@processing-color: @teal;
+
+// >>> Info
+@info-color: @teal;
+
+// >>> Success
+@success-color: @forest-green;
+
+// >>> Warning
+@warning-color: @bright-yellow;
+
+// >>> Error
+@error-color: @sunset-orange;
+
+@highlight-color: @sunset-orange;
+@normal-color: @platinum;
+
+// Base Scaffolding Variables
+// ---
+
+// Background color for `<body>`
+@body-background: @anti-flash-white;
+// Base background color for most components
+@component-background: @white;
+@font-family: 'Helvetica Neue', 'Segoe UI', Arial, -apple-system, BlinkMacSystemFont, Roboto,
+'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+'Noto Color Emoji';
+@text-color: fade(@black, 65%);
+@text-color-secondary: fade(@black, 45%);
+@font-size-base: @m;
+@font-size-lg: @l;
+@font-size-sm: @s;
+@heading-1-size: @xxxxl;
+@heading-2-size: @xxxl;
+@heading-3-size: @xxl;
+@heading-4-size: @xl;
+@heading-5-size: @l;
+@line-height-base: 100%;
+@line-width: 1px;
+@border-radius-base: 0;
+@border-radius-sm: 0;
+@border-radius-lg: 0;
+
+// vertical paddings
+@padding-lg: @l; // containers
+@padding-md: @m; // small containers and buttons
+@padding-sm: @s; // Form controls and items
+@padding-xs: @xs; // small items
+@padding-xss: @xxs; // more small
+
+// vertical margins
+@margin-lg: @l; // containers
+@margin-md: @m; // small containers and buttons
+@margin-sm: @s; // Form controls and items
+@margin-xs: @xs; // small items
+@margin-xss: @xxs; // more small
+
+// height rules
+@height-base: @xl;
+@height-sm: @l;
+@height-lg: @xxl;
+
+// Border color
+@border-color-base: @platinum;
+@border-color-split: @platinum;
+
+// Outline
+@outline-width: 0;
+@outline-color: @dim-grey;
+
+// Buttons
+@btn-default-bg: @sea-salt;
+@btn-default-border: @platinum;
+
+@btn-danger-color: @white;
+@btn-danger-bg: @error-color;
+@btn-danger-border: @error-color;
+
+@btn-font-size-sm: @m;
+@btn-font-size-lg: @l;
+@btn-padding-horizontal-base: @m;
+@btn-padding-horizontal-lg: @l;
+@btn-padding-horizontal-sm: @s;
+
+@btn-square-only-icon-size: @m;
+@btn-square-only-icon-size-sm: @m;
+@btn-square-only-icon-size-lg: @l;
+
+// Checkbox
+@checkbox-size: @m * @halfStep;
+@checkbox-inner-size: @m * @wholeStepDec;
+@checkbox-check-color: @white;
+@checkbox-group-item-margin-right: @xs;
+@checkbox-prefix-cls: ~'@{ant-prefix}-checkbox';
+.@{checkbox-prefix-cls} {
+  &-inner::after {
+    width: @checkbox-inner-size;
+    height: @checkbox-inner-size;
+  }
+}
+
+// Descriptions
+@descriptions-bg: @platinum;
+@descriptions-title-margin-bottom: @s;
+@descriptions-item-label-colon-margin-right: @xs;
+@descriptions-item-label-colon-margin-left: @xxxs;
+
+// Divider
+@divider-text-padding: @m;
+@divider-orientation-margin: @xxl;
+@divider-color: rgba(0, 0, 0, 6%);
+@divider-vertical-gutter: @m;
+
+// Radio
+@radio-size: @m;
+@radio-top: @xxxs;
+@radio-dot-size: @radio-size / 2;
+
+// Radio buttons
+@radio-button-bg: transparent;
+@radio-button-checked-bg: transparent;
+@radio-button-hover-color: @tiffany-blue;
+@radio-button-active-color: @teal;
+@radio-button-padding-horizontal: @padding-md;
+@radio-wrapper-margin-right: @margin-sm;
+.@{radio-prefix-cls} {
+  &-button-wrapper {
+    line-height: @btn-height-base;
+    .@{radio-group-prefix-cls}-large & { line-height: @xxl; }
+    .@{radio-group-prefix-cls}-small & { line-height: @l; }
+  }
+}
+
+// Input
+@input-padding-vertical-base: 0;
+@input-padding-vertical-sm: 0;
+@input-padding-vertical-lg: 0;
+
+// Progress
+@progress-remaining-color: @platinum;
+@progress-radius: 0;
+
+// Card
+// ---
+@card-head-font-size: @font-size-base;
+@card-head-font-size-sm: @font-size-sm;
+@card-head-padding: @m;
+@card-head-padding-sm: @s;
+@card-head-height: @l;
+@card-head-height-sm: @m;
+@card-inner-head-padding: @s;
+@card-padding-base: @l;
+@card-padding-base-sm: @m;
+
+// Alert
+@alert-success-border-color: @forest-green-60;
+@alert-success-bg-color: @forest-green-60;
+@alert-info-border-color: @tiffany-blue-60;
+@alert-info-bg-color: @tiffany-blue-60;
+@alert-error-border-color: @sunset-orange-60;
+@alert-error-bg-color: @sunset-orange-60;
+@alert-warning-border-color: @bright-yellow-60;
+@alert-warning-bg-color: @bright-yellow-60;
+@alert-padding-vertical: @m;
+@alert-padding-horizontal: @m;
+@alert-no-icon-padding-vertical: @s;
+@alert-with-description-no-icon-padding-vertical: @s;
+@alert-with-description-padding-vertical: @l;
+@alert-with-description-padding: @alert-with-description-padding-vertical @s
+@alert-with-description-no-icon-padding-vertical @m;
+@alert-with-description-icon-size: @l;
+.@{alert-prefix-cls} {
+  &-description { line-height: @l; }
+}
+
+// Statistic
+@statistic-title-font-size: @font-size-base;
+@statistic-content-font-size: @font-size-lg;
+@statistic-unit-font-size: @font-size-lg;
+.@{statistic-prefix-cls} {
+  &-content { height: @l; }
+  .title-average &-title { text-decoration: overline; }
+  .value-accent &-content-value, .content-accent &-content { color: @primary-color; }
+}

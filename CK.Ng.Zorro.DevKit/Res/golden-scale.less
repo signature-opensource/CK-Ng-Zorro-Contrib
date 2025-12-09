@@ -1,0 +1,15 @@
+@phi: 1.618;
+
+@wholeStep: 1.618;
+@halfStep: 1.272;
+@quarterStep: 1.128;
+@eighthStep: 1.062;
+
+@wholeStepDec: 0.618;
+@halfStepDec: 0.272;
+@quarterStepDec: 0.128;
+@eighthStepDec: 0.062;
+
+.golden-scale(@ratio) {
+  @result: pow(@phi, @ratio);
+}

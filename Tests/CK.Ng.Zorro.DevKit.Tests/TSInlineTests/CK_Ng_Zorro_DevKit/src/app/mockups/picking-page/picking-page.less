@@ -1,0 +1,187 @@
+@import (reference) 'ck-gen/CK/Ng/Zorro/DevKit/DevKit.less';
+
+@sidebar-size: 5rem;
+@topbar-size: unit(@wholeStepDec * 10, %);
+
+:host {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: @sidebar-size 1fr;
+  grid-template-rows: @topbar-size 1fr;
+  grid-template-areas:
+    "sidebar topbar"
+    "sidebar content";
+}
+
+.information-bar {
+  grid-area: topbar;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @information-bar-color: @white;
+  background-color: @information-bar-color;
+
+  .information-bar-label() {
+    height: 100%;
+    margin: 0;
+  }
+
+  > .right-aligned {
+    margin-left: auto;
+  }
+
+  > .status {
+    height: 100%;
+    line-height: 100%;
+
+    background-color: @tiffany-blue;
+
+    > .status-label {
+      .information-bar-label();
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: @information-bar-color;
+    }
+  }
+
+  > .notifications {
+    > .notification-button {
+      border: none;
+      background-color: @information-bar-color;
+    }
+  }
+
+  > .logo {
+    position: relative;
+    height: 80%;
+    width: 100px;
+
+    > img {
+      object-fit: contain;
+    }
+  }
+}
+
+.sidebar {
+  grid-area: sidebar;
+  height: 100vh;
+
+  @sidebar-background: @maastricht-blue;
+  @sidebar-accent: @anti-flash-white;
+
+  background-color: @sidebar-background;
+  width: @sidebar-size;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-typography {
+    color: @white;
+    font-size: @s;
+  }
+
+  &-button {
+    width: @sidebar-size;
+    height: @sidebar-size;
+    background-color: @sidebar-background;
+    color: @sidebar-accent;
+    border: none;
+
+    > nz-icon {
+      font-size: @l;
+    }
+
+    > span {
+      color: @white;
+      font-size: @m;
+      transition: @animation-duration-slow @ease-in-out;
+    }
+
+    &:hover, &:focus, &.active /*#extends: &:active*/ {
+      &:extend(:active);
+      background-color: @sidebar-accent;
+      color: @sidebar-background;
+
+      > span {
+        color: @sidebar-background;
+      }
+    }
+
+    &:active {
+      border: 1px solid @primary-color;
+    }
+
+    &.end-aligned {
+      margin-top: auto;
+    }
+  }
+}
+
+.content {
+  grid-area: content;
+  height: calc(100vh - @topbar-size - 4px); // FIXME: 4px is a magic number that should be removed
+
+  display: flex;
+  flex-direction: column;
+
+  > .picking-information {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    > .product-details-card {
+      flex: 1;
+      display: flex;
+      align-items: center;
+
+      .product-details-header {
+        font-size: @l;
+        line-height: 100%;
+      }
+
+      .product-details-value {
+        color: @primary-color;
+        font-size: @l;
+        line-height: 100%;
+
+        &.accent {
+          color: @tiffany-blue;
+        }
+      }
+    }
+
+    > .instructions-card {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .instructions {
+        font-size: @xl;
+        line-height: 100%;
+        text-align: center;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  > .action-bar {
+    height: 1.5 * @topbar-size;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    > .right-aligned {
+      margin-left: auto;
+    }
+  }
+}
