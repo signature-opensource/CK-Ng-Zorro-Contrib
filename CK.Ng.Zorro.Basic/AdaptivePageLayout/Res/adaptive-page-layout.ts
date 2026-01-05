@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, linkedSignal, output, TemplateRef } from '@angular/core';
+import { Component, computed, effect, input, linkedSignal, output, signal, viewChild, TemplateRef, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -51,15 +51,24 @@ export class AdaptivePageLayout<T> {
   radioChoices = input<Array<LayoutRadioChoice>>();
   radioValue = input<LayoutRadioChoice>();
   dblClickFunc = input<( item: T ) => void>();
+  inputRadioFilter = input<string>();
+  radioFilterOptions = input<Array<NzCheckboxOption>>();
+  filterByRadioFunc = input<( value: string ) => Array<T>>();
+  radioFilterChanged = output<string>();
   radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
   columnsSet = output<void>();
+  tableSelectionChanged = output<Array<T>>();
+
+  table = viewChild<Table<T>>( 'table' );
 
   readonly filterIcon = faFilter;
 
   displayedItems = linkedSignal( () => this.items() );
   selectedFilters: Array<string> = this.filters()?.filter( f => f.active ).map( f => f.label ) ?? [];
   filterChoices = computed( () => this.filters()?.map( f => { return { label: f.label, value: f.label } as NzCheckboxOption } ) ?? [] );
+  radioFilterValue = linkedSignal( () => this.inputRadioFilter() ?? '' );
+  selectedItems: WritableSignal<Array<T>> = signal( [] );
 
   constructor() {
     effect( () => {
@@ -130,5 +139,20 @@ export class AdaptivePageLayout<T> {
     } );
 
     this.filterData();
+  }
+
+  updateRadioFilterValue( value: string ): void {
+    this.radioFilterValue.set( value );
+    this.radioFilterChanged.emit( value );
+    this.displayedItems.set( this.filterByRadioFunc ? this.filterByRadioFunc()!( value ) : this.items() );
+  }
+
+  updateSelectedItems( items: Array<T> ): void {
+    this.selectedItems.set( [...items] );
+    this.tableSelectionChanged.emit( items );
+  }
+
+  clearSelection(): void {
+    this.table()?.clearSelection();
   }
 }
