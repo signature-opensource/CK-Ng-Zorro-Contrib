@@ -1,7 +1,7 @@
 @if (searchbarEnabled()) {
     <div class="ck-list-view-searchbar">
         <fa-icon class="ck-list-view-search-icon search" [icon]="searchIcon"></fa-icon>
-        <input nz-input [(ngModel)]="searchString" (ngModelChange)="onSearchInputChange($event)" />
+        <input nz-input [ngModel]="searchString" (ngModelChange)="onSearchInputChange($event)" />
         @if (debouncing) {
             <span nz-icon nzType="loading" nzTheme="outline"></span>
         }

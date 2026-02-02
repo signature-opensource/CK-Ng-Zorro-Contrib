@@ -49,6 +49,7 @@ export class Table<T> {
   dataUniqueKey = input.required<keyof T>();
   defaultPageSize = input<number>( 10 );
   defaultPageIndex = input<number>( 1 );
+  defaultSearchString = input<string>( '' );
   selectableRows = input<boolean>( true );
   showPageSizeOptions = input<boolean>( true );
   pageSizeOptions = input<Array<number>>( [10, 20, 30, 40, 50] );
@@ -77,12 +78,11 @@ export class Table<T> {
 
   #searchDecouncer$: Subject<string> = new Subject();
   #selectedItems = signal<Array<T>>( [] );
-  public displayedData: Array<T> = [];
   public displayedColumns = linkedSignal( () => this.columns().filter( c => !c.hidden ) );
-  public pageSize = signal<number>( this.defaultPageSize() );
-  public pageIndex = signal<number>( this.defaultPageIndex() );
+  public pageSize = linkedSignal( () => this.defaultPageSize() );
+  public pageIndex = linkedSignal( () => this.defaultPageIndex() );
   public debouncing: boolean = false;
-  public searchString: string = '';
+  public searchString = linkedSignal( () => this.defaultSearchString() );
   public columnChoices = computed( () => this.columns().map( f => { return { label: f.displayedName, value: f.name } as NzCheckboxOption } ) );
   public columnsConfig: WritableSignal<Array<keyof T>> = linkedSignal( () => this.displayedColumns().map( c => c.name ) );
   public searchLabel: WritableSignal<string> = linkedSignal( () => this.searchButtonTitle() );
@@ -237,7 +237,7 @@ export class Table<T> {
 
   requestSearch( s: string ): void {
     if ( s.length > 0 ) {
-      this.searchString = s;
+      this.searchString.set( s );
       this.searchRequested.emit( s );
     } else {
       this.clearSearch();
@@ -251,14 +251,14 @@ export class Table<T> {
   }
 
   clearSearchString(): void {
-    this.searchString = '';
+    this.searchString.set( '' );
   }
 
   setupSearchDebouncer(): void {
     this.#searchDecouncer$.pipe( debounceTime( this.searchbarDebounceTime() ), takeUntilDestroyed() ).subscribe( ( term: string ) => {
       if ( this.debouncing ) {
         this.debouncing = false;
-        this.searchString = term;
+        this.searchString.set( term );
         this.requestSearch( term );
       }
     } );

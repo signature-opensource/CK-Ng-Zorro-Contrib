@@ -31,6 +31,7 @@ export class ListView<T> {
   itemTemplateRef = input.required<TemplateRef<{ $implicit: T }>>();
   searchbarEnabled = input<boolean>( true );
   searchbarDebounceTime = input<number>( 1000 );
+  defaultSearchString = input<string>( '' );
   dblClickFunc = input<( item: T ) => Array<T>>();
 
   searchRequested = output<string>();
@@ -42,7 +43,7 @@ export class ListView<T> {
 
   #searchDecouncer$: Subject<string> = new Subject();
   protected displayedItems = linkedSignal( () => this.items() );
-  protected searchString = '';
+  protected searchString = linkedSignal( () => this.defaultSearchString() );
   protected debouncing = false;
 
   constructor() {
@@ -69,7 +70,7 @@ export class ListView<T> {
 
   requestSearch( s: string ): void {
     if ( s.length > 0 ) {
-      this.searchString = s;
+      this.searchString.set( s );
       this.searchRequested.emit( s );
     } else {
       this.clearSearch();
@@ -77,7 +78,7 @@ export class ListView<T> {
   }
 
   clearSearch(): void {
-    this.searchString = '';
+    this.searchString.set( '' );
     this.searchCleared.emit();
     this.displayedItems.set( this.items() );
   }

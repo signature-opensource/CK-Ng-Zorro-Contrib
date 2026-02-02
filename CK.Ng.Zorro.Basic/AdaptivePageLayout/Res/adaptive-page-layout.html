@@ -70,6 +70,8 @@
     <ck-table #table
               [dataUniqueKey]="itemUniqueKey()"
               [defaultPageSize]="pageSize()"
+              [defaultPageIndex]="pageIndex()"
+              [defaultSearchString]="searchString()"
               [columns]="columns()"
               [tableData]="displayedItems()"
               [tableActions]="itemActions() ?? []"
@@ -78,6 +80,7 @@
               (searchRequested)="search($event)"
               (searchCleared)="clearSearch()"
               (pageSizeChanged)="pageSizeSet.emit($event)"
+              (pageIndexChanged)="onPageIndexChanged($event)"
               (columnsChanged)="columnsSet.emit()"
               (selectionChanged)="updateSelectedItems($event)"
               (dblClicked)="doubleClick($event)" />
@@ -89,6 +92,7 @@
                   [itemUniqueKey]="itemUniqueKey()"
                   [searchbarEnabled]="searchbarEnabled()"
                   [searchbarDebounceTime]="searchbarDebounceTime()"
+                  [defaultSearchString]="searchString()"
                   (searchRequested)="search($event)"
                   (searchCleared)="clearSearch()"
                   (dblClicked)="doubleClick($event)" />

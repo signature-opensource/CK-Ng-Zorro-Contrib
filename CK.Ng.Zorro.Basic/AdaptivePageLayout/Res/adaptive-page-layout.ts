@@ -41,6 +41,8 @@ export class AdaptivePageLayout<T> {
   columns = input.required<Array<TableColumn<T>>>();
   itemTemplateRef = input.required<TemplateRef<{ $implicit: T }>>();
   pageSize = input<number>( 10 );
+  pageIndex = input<number>( 1 );
+  searchString = input<string>( '' );
   actions = input<ActionBarContent<T>>();
   itemActions = input<Array<TableAction<T>>>();
   searchbarEnabled = input<boolean>( true );
@@ -57,6 +59,9 @@ export class AdaptivePageLayout<T> {
   radioFilterChanged = output<string>();
   radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
+  pageIndexChanged = output<number>();
+  searchStringChanged = output<string>();
+  searchCleared = output<void>();
   columnsSet = output<void>();
   tableSelectionChanged = output<Array<T>>();
 
@@ -85,10 +90,16 @@ export class AdaptivePageLayout<T> {
 
   search( input: string ): void {
     this.displayedItems.set( this.searchFunc ? this.searchFunc()!( input ) : this.items() );
+    this.searchStringChanged.emit( input );
   }
 
   clearSearch(): void {
     this.displayedItems.set( this.items() );
+    this.searchCleared.emit();
+  }
+
+  onPageIndexChanged( index: number ): void {
+    this.pageIndexChanged.emit( index );
   }
 
   filterData(): void {
