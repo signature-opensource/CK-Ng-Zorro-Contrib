@@ -55,7 +55,7 @@ export class AdaptivePageLayout<T> {
   dblClickFunc = input<( item: T ) => void>();
   inputRadioFilter = input<string>();
   radioFilterOptions = input<Array<NzCheckboxOption>>();
-  filterByRadioFunc = input<( value: string ) => Array<T>>();
+  filterByRadioFunc = input<( value: string ) => Array<T> | Promise<Array<T>>>();
   radioFilterChanged = output<string>();
   radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
@@ -155,7 +155,16 @@ export class AdaptivePageLayout<T> {
   updateRadioFilterValue( value: string ): void {
     this.radioFilterValue.set( value );
     this.radioFilterChanged.emit( value );
-    this.displayedItems.set( this.filterByRadioFunc ? this.filterByRadioFunc()!( value ) : this.items() );
+    if ( this.filterByRadioFunc ) {
+      const result = this.filterByRadioFunc()!( value );
+      if ( result instanceof Promise ) {
+        result.then( items => this.displayedItems.set( items ) );
+      } else {
+        this.displayedItems.set( result );
+      }
+    } else {
+      this.displayedItems.set( this.items() );
+    }
   }
 
   updateSelectedItems( items: Array<T> ): void {
