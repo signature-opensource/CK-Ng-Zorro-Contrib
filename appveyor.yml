@@ -4,22 +4,23 @@ environment:
 version: build{build}
 image: Visual Studio 2022
 clone_folder: C:\CKli-World\CK-Crs-Projects\CK-Ng-Zorro-Contrib
+services: mssql2017
 on_finish:
-- ps: >-
-    Write-Host "Collecting logs..."
+  - ps: >-
+      Write-Host "Collecting logs..."
 
-    Get-ChildItem -Recurse *.log -Exclude LastRun.log -ErrorAction SilentlyContinue |
+      Get-ChildItem -Recurse *.log -Exclude LastRun.log -ErrorAction SilentlyContinue |
 
-    ForEach-Object {
-        $filePath = $_.FullName;
-        $fileName = $_.FullName.Replace('/', '_').Replace('\', '_').Replace(':', '');
-        $fileName = $fileName.Substring($fileName.IndexOf("_Tests_") + 7).Replace("_Logs_Text_", "-");
-        Push-AppveyorArtifact $_.FullName -FileName $fileName
-    }
+      ForEach-Object {
+          $filePath = $_.FullName;
+          $fileName = $_.FullName.Replace('/', '_').Replace('\', '_').Replace(':', '');
+          $fileName = $fileName.Substring($fileName.IndexOf("_Tests_") + 7).Replace("_Logs_Text_", "-");
+          Push-AppveyorArtifact $_.FullName -FileName $fileName
+      }
 
-    Write-Host "Logs uploaded."
+      Write-Host "Logs uploaded."
 test: false
 init:
-- git config --global core.autocrlf true
+  - git config --global core.autocrlf true
 build_script:
-- dotnet run --project CodeCakeBuilder -nointeraction
+  - dotnet run --project CodeCakeBuilder -nointeraction
