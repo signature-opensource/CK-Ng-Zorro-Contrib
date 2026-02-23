@@ -48,7 +48,7 @@
   <div class="ck-adaptive-page-radios-row">
     @if( radioFilterOptions() && radioFilterOptions()!.length > 0 ) {
       <nz-radio-group class="radio-filter-group" [ngModel]="radioFilterValue()" (ngModelChange)="updateRadioFilterValue($event)" nzButtonStyle="solid" nzSize="large">
-        @for( opt of radioFilterOptions(); track opt ) {
+        @for( opt of radioFilterOptions(); track opt.value ) {
           <label nz-radio-button [nzValue]="opt.value">{{ opt.label }}</label>
         }
       </nz-radio-group>
@@ -56,7 +56,7 @@
     
     @if( radioValue() && radioChoices() ) {
       <nz-radio-group class="radio-choices" [ngModel]="radioValue()" (ngModelChange)="radioValueChanged.emit($event)" nzButtonStyle="solid">
-        @for( opt of radioChoices(); track opt ) {
+        @for( opt of radioChoices(); track opt.value ) {
           <label nz-radio-button [nzValue]="opt">
             @if( opt.icon ) {
               <fa-icon [icon]="opt.icon" [nz-tooltip]="opt.label" />
@@ -68,6 +68,7 @@
   </div>
   <ng-container *appResponsive="'(min-width: 1025px)'">
     <ck-table #table
+              class="inner-table"
               [dataUniqueKey]="itemUniqueKey()"
               [defaultPageSize]="pageSize()"
               [defaultPageIndex]="pageIndex()"
