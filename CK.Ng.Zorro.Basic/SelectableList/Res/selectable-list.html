@@ -1,0 +1,15 @@
+<nz-list nzItemLayout="vertical">
+    @if (!items().length) {
+        <nz-list-empty />
+    } @else {
+        @for (item of items(); track item[itemUniqueKey()]) {
+            <nz-list-item
+                class="ck-selectable-list-item"
+                [class.selected]="isSelected(item)"
+                (click)="toggleSelection(item)"
+                (dblclick)="onDblClick(item)">
+                <ng-template [ngTemplateOutlet]="itemTemplateRef()" [ngTemplateOutletContext]="{ $implicit: item, selected: isSelected(item) }" />
+            </nz-list-item>
+        }
+    }
+</nz-list>

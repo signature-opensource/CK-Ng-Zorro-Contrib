@@ -1,0 +1,59 @@
+<ck-backoffice-layout-content [headerTitle]="'Table'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-table</code> component provides a full-featured data table with sorting,
+                pagination, search, row selection, column visibility toggle, and row actions.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Full-featured table</h3>
+            <div class="demo-live">
+                <ck-table
+                    [dataUniqueKey]="'id'"
+                    [tableData]="items"
+                    [columns]="columns"
+                    [tableActions]="tableActions"
+                    [totalCount]="items.length"
+                    [totalCountLabel]="'users'"
+                    [searchbarDebounceTime]="300"
+                    [defaultPageSize]="5"
+                    [pageSizeOptions]="[5, 10, 20]"
+                    (searchRequested)="search($event)"
+                    (searchCleared)="clearSearch()"
+                    (selectionChanged)="onSelectionChanged($event)">
+                </ck-table>
+            </div>
+        </div>
+
+        @if (selectedItems.length > 0) {
+            <div class="demo-section">
+                <h3>Selected rows</h3>
+                <p class="demo-description">{{ selectedItems.length }} row(s) selected:
+                    @for (item of selectedItems; track item.id) {
+                        <strong>{{ item.name }}</strong>{{ $last ? '' : ', ' }}
+                    }
+                </p>
+            </div>
+        }
+
+        <div class="demo-section">
+            <h3>Key inputs</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>[tableData]</code></td><td><code>Array&lt;T&gt;</code></td><td>The data rows to display.</td></tr>
+                    <tr><td><code>[columns]</code></td><td><code>Array&lt;TableColumn&lt;T&gt;&gt;</code></td><td>Column definitions with sorting, formatting, visibility.</td></tr>
+                    <tr><td><code>[dataUniqueKey]</code></td><td><code>keyof T</code></td><td>Property used to uniquely identify rows.</td></tr>
+                    <tr><td><code>[tableActions]</code></td><td><code>Array&lt;TableAction&lt;T&gt;&gt;</code></td><td>Per-row action buttons.</td></tr>
+                    <tr><td><code>[selectableRows]</code></td><td><code>boolean</code></td><td>Enable checkbox row selection (default: true).</td></tr>
+                    <tr><td><code>[defaultPageSize]</code></td><td><code>number</code></td><td>Initial page size (default: 10).</td></tr>
+                    <tr><td><code>[searchbarEnabled]</code></td><td><code>boolean</code></td><td>Show search bar (default: true).</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

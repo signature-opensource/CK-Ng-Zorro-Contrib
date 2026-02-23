@@ -20,7 +20,8 @@
             "
             nz-popover
             [nzPopoverTitle]="filterPopoverTitle"
-            nzPopoverTrigger="click"
+            [nzPopoverTrigger]="popoverTrigger()"
+            (click)="onFilterButtonClick()"
             [nzPopoverContent]="filterChoice"
             [nzPopoverPlacement]="filterPopoverPosition()">
             <fa-icon [icon]="filterIcon" class="ck-btn-icon"></fa-icon>
@@ -46,13 +47,48 @@
         <ng-template #badgeText>
             <span>{{ selectedFilters().length }} / {{ filters().length }}</span>
         </ng-template>
-        <ck-filters
-            class="ck-backoffice-layout-content-filters"
-            [filters]="filters()"
-            [show]="showFilters()"
-            (filtersChanged)="onFilterApplied(filters())" />
+        @if (!isMobile()) {
+            <ck-filters
+                class="ck-backoffice-layout-content-filters"
+                [filters]="filters()"
+                [show]="showFilters()"
+                (filtersChanged)="onFilterApplied(filters())" />
+        }
         <ck-action-bar class="ck-backoffice-layout-content-actions" [actions]="actions()" [selectedItems]="selectedItems()" />
     </div>
+}
+@if (isMobile()) {
+    <nz-drawer
+        [nzVisible]="drawerVisible()"
+        (nzOnClose)="closeFilterDrawer()"
+        nzPlacement="right"
+        [nzTitle]="'CK.LayoutContent.FilterPopover.Title' | translate"
+        [nzWidth]="'85vw'"
+        nzClosable>
+        <div *nzDrawerContent class="ck-filter-drawer-content">
+            <div class="ck-filter-drawer-choices">
+                <nz-checkbox-group
+                    [nzOptions]="filterChoices()"
+                    [ngModel]="selectedFilters()"
+                    (ngModelChange)="updateFilterChecked($event)" />
+            </div>
+            <div class="ck-filter-drawer-actions">
+                <a nz-button nzDanger nzType="link" (click)="clearFilters()"
+                    [disabled]="selectedFilters().length === 0">
+                    {{ 'CK.LayoutContent.Button.DeactivateAll' | translate }}
+                </a>
+                <button nz-button nzType="primary" (click)="activateAllFilters()"
+                    [disabled]="selectedFilters().length === filters().length">
+                    {{ 'CK.LayoutContent.Button.ActivateAll' | translate }}
+                </button>
+            </div>
+            <ck-filters
+                class="ck-filter-drawer-filters"
+                [filters]="filters()"
+                [show]="showFilters()"
+                (filtersChanged)="onFilterApplied(filters())" />
+        </div>
+    </nz-drawer>
 }
 <div class="ck-backoffice-layout-content-main">
     <ng-content></ng-content>

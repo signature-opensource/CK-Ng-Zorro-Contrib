@@ -1,6 +1,6 @@
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
-import { afterNextRender, Component, effect, EffectRef, ElementRef, inject, input, linkedSignal, OnDestroy, output, Signal, TemplateRef, viewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { afterNextRender, Component, ElementRef, inject, input, linkedSignal, output, signal, Signal, TemplateRef, viewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowRight, faClose, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -12,10 +12,10 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component( {
   selector: 'ck-search-modal',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, FontAwesomeModule, NzInputModule, NzToolTipModule, NgTemplateOutlet],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, NzInputModule, NzToolTipModule, NgTemplateOutlet],
   templateUrl: './search-modal.html'
 } )
-export class SearchModal implements OnDestroy {
+export class SearchModal {
   readonly #modal = inject( NzModalRef );
   readonly #nzData = inject( NZ_MODAL_DATA );
 
@@ -33,12 +33,11 @@ export class SearchModal implements OnDestroy {
   readonly closeIcon = faClose;
   readonly arrowIcon = faArrowRight;
 
-  #effectRef?: EffectRef;
   inputPlaceholder = linkedSignal( () => this.placeholder() );
   debounceTime = linkedSignal( () => this.inputDebounceTime() ?? 300 );
   defaultContentTemplate = linkedSignal( () => this.defaultContentTpl() );
   searchResultTemplate = linkedSignal( () => this.searchResultTpl() );
-  searchString: string = '';
+  searchString = signal( '' );
 
   constructor() {
     if ( !this.inputPlaceholder() && this.#nzData.placeholder.length > 0 ) {
@@ -57,19 +56,13 @@ export class SearchModal implements OnDestroy {
       this.searchResultTemplate.set( this.#nzData.searchResultTpl );
     }
 
-    afterNextRender( () => {
-      if ( this.inputElement() ) {
-        setTimeout( () => {
-          this.inputElement()!.nativeElement.focus();
-        }, 250 );
-      }
-    } );
-
     const destroy$ = takeUntilDestroyed();
 
-    this.#effectRef = effect( () => {
+    afterNextRender( () => {
       const inputElement = this.inputElement()?.nativeElement;
       if ( !inputElement ) return;
+
+      setTimeout( () => inputElement.focus(), 250 );
 
       fromEvent( inputElement, 'input' )
         .pipe(
@@ -79,29 +72,23 @@ export class SearchModal implements OnDestroy {
         .subscribe( _ => {
           this.handleInputChange();
         } );
-    }, { manualCleanup: true } );
+    } );
   }
 
   handleInputChange(): void {
-    if ( this.searchString === '' ) {
+    if ( this.searchString() === '' ) {
       this.clearSearch();
     } else {
-      this.searchRequested.emit( this.searchString );
+      this.searchRequested.emit( this.searchString() );
     }
   }
 
   clearSearch(): void {
-    this.searchString = '';
+    this.searchString.set( '' );
     this.searchCleared.emit();
   }
 
   closeModal(): void {
     this.#modal.close();
-  }
-
-  ngOnDestroy(): void {
-    if ( this.#effectRef ) {
-      this.#effectRef.destroy();
-    }
   }
 }

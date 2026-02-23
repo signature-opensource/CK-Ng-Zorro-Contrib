@@ -1,0 +1,66 @@
+<ck-backoffice-layout-content
+    [headerTitle]="'Filters'"
+    [showFilters]="true"
+    [filters]="filters"
+    (filtersApplied)="filters = $event; applyFilters()"
+    (filtersCleared)="clearFilters()">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                CK.Ng.Zorro provides three filter types: <code>SwitchFilter</code> (boolean toggle),
+                <code>SelectFilter</code> (single/multi select dropdown), and <code>DateRangeFilter</code>
+                (date range picker with optional presets). Filters are managed as an array and
+                displayed via <code>ck-backoffice-layout-content</code> or the standalone <code>ck-filters</code> component.
+            </p>
+            <p>
+                Use the filter button in the page header above to toggle and apply filters.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Filtered products ({{ filteredProducts.length }}/{{ allProducts.length }})</h3>
+            <div class="demo-live">
+                <div class="product-grid">
+                    @for (product of filteredProducts; track product.id) {
+                        <div class="product-card">
+                            <div class="product-name">{{ product.name }}</div>
+                            <div class="product-category">{{ product.category }}</div>
+                            <div class="product-stock" [class.in-stock]="product.inStock">
+                                {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+                            </div>
+                        </div>
+                    }
+                    @if (filteredProducts.length === 0) {
+                        <p class="no-results">No products match the current filters.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Filter types</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Type</th><th>Description</th><th>Constructor</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>SwitchFilter</code></td>
+                        <td>Boolean toggle filter</td>
+                        <td><code>new SwitchFilter( label, trueValue, falseValue, key )</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>SelectFilter&lt;T&gt;</code></td>
+                        <td>Single or multi-select dropdown</td>
+                        <td><code>new SelectFilter( key, label, options, config )</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>DateRangeFilter</code></td>
+                        <td>Date range picker with optional presets</td>
+                        <td><code>new DateRangeFilter( label, config )</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

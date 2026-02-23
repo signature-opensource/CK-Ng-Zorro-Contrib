@@ -1,3 +1,9 @@
 {
-    "CK.SideBar.Version": "Version : "
+    "CK.SideBar.Version": "Version :",
+    "CK.SideBar.Overview": "Vue d'ensemble",
+    "CK.SideBar.Commit": "Commit :",
+    "CK.SideBar.CommitDate": "Date commit :",
+    "CK.SideBar.BuildDate": "Date build :",
+    "CK.SideBar.Button.Search": "Rechercher",
+    "CK.SideBar.Button.Close": "Fermer"
 }

@@ -14,7 +14,7 @@
       <ul nz-menu>
         @if (selectedWCS()) {
           @if (allWCS() && allWCS()!.length > 0) {
-            @if (isWCSTypeArray()) {
+            @if (isWCSTypeArray(allWCS()!)) {
               @for (w of asWCSArray(allWCS()!); track w.wcsId) {
                 <li nz-menu-item (click)="selectWCS(w)">
                   <span class="ck-main-wcs-option">{{ w.wcsName }}</span>

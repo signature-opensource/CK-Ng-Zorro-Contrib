@@ -1,14 +1,14 @@
-import { Component, HostBinding, inject, input, linkedSignal, output } from '@angular/core';
+import { Component, inject, input, linkedSignal, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBell, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faCaretDown, faChevronDown, faClose, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-regular-svg-icons';
+import { faCaretDown, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { WCSType } from './wcs-type-model';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { TranslateService } from '@ngx-translate/core';
-import { first } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { locales } from '@local/ck-gen/ts-locales/locales';
 
 @Component( {
@@ -18,7 +18,6 @@ import { locales } from '@local/ck-gen/ts-locales/locales';
     imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule,
         FontAwesomeModule,
         NzDropDownModule,
         NzSelectModule,
@@ -33,10 +32,7 @@ export class TopBar {
     selectedLanguage = input<string>( 'fr' );
     userName = input<string>( '' );
     displayNotifIcon = input<boolean>( false );
-    searchPlaceholder = input<string>( 'Vous pouvez rechercher ici un N° de mission, un emplacement, un conteneur ...' );
     displayWCSDropdown = input<boolean>( false );
-    profileButtonText = input<string>( '' );
-    disconnectButtonText = input<string>( '' );
     displayThemeToggle = input<boolean>( false );
 
     appIconClicked = output<void>();
@@ -48,21 +44,16 @@ export class TopBar {
 
     readonly bellIcon = faBell;
     readonly downIcon = faCaretDown;
-    readonly searchIcon = faMagnifyingGlass;
-    readonly userIcon = faUser;
-    readonly closeIcon = faClose;
     readonly down = faChevronDown;
 
-    public currentLanguage: string = this.selectedLanguage();
-    public currentWCS?: string | WCSType = this.selectedWCS();
-    public logoutBtnLabel = linkedSignal( () => this.disconnectButtonText() );
+    public currentWCS = linkedSignal( () => this.selectedWCS() );
     public themeBtnLabel = '';
     public activeCultures = locales;
 
     constructor() {
-        this.#translateService.get( ['CK.TopBar.Button.ThemeToggle'] ).pipe( first() ).subscribe( t => {
-            this.themeBtnLabel = t['CK.TopBar.Button.ThemeToggle'];
-        } );
+        this.#translateService.stream( 'CK.TopBar.Button.ThemeToggle' )
+            .pipe( takeUntilDestroyed() )
+            .subscribe( t => this.themeBtnLabel = t );
     }
 
     toggleAppIcon(): void {
@@ -70,37 +61,24 @@ export class TopBar {
     }
 
     selectWCS( wcs: WCSType | string ): void {
-        this.currentWCS = wcs;
-        this.wcsSelected.emit( this.currentWCS );
+        this.currentWCS.set( wcs );
+        this.wcsSelected.emit( wcs );
     }
 
     openNotifications(): void {
         this.notificationClicked.emit();
     }
 
+    isWCSType( wcs: string | WCSType ): wcs is WCSType {
+        return typeof wcs !== 'string' && ( wcs as WCSType ).wcsId !== undefined;
+    }
+
+    isWCSTypeArray( arr: Array<string> | Array<WCSType> ): arr is Array<WCSType> {
+        return arr.length > 0 && this.isWCSType( arr[0] );
+    }
+
     asWCSType( wcs: string | WCSType ): WCSType {
         return wcs as WCSType;
-    }
-
-    isWCSType( wcs: string | WCSType ): boolean {
-        if ( typeof wcs === 'string' ) {
-            return false;
-        }
-
-        if ( ( wcs as WCSType ).wcsId !== undefined ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    isWCSTypeArray(): boolean {
-        if ( this.allWCS() && this.allWCS()!.length > 0 ) {
-            if ( ( this.allWCS() as Array<any> ).length > 0 && ( this.allWCS()![0] as WCSType ).wcsId !== undefined ) {
-                return true;
-            }
-        }
-        return false;
     }
 
     asWCSArray( arr: Array<string> | Array<WCSType> ): Array<WCSType> {

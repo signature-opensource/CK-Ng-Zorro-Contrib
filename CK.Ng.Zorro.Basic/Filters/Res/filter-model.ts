@@ -1,9 +1,7 @@
-import { TemplateRef } from "@angular/core";
-
 export enum FilterType {
   SELECT,
   SWITCH,
-  DATE,
+  DATE_RANGE,
 }
 
 export interface Filter<T> {
@@ -11,7 +9,7 @@ export interface Filter<T> {
   label: string;
   value: T | Array<T> | undefined;
   active: boolean;
-  placeholder?: string;
+  placeholder?: string | [string, string];
 }
 
 export class SwitchFilter implements Filter<boolean> {
@@ -45,8 +43,6 @@ export class SelectFilter<T> implements Filter<T> {
   defaultValue?: T | Array<T>;
   placeholder?: string;
   maxSelectionCount: number;
-  maxDisplayedCount: number;
-  maxDisplayedTemplate?: TemplateRef<{ $implicit: unknown[] }>;
 
   constructor(
     mode: 'default' | 'multiple' | 'tags',
@@ -56,9 +52,7 @@ export class SelectFilter<T> implements Filter<T> {
       defaultValue,
       active,
       placeholder,
-      maxSelectionCount,
-      maxDisplayedCount,
-      maxDisplayedTemplate
+      maxSelectionCount
     }: Partial<Omit<SelectFilter<T>, 'mode' | 'label' | 'options'>> = {} ) {
     this.mode = mode;
     this.label = label;
@@ -68,7 +62,33 @@ export class SelectFilter<T> implements Filter<T> {
     this.value = defaultValue;
     this.placeholder = placeholder;
     this.maxSelectionCount = maxSelectionCount ?? options.length;
-    this.maxDisplayedCount = maxDisplayedCount ?? options.length;
-    this.maxDisplayedTemplate = maxDisplayedTemplate;
+  }
+}
+
+export class DateRangeFilter implements Filter<Date> {
+  filterType: FilterType = FilterType.DATE_RANGE;
+  label: string;
+  value: [Date, Date] | undefined;
+  active: boolean;
+  placeholder?: [string, string];
+  format: string;
+  showTime: boolean;
+  presets?: { [label: string]: Date[] | ( () => Date[] ) };
+
+  constructor(
+    label: string,
+    {
+      active,
+      placeholder,
+      format,
+      showTime,
+      presets
+    }: Partial<Omit<DateRangeFilter, 'filterType' | 'label' | 'value'>> = {} ) {
+    this.label = label;
+    this.active = active ?? true;
+    this.format = format ?? 'dd/MM/yyyy';
+    this.showTime = showTime ?? false;
+    this.presets = presets;
+    this.placeholder = placeholder;
   }
 }

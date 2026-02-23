@@ -1,0 +1,57 @@
+<ck-backoffice-layout-content [headerTitle]="'Loader'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-loader</code> component displays a full-overlay loading spinner.
+                When <code>[isLoading]</code> is <code>false</code>, the host element is hidden
+                (<code>display: none</code>) so it does not block interaction.
+                Place it inside a container with <code>position: relative</code> to scope the overlay.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Toggle loader</h3>
+            <div class="demo-controls">
+                <button nz-button nzType="primary" (click)="toggleLoading()">
+                    {{ isLoading ? 'Stop loading' : 'Start loading' }}
+                </button>
+                <span>isLoading: <code>{{ isLoading }}</code></span>
+            </div>
+            <div class="demo-live loader-demo-area">
+                <ck-loader [isLoading]="isLoading"></ck-loader>
+                <div class="loader-content">
+                    <h4>Content area</h4>
+                    <p>This content sits behind the loader overlay. When loading is active, the spinner appears on top.</p>
+                    <p>Click the button above to toggle the loading state.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Usage</h3>
+            <div class="demo-log">
+                <div>&lt;div style="position: relative"&gt;</div>
+                <div>&nbsp;&nbsp;&lt;ck-loader [isLoading]="isLoading()" /&gt;</div>
+                <div>&nbsp;&nbsp;&lt;!-- your content --&gt;</div>
+                <div>&lt;/div&gt;</div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>isLoading</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>false</code></td>
+                        <td>When true, shows the overlay and spinner. When false, the host is <code>display: none</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

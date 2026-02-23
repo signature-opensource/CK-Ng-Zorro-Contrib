@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output, ViewEncapsulation, HostBinding, inject } from '@angular/core';
 
 import { BreadcrumbItem } from './breadcrumb-item-model';
-import { Breadcrumb } from './breadcrumb';
+import { BreadcrumbBase } from './breadcrumb-model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { CommonModule } from '@angular/common';
@@ -27,7 +27,7 @@ export class CKBreadcrumbItem {
     isLast = input<boolean>( false );
     navItemClicked = output<BreadcrumbItem>();
 
-    readonly breadcrumb = inject( Breadcrumb );
+    readonly breadcrumb = inject( BreadcrumbBase );
 
     itemClicked( item: BreadcrumbItem ): void {
         if ( !item.disabled ) {

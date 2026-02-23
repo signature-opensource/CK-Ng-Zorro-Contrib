@@ -1,0 +1,75 @@
+<ck-backoffice-layout-content [headerTitle]="'SideBar'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-backoffice-side-bar</code> component renders the collapsible sidebar navigation.
+                It is visible on the left side of this application. Configuration is done through the parent
+                <code>ck-backoffice-layout</code>.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Features</h3>
+            <ul>
+                <li><strong>Logo</strong> — displayed at the top of the sidebar</li>
+                <li><strong>Navigation sections</strong> — grouped navigation items with headlines</li>
+                <li><strong>Nested items</strong> — items can have children (accordion-style)</li>
+                <li><strong>Icons</strong> — each item can have a FontAwesome icon</li>
+                <li><strong>Active state</strong> — automatically highlights the current route</li>
+                <li><strong>Collapsible</strong> — sidebar can collapse to icons-only mode</li>
+                <li><strong>Global search</strong> — optional search button that opens the search modal</li>
+                <li><strong>Version info</strong> — optional version display in the footer</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h3>NavigationSection model</h3>
+            <div class="demo-description">
+                <p>The sidebar is configured with an array of <code>NavigationSection</code> objects:</p>
+            </div>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>sectionHeadline</code></td><td><code>string</code></td><td>Section header text (empty for no header).</td></tr>
+                    <tr><td><code>items</code></td><td><code>Array&lt;NavigationItem&gt;</code></td><td>Navigation items in this section.</td></tr>
+                    <tr><td><code>bottom</code></td><td><code>boolean</code></td><td>If true, section is pinned to the bottom.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>NavigationItem model</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>label</code></td><td><code>string</code></td><td>Display text for the item.</td></tr>
+                    <tr><td><code>routerLink</code></td><td><code>string</code></td><td>Angular router link (optional).</td></tr>
+                    <tr><td><code>icon</code></td><td><code>IconDefinition</code></td><td>FontAwesome icon (optional).</td></tr>
+                    <tr><td><code>children</code></td><td><code>Array&lt;NavigationItem&gt;</code></td><td>Nested child items (optional).</td></tr>
+                    <tr><td><code>isActive</code></td><td><code>boolean</code></td><td>Force active state (optional).</td></tr>
+                    <tr><td><code>disabled</code></td><td><code>boolean</code></td><td>Disable the item (optional).</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>Example configuration</h3>
+            <div class="demo-log">
+                <div>navSections = [</div>
+                <div>&nbsp;&nbsp;&#123;</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;sectionHeadline: 'Basic',</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;bottom: false,</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;items: [</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#123; label: 'Table', routerLink: 'basic/table', icon: faTable &#125;,</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#123; label: 'ListView', routerLink: 'basic/list-view', icon: faList &#125;,</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;]</div>
+                <div>&nbsp;&nbsp;&#125;</div>
+                <div>];</div>
+            </div>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

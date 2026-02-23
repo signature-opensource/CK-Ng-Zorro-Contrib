@@ -1,0 +1,61 @@
+<ck-backoffice-layout-content
+    [headerTitle]="headerTitle"
+    [showFilters]="showFilters"
+    [filters]="filters"
+    [actions]="actions"
+    (filtersApplied)="applyFilters($event)"
+    (filtersCleared)="clearFilters()">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-backoffice-layout-content</code> component wraps page content with a header
+                (title + breadcrumb), action bar, and filter panel. This page itself uses it — you can see
+                the header title, filter button, and action bar above.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Live configuration</h3>
+            <div class="demo-controls">
+                <label>Header title:</label>
+                <input nz-input [(ngModel)]="headerTitle" style="width: 200px" />
+            </div>
+            <div class="demo-controls">
+                <label>Show filters:</label>
+                <nz-switch [(ngModel)]="showFilters"></nz-switch>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Inputs</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>[headerTitle]</code></td><td><code>string</code></td><td><code>''</code></td><td>Page title displayed in the header.</td></tr>
+                    <tr><td><code>[showFilters]</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Show the filter toggle button.</td></tr>
+                    <tr><td><code>[filters]</code></td><td><code>Array&lt;Filter&gt;</code></td><td><code>[]</code></td><td>Filter definitions for the filter panel.</td></tr>
+                    <tr><td><code>[actions]</code></td><td><code>ActionBarContent&lt;T&gt;</code></td><td>empty</td><td>Action bar configuration.</td></tr>
+                    <tr><td><code>[selectedItems]</code></td><td><code>Array&lt;T&gt;</code></td><td><code>[]</code></td><td>Selected items passed to action bar.</td></tr>
+                    <tr><td><code>[breadcrumb]</code></td><td><code>Array&lt;BreadcrumbItem&gt;</code></td><td><code>[]</code></td><td>Breadcrumb navigation items.</td></tr>
+                    <tr><td><code>[breadcrumbSeparator]</code></td><td><code>string</code></td><td><code>'&gt;'</code></td><td>Separator between breadcrumb items.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>Outputs</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Output</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>(filtersApplied)</code></td><td><code>Array&lt;Filter&gt;</code></td><td>Filters were applied.</td></tr>
+                    <tr><td><code>(filtersCleared)</code></td><td><code>void</code></td><td>Filters were cleared.</td></tr>
+                    <tr><td><code>(breadcrumbItemClicked)</code></td><td><code>BreadcrumbItem</code></td><td>A breadcrumb item was clicked.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

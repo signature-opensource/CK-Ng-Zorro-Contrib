@@ -6,7 +6,7 @@ namespace CK.Ng.Zorro;
 
 [NgComponent( IsOptional = true )]
 [Package<ZorroPackage>]
-[TypeScriptFile( "filter-model.ts", "FilterType", "Filter", "SwitchFilter", "SelectFilter" )]
+[TypeScriptFile( "filter-model.ts", "FilterType", "Filter", "SwitchFilter", "SelectFilter", "DateRangeFilter" )]
 public sealed class FiltersComponent : NgComponent
 {
 }

@@ -9,7 +9,7 @@
     @if( filters() ) {
       <button nz-button
               nzType="default"
-              [class]="selectedFilters.length === filters()!.length ? 'filter-btn complete' : selectedFilters.length > 0 ? 'filter-btn incomplete' : 'filter-btn'"
+              [class]="selectedFilters().length === filters()!.length ? 'filter-btn complete' : selectedFilters().length > 0 ? 'filter-btn incomplete' : 'filter-btn'"
               nz-popover
               [nzPopoverTitle]="filterPopoverTitle"
               nzPopoverTrigger="click"
@@ -32,16 +32,16 @@
     <span class="filter-popover-title">{{ 'Filters.Instruction' | translate }}</span>
   </ng-template>
   <ng-template #filterChoice>
-    <nz-checkbox-group class="filter-choices-container" [nzOptions]="filterChoices()" [(ngModel)]="selectedFilters" (ngModelChange)="updateFilterChecked()" />
+    <nz-checkbox-group class="filter-choices-container" [nzOptions]="filterChoices()" [ngModel]="selectedFilters()" (ngModelChange)="selectedFilters.set($event); updateFilterChecked()" />
     <div class="filters-actions">
-      <a nz-button nzDanger nzType="link" (click)="clearFilters()" [disabled]="selectedFilters.length === 0">{{ 'Button.DeactivateAll' | translate }}</a>
-      <button nz-button nzType="primary" (click)="activateAllFilters()" [disabled]="selectedFilters.length === filters()!.length">{{ 'Button.ActivateAll' | translate }}</button>
+      <a nz-button nzDanger nzType="link" (click)="clearFilters()" [disabled]="selectedFilters().length === 0">{{ 'Button.DeactivateAll' | translate }}</a>
+      <button nz-button nzType="primary" (click)="activateAllFilters()" [disabled]="selectedFilters().length === filters()!.length">{{ 'Button.ActivateAll' | translate }}</button>
     </div>
   </ng-template>
   <ng-template #badgeText>
-    <span>{{ selectedFilters.length }} / {{ filters()!.length }}</span>
+    <span>{{ selectedFilters().length }} / {{ filters()!.length }}</span>
   </ng-template>
-  <ck-filters [class]="selectedFilters.length ? 'ck-adaptive-page-filters' : 'ck-adaptive-page-filters empty'" [filters]="filters()!" (filtersChanged)="filterData()" />
+  <ck-filters [class]="selectedFilters().length ? 'ck-adaptive-page-filters' : 'ck-adaptive-page-filters empty'" [filters]="filters()!" (filtersChanged)="filterData()" />
 }
 
 <div class="ck-adaptive-page-content">
@@ -77,12 +77,15 @@
               [tableActions]="itemActions() ?? []"
               [searchbarEnabled]="searchbarEnabled()"
               [searchbarDebounceTime]="searchbarDebounceTime()"
+              [frontPagination]="frontPagination()"
+              [totalCount]="totalCount()"
               (searchRequested)="search($event)"
               (searchCleared)="clearSearch()"
               (pageSizeChanged)="pageSizeSet.emit($event)"
               (pageIndexChanged)="onPageIndexChanged($event)"
               (columnsChanged)="columnsSet.emit()"
               (selectionChanged)="updateSelectedItems($event)"
+              (sortChanged)="sortChanged.emit($event)"
               (dblClicked)="doubleClick($event)" />
   </ng-container>
   <ng-container *appResponsive="'(max-width: 1024px)'">

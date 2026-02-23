@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, linkedSignal, output, signal, viewChild, TemplateRef, WritableSignal } from '@angular/core';
+import { Component, computed, input, linkedSignal, output, signal, viewChild, TemplateRef, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -56,6 +56,8 @@ export class AdaptivePageLayout<T> {
   inputRadioFilter = input<string>();
   radioFilterOptions = input<Array<NzCheckboxOption>>();
   filterByRadioFunc = input<( value: string ) => Array<T> | Promise<Array<T>>>();
+  frontPagination = input<boolean>( true );
+  totalCount = input<number>( 0 );
   radioFilterChanged = output<string>();
   radioValueChanged = output<LayoutRadioChoice>();
   pageSizeSet = output<number>();
@@ -64,23 +66,18 @@ export class AdaptivePageLayout<T> {
   searchCleared = output<void>();
   columnsSet = output<void>();
   tableSelectionChanged = output<Array<T>>();
+  sortChanged = output<{ field: string; direction: 'ascend' | 'descend' | null }>();
+  filtersChanged = output<void>();
 
   table = viewChild<Table<T>>( 'table' );
 
   readonly filterIcon = faFilter;
 
   displayedItems = linkedSignal( () => this.items() );
-  selectedFilters: Array<string> = this.filters()?.filter( f => f.active ).map( f => f.label ) ?? [];
+  selectedFilters = linkedSignal( () => this.filters()?.filter( f => f.active ).map( f => f.label ) ?? [] );
   filterChoices = computed( () => this.filters()?.map( f => { return { label: f.label, value: f.label } as NzCheckboxOption } ) ?? [] );
   radioFilterValue = linkedSignal( () => this.inputRadioFilter() ?? '' );
   selectedItems: WritableSignal<Array<T>> = signal( [] );
-
-  constructor() {
-    effect( () => {
-      if ( !this.filters() ) return;
-      this.selectedFilters = this.filters()!.filter( f => f.active ).map( f => f.label );
-    } );
-  }
 
   doubleClick( item: T ): void {
     if( this.dblClickFunc() ) {
@@ -89,12 +86,16 @@ export class AdaptivePageLayout<T> {
   }
 
   search( input: string ): void {
-    this.displayedItems.set( this.searchFunc ? this.searchFunc()!( input ) : this.items() );
+    if ( this.frontPagination() ) {
+      this.displayedItems.set( this.searchFunc ? this.searchFunc()!( input ) : this.items() );
+    }
     this.searchStringChanged.emit( input );
   }
 
   clearSearch(): void {
-    this.displayedItems.set( this.items() );
+    if ( this.frontPagination() ) {
+      this.displayedItems.set( this.items() );
+    }
     this.searchCleared.emit();
   }
 
@@ -103,13 +104,16 @@ export class AdaptivePageLayout<T> {
   }
 
   filterData(): void {
-    this.displayedItems.set( this.filterFunc ? this.filterFunc()!() : this.items() );
+    if ( this.frontPagination() ) {
+      this.displayedItems.set( this.filterFunc ? this.filterFunc()!() : this.items() );
+    }
+    this.filtersChanged.emit();
   }
 
   activateAllFilters(): void {
     if ( this.filters() ) {
       this.filters()!.forEach( f => f.active = true );
-      this.selectedFilters = this.filters()!.map( f => f.label );
+      this.selectedFilters.set( this.filters()!.map( f => f.label ) );
 
       this.filterData();
     }
@@ -118,13 +122,13 @@ export class AdaptivePageLayout<T> {
   clearFilters(): void {
     if( this.filters() ) {
       this.filters()!.forEach( f => f.active = false );
-      this.selectedFilters = [];
+      this.selectedFilters.set( [] );
       this.filterData();
     }
   }
 
   updateFilterChecked(): void {
-    const b = new Set( this.selectedFilters );
+    const b = new Set( this.selectedFilters() );
     const hidden = [...this.filters()!.filter( f => !b.has( f.label ) )];
 
     const filters = [...this.filters()!];
@@ -133,8 +137,8 @@ export class AdaptivePageLayout<T> {
       if ( filter ) {
         filter.active = false;
 
-        if ( this.selectedFilters.find( sf => sf === f.label ) ) {
-          this.selectedFilters = [...this.selectedFilters.filter( sf => sf !== f.label )];
+        if ( this.selectedFilters().find( sf => sf === f.label ) ) {
+          this.selectedFilters.set( [...this.selectedFilters().filter( sf => sf !== f.label )] );
         }
       }
     } );
@@ -143,8 +147,8 @@ export class AdaptivePageLayout<T> {
       if ( !hidden.find( h => h.label === f.label ) ) {
         f.active = true;
 
-        if ( !this.selectedFilters.find( sf => sf === f.label ) ) {
-          this.selectedFilters.push( f.label );
+        if ( !this.selectedFilters().find( sf => sf === f.label ) ) {
+          this.selectedFilters.set( [...this.selectedFilters(), f.label] );
         }
       }
     } );
@@ -155,15 +159,17 @@ export class AdaptivePageLayout<T> {
   updateRadioFilterValue( value: string ): void {
     this.radioFilterValue.set( value );
     this.radioFilterChanged.emit( value );
-    if ( this.filterByRadioFunc ) {
-      const result = this.filterByRadioFunc()!( value );
-      if ( result instanceof Promise ) {
-        result.then( items => this.displayedItems.set( items ) );
+    if ( this.frontPagination() ) {
+      if ( this.filterByRadioFunc ) {
+        const result = this.filterByRadioFunc()!( value );
+        if ( result instanceof Promise ) {
+          result.then( items => this.displayedItems.set( items ) );
+        } else {
+          this.displayedItems.set( result );
+        }
       } else {
-        this.displayedItems.set( result );
+        this.displayedItems.set( this.items() );
       }
-    } else {
-      this.displayedItems.set( this.items() );
     }
   }
 

@@ -8,13 +8,13 @@
     <div class="ck-sidebar-navigation-items">
         @if (showGlobalSearchBtn()) {
             <div
-                [class]="isCollapsed() ? 'ck-sidebar-search-btn collapsed' : 'ck-sidebar-search-btn'"
-                [nz-tooltip]="isCollapsed() ? getSearchTooltip() : ''"
+                [class]="collapsed() ? 'ck-sidebar-search-btn collapsed' : 'ck-sidebar-search-btn'"
+                [nz-tooltip]="collapsed() ? getSearchTooltip() : ''"
                 nzTooltipPlacement="right"
                 (click)="openSearchModal()">
                 <fa-icon [icon]="searchIcon" class="search" />
                 @if (!collapsed()) {
-                    <span class="label">{{ 'Button.Search' | translate }}</span>
+                    <span class="label">{{ 'CK.SideBar.Button.Search' | translate }}</span>
                 }
             </div>
         }
@@ -31,13 +31,7 @@
                             nzTooltipPlacement="right"
                             (click)="itemClicked($event, item)"
                             (auxclick)="handleAuxClick($event, item)">
-                            @if (item.icon) {
-                                <fa-icon class="ck-btn-icon" [icon]="item.icon" />
-                            } @else {
-                                @if (item.label.length > 0) {
-                                    {{ item.label[0] }}
-                                }
-                            }
+                            <ng-container *ngTemplateOutlet="iconOrLetter; context: { $implicit: item }" />
                         </div>
                         @if (item.children && item.children.length > 0) {
                             @for (child of item.children; track child) {
@@ -47,13 +41,7 @@
                                     nzTooltipPlacement="right"
                                     (click)="itemClicked($event, child)"
                                     (auxclick)="handleAuxClick($event, child)">
-                                    @if (child.icon) {
-                                        <fa-icon class="ck-btn-icon" [icon]="child.icon" />
-                                    } @else {
-                                        @if (child.label.length > 0) {
-                                            {{ child.label[0] }}
-                                        }
-                                    }
+                                    <ng-container *ngTemplateOutlet="iconOrLetter; context: { $implicit: child }" />
                                 </div>
                             }
                         }
@@ -71,7 +59,7 @@
                                     <li nz-submenu [nzTitle]="item.label" [(nzOpen)]="menuOpenMap[item.label]" nzTooltipPlacement="right">
                                         <ul class="submenu">
                                             <li nz-menu-item [nzSelected]="item.isActive" (click)="itemClicked($event, item)">
-                                                {{ "Vue d'ensemble" | translate }}
+                                                {{ 'CK.SideBar.Overview' | translate }}
                                             </li>
                                             @for (child of item.children; track child) {
                                                 <li
@@ -100,14 +88,14 @@
             }
         }
         @if (versionInfos()) {
-            @if (!isCollapsed()) {
+            @if (!collapsed()) {
                 <div
                     class="version-infos"
                     nz-tooltip
                     nzTooltipOverlayClassName="version-tooltip"
                     [nzTooltipTitle]="versionRef"
                     [nzTooltipOverlayStyle]="{ wordWrap: 'normal' }">
-                    Version : {{ versionInfos()!.version }}
+                    {{ 'CK.SideBar.Version' | translate }} {{ versionInfos()!.version }}
                 </div>
             } @else {
                 <fa-icon
@@ -120,11 +108,18 @@
                 </fa-icon>
             }
             <ng-template #versionRef>
-                Version : {{ versionInfos()!.version }}<br />
-                Commit : {{ versionInfos()!.commitSha }}<br />
-                Date commit : {{ versionInfos()!.commitDatetime }}<br />
-                Date build : {{ versionInfos()!.buildDatetime }}
+                {{ 'CK.SideBar.Version' | translate }} {{ versionInfos()!.version }}<br />
+                {{ 'CK.SideBar.Commit' | translate }} {{ versionInfos()!.commitSha }}<br />
+                {{ 'CK.SideBar.CommitDate' | translate }} {{ versionInfos()!.commitDatetime }}<br />
+                {{ 'CK.SideBar.BuildDate' | translate }} {{ versionInfos()!.buildDatetime }}
             </ng-template>
         }
     </div>
+    <ng-template #iconOrLetter let-item>
+        @if (item.icon) {
+            <fa-icon class="ck-btn-icon" [icon]="item.icon" />
+        } @else if (item.label.length > 0) {
+            {{ item.label[0] }}
+        }
+    </ng-template>
 </div>

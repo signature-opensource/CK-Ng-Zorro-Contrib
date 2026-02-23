@@ -1,0 +1,54 @@
+<ck-backoffice-layout-content [headerTitle]="'MobileBar'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-backoffice-mobile-bar</code> component provides bottom navigation on mobile viewports.
+                It is part of the <code>ck-backoffice-layout</code> and is only visible on narrow screens.
+            </p>
+            <p>
+                <strong>Resize your browser window</strong> to a mobile width to see the mobile bar appear at the bottom.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Features</h3>
+            <ul>
+                <li>Appears automatically on mobile-width viewports</li>
+                <li>Shares the same <code>navigationItems</code> as the sidebar</li>
+                <li>Provides search, profile, and notification access</li>
+                <li>Optional WCS dropdown</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h3>Inputs (via Layout)</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>[navigationItems]</code></td><td><code>Array&lt;NavigationSection&gt;</code></td><td><code>[]</code></td><td>Same navigation items as the sidebar.</td></tr>
+                    <tr><td><code>[displayNotifIcon]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show notification bell.</td></tr>
+                    <tr><td><code>[searchPlaceholder]</code></td><td><code>string</code></td><td><code>''</code></td><td>Search input placeholder.</td></tr>
+                    <tr><td><code>[selectedWCS]</code></td><td><code>string | WCSType</code></td><td>-</td><td>Currently selected WCS.</td></tr>
+                    <tr><td><code>[allWCS]</code></td><td><code>Array&lt;string | WCSType&gt;</code></td><td>-</td><td>Available WCS options.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>Outputs</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Output</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>(searchRequested)</code></td><td><code>string</code></td><td>Search query submitted.</td></tr>
+                    <tr><td><code>(wcsSelected)</code></td><td><code>string | WCSType</code></td><td>WCS selection changed.</td></tr>
+                    <tr><td><code>(profileClicked)</code></td><td><code>void</code></td><td>Profile button clicked.</td></tr>
+                    <tr><td><code>(notificationClicked)</code></td><td><code>void</code></td><td>Notification bell clicked.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>
