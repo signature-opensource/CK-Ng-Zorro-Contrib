@@ -229,8 +229,8 @@ export class Table<T> {
     return faQuestion;
   }
 
-  onSortOrderChange( col: TableColumn<T>, direction: 'ascend' | 'descend' | null ): void {
-    this.sortChanged.emit( { field: col.name as string, direction } );
+  onSortOrderChange( col: TableColumn<T>, direction: string | null ): void {
+    this.sortChanged.emit( { field: col.name as string, direction: direction as 'ascend' | 'descend' | null } );
   }
 
   sizeChanged( size: number ): void {
