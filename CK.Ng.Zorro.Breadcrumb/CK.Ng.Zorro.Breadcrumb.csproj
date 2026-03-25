@@ -3,6 +3,6 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.Ng.Zorro" Version="0.30.3" />
+    <PackageReference Include="CK.Ng.Zorro" Version="0.30.4--0003-develop" />
   </ItemGroup>
 </Project>
