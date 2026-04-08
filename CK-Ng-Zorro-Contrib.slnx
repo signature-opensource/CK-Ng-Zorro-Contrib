@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/Demo/">
+    <Project Path="Demo/CK.Ng.Zorro.BackOffice.Demo.App/CK.Ng.Zorro.BackOffice.Demo.App.csproj" />
+    <Project Path="Demo/CK.Ng.Zorro.BackOffice.Demo.Builder/CK.Ng.Zorro.BackOffice.Demo.Builder.csproj" />
+    <Project Path="Demo/CK.Ng.Zorro.BackOffice.Demo.Host/CK.Ng.Zorro.BackOffice.Demo.Host.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="appveyor.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="NuGet.config" />
+  </Folder>
+  <Project Path="CK.Ng.Zorro.BackOffice/CK.Ng.Zorro.BackOffice.csproj" />
+  <Project Path="CK.Ng.Zorro.Basic/CK.Ng.Zorro.Basic.csproj" />
+  <Project Path="CK.Ng.Zorro.Breadcrumb/CK.Ng.Zorro.Breadcrumb.csproj" />
+</Solution>
