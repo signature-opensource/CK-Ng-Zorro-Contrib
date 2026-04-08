@@ -1,0 +1,56 @@
+<ck-backoffice-layout-content [headerTitle]="'TopBar'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-backoffice-top-bar</code> component renders the top navigation bar.
+                It is already visible at the top of this application. It is configured through the parent
+                <code>ck-backoffice-layout</code> component.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Features</h3>
+            <ul>
+                <li><strong>User info</strong> — displays the user name and a profile/disconnect menu</li>
+                <li><strong>WCS dropdown</strong> — optional Working Context Selector dropdown</li>
+                <li><strong>Theme toggle</strong> — optional dark/light theme toggle button</li>
+                <li><strong>Notification icon</strong> — optional notification bell icon</li>
+                <li><strong>Language selector</strong> — language switching support</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h3>Inputs (via Layout)</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>[userName]</code></td><td><code>string</code></td><td><code>''</code></td><td>User name displayed in the top bar.</td></tr>
+                    <tr><td><code>[displayThemeToggle]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the theme toggle button.</td></tr>
+                    <tr><td><code>[displayWCSDropdown]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the WCS dropdown.</td></tr>
+                    <tr><td><code>[displayNotifIcon]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the notification bell.</td></tr>
+                    <tr><td><code>[selectedLanguage]</code></td><td><code>string</code></td><td><code>'fr'</code></td><td>Currently selected language code.</td></tr>
+                    <tr><td><code>[selectedWCS]</code></td><td><code>string | WCSType</code></td><td>-</td><td>Currently selected WCS value.</td></tr>
+                    <tr><td><code>[allWCS]</code></td><td><code>Array&lt;string | WCSType&gt;</code></td><td>-</td><td>All available WCS options.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>Outputs</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Output</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>(themeToggled)</code></td><td><code>void</code></td><td>Theme toggle button clicked.</td></tr>
+                    <tr><td><code>(profileClicked)</code></td><td><code>void</code></td><td>Profile menu item clicked.</td></tr>
+                    <tr><td><code>(disconnectClicked)</code></td><td><code>void</code></td><td>Disconnect menu item clicked.</td></tr>
+                    <tr><td><code>(wcsSelected)</code></td><td><code>string | WCSType</code></td><td>WCS selection changed.</td></tr>
+                    <tr><td><code>(notificationClicked)</code></td><td><code>void</code></td><td>Notification bell clicked.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

@@ -1,0 +1,106 @@
+<ck-backoffice-layout-content [headerTitle]="'Breadcrumb'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-backoffice-breadcrumb</code> component displays breadcrumb navigation.
+                It supports icons, click handlers, and truncation via <code>minItemsShow</code>.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Basic breadcrumb</h3>
+            <div class="demo-live">
+                <ck-backoffice-breadcrumb
+                    [breadcrumbItems]="basicItems"
+                    (navItemClicked)="onItemClicked($event)">
+                </ck-backoffice-breadcrumb>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>With icons</h3>
+            <div class="demo-live">
+                <ck-backoffice-breadcrumb
+                    [breadcrumbItems]="iconItems"
+                    (navItemClicked)="onItemClicked($event)">
+                </ck-backoffice-breadcrumb>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>With truncation (minItemsShow=3)</h3>
+            <p class="demo-description">
+                When there are more items than <code>minItemsShow</code>, intermediate items are collapsed.
+            </p>
+            <div class="demo-live">
+                <ck-backoffice-breadcrumb
+                    [breadcrumbItems]="longItems"
+                    [minItemsShow]="3"
+                    (navItemClicked)="onItemClicked($event)">
+                </ck-backoffice-breadcrumb>
+            </div>
+        </div>
+
+        @if (log.length > 0) {
+            <div class="demo-section">
+                <h3>Event log</h3>
+                <div class="demo-log">
+                    @for (entry of log; track $index) {
+                        <div>{{ entry }}</div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>[breadcrumbItems]</code></td>
+                        <td><code>Array&lt;BreadcrumbItem&gt;</code></td>
+                        <td><code>[]</code></td>
+                        <td>Breadcrumb items to display.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[separator]</code></td>
+                        <td><code>IconDefinition</code></td>
+                        <td><code>faChevronRight</code></td>
+                        <td>Icon used as separator between items.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[minItemsShow]</code></td>
+                        <td><code>number</code></td>
+                        <td>-</td>
+                        <td>If set, truncates to show only this many items (first + last).</td>
+                    </tr>
+                    <tr>
+                        <td><code>(navItemClicked)</code></td>
+                        <td><code>BreadcrumbItem</code></td>
+                        <td>-</td>
+                        <td>Emitted when a breadcrumb item is clicked.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>BreadcrumbItem model</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>name</code></td><td><code>string</code></td><td>Display text.</td></tr>
+                    <tr><td><code>icon</code></td><td><code>IconDefinition</code></td><td>Optional FontAwesome icon.</td></tr>
+                    <tr><td><code>onClick</code></td><td><code>() =&gt; void</code></td><td>Optional click handler.</td></tr>
+                    <tr><td><code>disabled</code></td><td><code>boolean</code></td><td>Disable the item.</td></tr>
+                    <tr><td><code>children</code></td><td><code>Array&lt;BreadcrumbItem&gt;</code></td><td>Nested items.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

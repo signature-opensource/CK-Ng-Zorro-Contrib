@@ -1,4 +1,12 @@
-<div class="ck-simple-info-box">
+@if (icon()) {
+    <div class="icon-container">
+        <fa-icon [icon]="icon()!" />
+    </div>
+}
+<div class="text-content">
     <span class="label">{{ label() }}</span>
     <span class="value">{{ value() }}</span>
+    @if (subtitle()) {
+        <span class="subtitle">{{ subtitle() }}</span>
+    }
 </div>

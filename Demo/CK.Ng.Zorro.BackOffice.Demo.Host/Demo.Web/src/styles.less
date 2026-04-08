@@ -1,3 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'ng-zorro-antd/ng-zorro-antd.less';
 @import '../ck-gen/styles/styles.less';
+
+.ck-backoffice-root-layout,
+.ck-backoffice-root-layout .router-layout,
+.ck-backoffice-root-layout
+  .router-layout
+  .ck-backoffice-layout-content
+  .ck-backoffice-layout-inner-content {
+  // background-color: @demo-bg-color;
+}
+
+.ck-backoffice-root-layout
+  .router-layout
+  .ck-backoffice-layout-content
+  ck-backoffice-top-bar {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.ck-backoffice-root-layout .router-layout .ck-backoffice-layout-content > * {
+  // border-radius: @demo-radius-md;
+}
+.ck-sidebar-container
+  .ck-sidebar-navigation-items
+  .ck-sidebar-navigation-section
+  .sidebar-item.active {
+  // background-color: @demo-sidebar-active-bg;
+  // border: @demo-sidebar-active-border;
+  // border-radius: @demo-sidebar-active-radius;
+}
+
+.ck-sidebar-container
+  .ck-sidebar-navigation-items
+  .ck-sidebar-navigation-section
+  .sidebar-head-label {
+  // font-size: @demo-sidebar-section-font-size;
+  // text-transform: @demo-sidebar-section-text-transform;
+  // letter-spacing: @demo-sidebar-section-letter-spacing;
+  // color: @demo-sidebar-section-color;
+  // margin-top: @demo-spacing-md;
+}
+
+// --- Sidebar border-radius: slightly larger ---
+// Component target: @ck-backoffice-layout-sidebar-border-radius → @demo-radius-lg
+.ck-backoffice-root-layout
+  .router-layout
+  .ck-backoffice-layout-sidebar-container {
+  // border-radius: @demo-radius-lg;
+}

@@ -6,7 +6,11 @@ import { map } from "rxjs";
 export function injectNumberRouteParam( key: string ): Signal<number> {
     assertInInjectionContext( injectNumberRouteParam );
     const route = inject( ActivatedRoute );
-    const getParam = ( params: Params ): number => key ? parseInt( params?.[key] ) ?? null : 0;
+    const getParam = ( params: Params ): number => {
+        if ( !key ) return 0;
+        const parsed = parseInt( params?.[key], 10 );
+        return Number.isNaN( parsed ) ? 0 : parsed;
+    };
 
     return toSignal<number>( route.params.pipe( map( getParam ) ), { requireSync: true } );
 }

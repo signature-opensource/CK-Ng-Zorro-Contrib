@@ -1,0 +1,78 @@
+<ck-backoffice-layout-content [headerTitle]="'GenericForm'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-generic-form</code> component dynamically builds a form from a configuration object.
+                It supports field types: <code>text</code>, <code>number</code>, <code>date</code>,
+                <code>password</code>, <code>select</code>, and <code>checkbox</code>.
+                Validation, error messages, and conditional visibility are all declarative.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>All field types</h3>
+            <div class="demo-live form-container">
+                <ck-generic-form
+                    [inputFormData]="formData"
+                    [formLayout]="'vertical'"
+                    (submitRequested)="onSubmit()">
+                </ck-generic-form>
+
+                <div class="form-actions">
+                    <button nz-button nzType="primary" (click)="onSubmit()">Submit</button>
+                </div>
+
+                @if (formSubmitted) {
+                    <div class="submit-feedback">Form submitted!</div>
+                }
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Configuration</h3>
+            <p class="demo-description">
+                Create a <code>GenericFormData</code> object with a dictionary of <code>FormControlConfig</code> instances.
+                Each config defines the field type, label, default value, validators, and error messages.
+            </p>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Field type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>text</code></td><td>Standard text input</td></tr>
+                    <tr><td><code>number</code></td><td>Numeric input</td></tr>
+                    <tr><td><code>password</code></td><td>Password input (masked)</td></tr>
+                    <tr><td><code>date</code></td><td>Date picker</td></tr>
+                    <tr><td><code>select</code></td><td>Dropdown select (single/multiple/tags)</td></tr>
+                    <tr><td><code>checkbox</code></td><td>Boolean checkbox</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>[inputFormData]</code></td>
+                        <td><code>GenericFormData</code></td>
+                        <td>Form configuration with field definitions.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[formLayout]</code></td>
+                        <td><code>'horizontal' | 'vertical' | 'inline'</code></td>
+                        <td>Form layout direction (default: 'vertical').</td>
+                    </tr>
+                    <tr>
+                        <td><code>(submitRequested)</code></td>
+                        <td><code>void</code></td>
+                        <td>Emitted on Enter key press (when not in modal).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

@@ -1,0 +1,55 @@
+<ck-backoffice-layout-content [headerTitle]="'ActionBar'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-action-bar</code> component displays a toolbar with left and right action groups.
+                Each action can have an icon, danger style, and conditional visibility/disabled state.
+                It is embedded in <code>ck-backoffice-layout-content</code> but can also be used standalone.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Interactive demo</h3>
+            <div class="demo-controls">
+                <span>Simulate selection:</span>
+                <nz-switch [(ngModel)]="hasSelection"></nz-switch>
+                <span class="hint">Toggle to show/hide "Edit" and "Delete" actions (right side)</span>
+            </div>
+            <div class="demo-live">
+                <ck-action-bar [actions]="actions"></ck-action-bar>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Features</h3>
+            <ul>
+                <li><strong>Left / Right groups</strong> — actions are split into two alignment groups</li>
+                <li><strong>Icons</strong> — each action can have a FontAwesome <code>IconDefinition</code></li>
+                <li><strong>Danger style</strong> — <code>isDanger: true</code> renders the button in red</li>
+                <li><strong>Conditional visibility</strong> — <code>shouldBeDisplayed</code> callback controls visibility</li>
+                <li><strong>Conditional disabled</strong> — <code>shouldBeDisabled</code> callback controls disabled state</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>[actions]</code></td>
+                        <td><code>ActionBarContent&lt;T&gt;</code></td>
+                        <td>Object with <code>left</code> and <code>right</code> arrays of action definitions.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[selectedItems]</code></td>
+                        <td><code>Array&lt;T&gt;</code></td>
+                        <td>Currently selected items (passed to action callbacks).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

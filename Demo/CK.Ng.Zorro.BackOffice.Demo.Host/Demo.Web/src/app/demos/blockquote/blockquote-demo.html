@@ -1,0 +1,50 @@
+<ck-backoffice-layout-content [headerTitle]="'Blockquote'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-blockquote</code> component displays a styled blockquote message.
+                It takes a single <code>message</code> input.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Short message</h3>
+            <div class="demo-live">
+                <ck-blockquote [message]="'This is a simple informational message.'"></ck-blockquote>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Long message</h3>
+            <div class="demo-live">
+                <ck-blockquote [message]="'This is a longer blockquote message that demonstrates how the component handles multi-line content. It can be used to display important notices, warnings, or contextual information to the user within a page.'"></ck-blockquote>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Multiple blockquotes</h3>
+            <div class="demo-live">
+                <ck-blockquote [message]="'First blockquote — useful for tips or notes.'"></ck-blockquote>
+                <ck-blockquote [message]="'Second blockquote — can be stacked vertically.'"></ck-blockquote>
+                <ck-blockquote [message]="'Third blockquote — each one is independent.'"></ck-blockquote>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>message</code></td>
+                        <td><code>string</code></td>
+                        <td>Yes</td>
+                        <td>The text content to display in the blockquote.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

@@ -1,12 +1,12 @@
-import { Component, WritableSignal, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
+import { Component, DestroyRef, WritableSignal, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faQuestion, faTableColumns } from '@fortawesome/free-solid-svg-icons';
-import { Subject, debounceTime, first } from 'rxjs';
+import { first } from 'rxjs';
 import { faClose, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { createSearchDebouncer, SearchDebouncer } from './search-debouncer';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { TableColumn } from './table-column-model';
@@ -43,12 +43,14 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 } )
 export class Table<T> {
   readonly #translateService = inject( TranslateService );
+  readonly #destroyRef = inject( DestroyRef );
 
   columns = input.required<Array<TableColumn<T>>>();
   tableData = input.required<Array<T>>();
   dataUniqueKey = input.required<keyof T>();
   defaultPageSize = input<number>( 10 );
   defaultPageIndex = input<number>( 1 );
+  defaultSearchString = input<string>( '' );
   selectableRows = input<boolean>( true );
   showPageSizeOptions = input<boolean>( true );
   pageSizeOptions = input<Array<number>>( [10, 20, 30, 40, 50] );
@@ -70,19 +72,18 @@ export class Table<T> {
   searchCleared = output<void>();
   searchRequested = output<string>();
   columnsChanged = output<void>();
+  sortChanged = output<{ field: string; direction: 'ascend' | 'descend' | null }>();
 
   readonly closeIcon = faClose;
   readonly searchIcon = faMagnifyingGlass;
   readonly tableIcon = faTableColumns;
 
-  #searchDecouncer$: Subject<string> = new Subject();
+  #searchDebouncer!: SearchDebouncer;
   #selectedItems = signal<Array<T>>( [] );
-  public displayedData: Array<T> = [];
   public displayedColumns = linkedSignal( () => this.columns().filter( c => !c.hidden ) );
-  public pageSize = signal<number>( this.defaultPageSize() );
-  public pageIndex = signal<number>( this.defaultPageIndex() );
-  public debouncing: boolean = false;
-  public searchString: string = '';
+  public pageSize = linkedSignal( () => this.defaultPageSize() );
+  public pageIndex = linkedSignal( () => this.defaultPageIndex() );
+  public searchString = linkedSignal( () => this.defaultSearchString() );
   public columnChoices = computed( () => this.columns().map( f => { return { label: f.displayedName, value: f.name } as NzCheckboxOption } ) );
   public columnsConfig: WritableSignal<Array<keyof T>> = linkedSignal( () => this.displayedColumns().map( c => c.name ) );
   public searchLabel: WritableSignal<string> = linkedSignal( () => this.searchButtonTitle() );
@@ -90,7 +91,14 @@ export class Table<T> {
   public actionsHeaderLabel: WritableSignal<string> = linkedSignal( () => this.actionColumnHeader() );
 
   constructor() {
-    this.setupSearchDebouncer();
+    this.#searchDebouncer = createSearchDebouncer(
+      this.searchbarDebounceTime(),
+      this.#destroyRef,
+      ( term: string ) => {
+        this.searchString.set( term );
+        this.requestSearch( term );
+      }
+    );
 
     this.#translateService.get( ['Button.Search', 'Button.Cancel', 'CK.Table.Column.Actions'] ).pipe( first() ).subscribe( t => {
       if ( this.searchButtonTitle().length === 0 ) {
@@ -221,6 +229,10 @@ export class Table<T> {
     return faQuestion;
   }
 
+  onSortOrderChange( col: TableColumn<T>, direction: string | null ): void {
+    this.sortChanged.emit( { field: col.name as string, direction: direction as 'ascend' | 'descend' | null } );
+  }
+
   sizeChanged( size: number ): void {
     this.pageSize.set( size );
     this.pageSizeChanged.emit( size );
@@ -237,7 +249,7 @@ export class Table<T> {
 
   requestSearch( s: string ): void {
     if ( s.length > 0 ) {
-      this.searchString = s;
+      this.searchString.set( s );
       this.searchRequested.emit( s );
     } else {
       this.clearSearch();
@@ -245,28 +257,17 @@ export class Table<T> {
   }
 
   clearSearch(): void {
-    this.clearSearchString();
-    this.debouncing = false;
+    this.searchString.set( '' );
+    this.#searchDebouncer.debouncing = false;
     this.searchCleared.emit();
   }
 
-  clearSearchString(): void {
-    this.searchString = '';
-  }
-
-  setupSearchDebouncer(): void {
-    this.#searchDecouncer$.pipe( debounceTime( this.searchbarDebounceTime() ), takeUntilDestroyed() ).subscribe( ( term: string ) => {
-      if ( this.debouncing ) {
-        this.debouncing = false;
-        this.searchString = term;
-        this.requestSearch( term );
-      }
-    } );
-  }
-
   onSearchInputChange( term: string ): void {
-    this.debouncing = true;
-    this.#searchDecouncer$.next( term );
+    this.#searchDebouncer.onInputChange( term );
+  }
+
+  get debouncing(): boolean {
+    return this.#searchDebouncer.debouncing;
   }
 
   updateColumnsChecked( selected: Array<keyof T> ): void {

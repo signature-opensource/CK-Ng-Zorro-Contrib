@@ -1,6 +1,6 @@
 {
     "profiles": {
-        "CK.Ng.Components.BackOffice.Demo.Host": {
+        "BackOffice.Demo.Host": {
             "commandName": "Project",
             "launchBrowser": false,
             "environmentVariables": {

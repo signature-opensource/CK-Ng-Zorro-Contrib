@@ -1,43 +1,75 @@
 .ck-simple-info-box {
+    --ck-info-box-color: @primary-color;
+
     flex: 1;
-    height: 100%;
     border: 1px solid @ck-simple-info-box-border-color;
     border-radius: @ck-simple-info-box-border-radius;
     box-shadow: @ck-simple-info-box-boxshadow;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    padding: 1%;
+    justify-content: center;
+    padding: 1rem;
+    gap: 0.25rem;
+
+    .text-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.125rem;
+    }
 
     .label {
         font-size: @ck-simple-info-box-label-fontsize;
         text-align: center;
+        color: @text-color-secondary;
     }
 
     .value {
         font-size: @ck-simple-info-box-value-fontsize;
         font-weight: 600;
         text-align: center;
+    }
 
-        &.count,
-        &.icon {
-            font-size: @ck-simple-info-box-value-icon-fontsize;
+    .subtitle {
+        font-size: 0.85em;
+        color: @text-color-secondary;
+        text-align: center;
+    }
+
+    // Layout with icon: horizontal, icon left + text right
+    &.with-icon {
+        flex-direction: row;
+        gap: 0.75rem;
+
+        .text-content {
+            align-items: flex-start;
         }
 
-
-        &.warn {
-            color: @warn-color;
+        .label {
+            text-align: left;
         }
 
-        &.true {
-            color: @primary-color;
-            font-size: @ck-simple-info-box-value-icon-fontsize;
+        .value {
+            text-align: left;
         }
 
-        &.false {
-            color: @error-color;
-            font-size: @ck-simple-info-box-value-icon-fontsize;
+        .subtitle {
+            text-align: left;
         }
+    }
+
+    .icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        min-width: 2.5rem;
+        border-radius: 50%;
+        background-color: fade(@primary-color, 10%);
+        background-color: color-mix(in srgb, var(--ck-info-box-color) 10%, transparent);
+        color: var(--ck-info-box-color);
+        font-size: 1.1rem;
     }
 }

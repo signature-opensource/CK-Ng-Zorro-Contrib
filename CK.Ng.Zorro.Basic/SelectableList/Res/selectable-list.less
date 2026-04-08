@@ -1,0 +1,18 @@
+.ck-selectable-list {
+    display: block;
+    width: 100%;
+}
+
+.ck-selectable-list-item {
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background-color: @primary-color-outline;
+    }
+
+    &.selected {
+        background-color: @primary-color-outline;
+        border-left: 3px solid @primary-color;
+    }
+}

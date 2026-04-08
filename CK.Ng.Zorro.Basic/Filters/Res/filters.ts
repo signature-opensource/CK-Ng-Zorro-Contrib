@@ -1,27 +1,20 @@
 import { Component, input, linkedSignal, output } from '@angular/core';
-import { Filter, FilterType, SelectFilter, SwitchFilter } from '@local/ck-gen';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faClose, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { DateRangeFilter, Filter, FilterType, SelectFilter, SwitchFilter } from '@local/ck-gen';
+import { FormsModule } from '@angular/forms';
 
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @Component( {
   selector: 'ck-filters',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NzSelectModule, NzSwitchModule, FontAwesomeModule],
+  imports: [FormsModule, NzSelectModule, NzSwitchModule, NzDatePickerModule],
   templateUrl: './filters.html'
 } )
 export class Filters<T> {
   filters = input.required<Array<Filter<T>>>();
   show = input<boolean>();
   filtersChanged = output<void>();
-
-  readonly closeIcon = faClose;
-  readonly filterIcon = faFilter;
-  readonly plusIcon = faPlus;
 
   showFilters = linkedSignal( () => this.show() ?? true );
 
@@ -41,6 +34,14 @@ export class Filters<T> {
     return filter as SwitchFilter;
   }
 
+  instanceOfDateRange( filter: Filter<unknown> ): filter is DateRangeFilter {
+    return filter.filterType === FilterType.DATE_RANGE;
+  }
+
+  asDateRangeFilter( filter: Filter<T> ): DateRangeFilter {
+    return filter as unknown as DateRangeFilter;
+  }
+
   clearFilter( filter: SelectFilter<T> ): void {
     filter.value = filter.defaultValue;
   }
@@ -53,13 +54,19 @@ export class Filters<T> {
     let res = 'ck-filter';
     if ( this.instanceOfSelect( filter ) ) {
       const selectFilter = this.asSelectFilter( filter );
-      if ( selectFilter.active && selectFilter.value && ( selectFilter.value as Array<T> ).length > 0 ) {
+      if ( selectFilter.value && ( selectFilter.value as Array<T> ).length > 0 ) {
         res += ' active';
       }
     }
     if ( this.instanceOfSwitch( filter ) ) {
       const switchFilter = this.asSwitchFilter( filter );
-      if ( switchFilter.active ) {
+      if ( switchFilter.value === true ) {
+        res += ' active';
+      }
+    }
+    if ( this.instanceOfDateRange( filter ) ) {
+      const dateRangeFilter = this.asDateRangeFilter( filter );
+      if ( dateRangeFilter.value ) {
         res += ' active';
       }
     }

@@ -1,0 +1,8 @@
+<div class="ck-split-view-container">
+    <div class="ck-split-view-sidebar" [style.width]="sidebarWidth()" [style.min-width]="sidebarWidth()">
+        <ng-content select="[ckSplitSidebar]" />
+    </div>
+    <div class="ck-split-view-detail" [class.visible]="detailVisible()">
+        <ng-content select="[ckSplitDetail]" />
+    </div>
+</div>

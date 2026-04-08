@@ -1,0 +1,61 @@
+<ck-backoffice-layout-content [headerTitle]="'AdaptivePageLayout'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-adaptive-page-layout</code> component provides a responsive page layout that
+                automatically switches between a <strong>table view</strong> (desktop) and a <strong>list view</strong> (mobile).
+                It integrates filters, search, actions, and pagination.
+            </p>
+            <p>
+                <strong>Resize your browser</strong> to see it switch between table and list modes.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Responsive layout</h3>
+            <div class="demo-live">
+                <ck-adaptive-page-layout
+                    [title]="'Tasks'"
+                    [items]="items"
+                    [itemUniqueKey]="'id'"
+                    [columns]="columns"
+                    [itemTemplateRef]="itemTpl"
+                    [actions]="actions"
+                    [itemActions]="tableActions"
+                    [filters]="filters"
+                    [searchFunc]="searchFunc"
+                    [filterFunc]="filterFunc"
+                    [dblClickFunc]="onDblClick"
+                    [searchbarEnabled]="true"
+                    [searchbarDebounceTime]="300"
+                    [pageSize]="5">
+                </ck-adaptive-page-layout>
+            </div>
+
+            <ng-template #itemTpl let-item>
+                <div class="task-card">
+                    <div class="task-header">
+                        <span class="task-title">{{ item.title }}</span>
+                        <span class="task-priority" [attr.data-priority]="item.priority">{{ item.priority }}</span>
+                    </div>
+                    <div class="task-meta">
+                        <span>{{ item.status }}</span>
+                        <span>{{ item.completed ? 'Completed' : 'Pending' }}</span>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="demo-section">
+            <h3>Key features</h3>
+            <ul>
+                <li>Automatic table/list switching based on viewport width</li>
+                <li>Integrated search with debounce</li>
+                <li>Filter support (SwitchFilter, SelectFilter)</li>
+                <li>Action bar with context-aware buttons</li>
+                <li>Pagination with configurable page size</li>
+                <li>Custom item template for list view mode</li>
+            </ul>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

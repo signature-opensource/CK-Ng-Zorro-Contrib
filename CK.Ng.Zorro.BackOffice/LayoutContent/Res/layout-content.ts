@@ -1,6 +1,9 @@
-import { Component, computed, input, linkedSignal, output, WritableSignal } from '@angular/core';
+import { Component, computed, inject, input, linkedSignal, output, signal, WritableSignal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs';
 
 import {
     ActionBar,
@@ -18,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule, NzCheckboxOption } from 'ng-zorro-antd/checkbox';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
@@ -33,6 +37,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
         NzBadgeModule,
         NzButtonModule,
         NzCheckboxModule,
+        NzDrawerModule,
         NzPopoverModule,
         NzToolTipModule,
         FontAwesomeModule,
@@ -49,12 +54,7 @@ export class LayoutContent<T> {
     breadcrumb = input<Array<BreadcrumbItem>>( [] );
     breadcrumbSeparator = input<string>( '>' );
     filterPopoverPosition = input<'top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom'>( 'top' )
-    searchbarDebounceTime = input<number>( 2000 );
-    contentSearchBarEnabled = input<boolean>( true );
-
     breadcrumbItemClicked = output<BreadcrumbItem>();
-    contentSearchCleared = output<void>();
-    contentSearchRequested = output<string>();
     filtersApplied = output<Array<Filter<unknown>>>();
     filtersCleared = output<void>();
 
@@ -63,6 +63,29 @@ export class LayoutContent<T> {
     selectedFilters: WritableSignal<Array<string>> = linkedSignal( () => this.filters().filter( f => f.active ).map( f => f.label ) );
 
     readonly filterIcon = faFilter;
+
+    readonly #breakpointObserver = inject( BreakpointObserver );
+
+    isMobile = toSignal(
+        this.#breakpointObserver.observe( '(max-width: 991px)' ).pipe(
+            map( result => result.matches )
+        ),
+        { initialValue: false }
+    );
+
+    popoverTrigger = computed( (): 'click' | null => this.isMobile() ? null : 'click' );
+
+    drawerVisible = signal( false );
+
+    onFilterButtonClick(): void {
+        if ( this.isMobile() ) {
+            this.drawerVisible.set( true );
+        }
+    }
+
+    closeFilterDrawer(): void {
+        this.drawerVisible.set( false );
+    }
 
     onFilterApplied( f: Array<Filter<unknown>> ): void {
         this.currentFilters = [...f];
@@ -73,44 +96,19 @@ export class LayoutContent<T> {
         this.breadcrumbItemClicked.emit( i );
     }
 
-    onSearchCleared(): void {
-        this.contentSearchCleared.emit();
-    }
-
-    onSearchRequested( searchString: string ): void {
-        this.contentSearchRequested.emit( searchString );
-    }
-
     onFiltersCleared(): void {
         this.filtersCleared.emit();
     }
 
     updateFilterChecked( selected: Array<string> ): void {
         this.selectedFilters.set( selected );
-        const b = new Set( this.selectedFilters() );
-        const hidden = this.filters().filter( f => !b.has( f.label ) );
-        hidden.forEach( f => {
-            const filter = this.filters().find( filter => filter.label === f.label );
-            if ( filter ) {
-                filter.active = false;
-            }
-        } );
-
-        this.filters().forEach( f => {
-            if ( !hidden.find( h => h.label === f.label ) ) {
-                f.active = true;
-
-                if ( !this.selectedFilters().find( sf => sf === f.label ) ) {
-                    this.selectedFilters().push( f.label );
-                }
-            }
-        } );
-
-        this.onFilterApplied( this.filters() );
+        const selectedSet = new Set( selected );
+        const updatedFilters = this.filters().map( f => ( { ...f, active: selectedSet.has( f.label ) } ) );
+        this.onFilterApplied( updatedFilters );
     }
 
     toggleAllFilters(): void {
-        if ( this.selectedFilters.length > 0 ) {
+        if ( this.selectedFilters().length > 0 ) {
             this.clearFilters();
         } else {
             this.activateAllFilters();
@@ -118,16 +116,14 @@ export class LayoutContent<T> {
     }
 
     clearFilters(): void {
-        this.filters().forEach( f => f.active = false );
+        const updatedFilters = this.filters().map( f => ( { ...f, active: false } ) );
         this.selectedFilters.set( [] );
-
-        this.onFilterApplied( this.filters() );
+        this.onFilterApplied( updatedFilters );
     }
 
     activateAllFilters(): void {
-        this.filters().forEach( f => f.active = true );
-        this.selectedFilters.set( this.filters().map( f => f.label ) );
-
-        this.onFilterApplied( this.filters() );
+        const updatedFilters = this.filters().map( f => ( { ...f, active: true } ) );
+        this.selectedFilters.set( updatedFilters.map( f => f.label ) );
+        this.onFilterApplied( updatedFilters );
     }
 }
