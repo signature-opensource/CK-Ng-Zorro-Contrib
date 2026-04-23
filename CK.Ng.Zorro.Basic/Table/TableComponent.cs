@@ -8,6 +8,7 @@ namespace CK.Ng.Zorro;
 [Package<ZorroPackage>]
 [TypeScriptFile( "table-action-model.ts", "TableAction" )]
 [TypeScriptFile( "table-column-model.ts", "TableCellStyle", "TableCellContext", "TableColumn", "DefaultTableColumn", "ColumnFilter" )]
+[TypeScriptFile( "search-debouncer.ts", "SearchDebouncer", "createSearchDebouncer" )]
 public sealed class TableComponent : NgComponent
 {
 }

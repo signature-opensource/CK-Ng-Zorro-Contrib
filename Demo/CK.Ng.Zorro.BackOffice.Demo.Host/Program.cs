@@ -40,6 +40,11 @@ builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddHttpClient();
 
+builder.AddWebFrontAuth( options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays( 7 );
+} );
+
 var map = StObjContextRoot.Load( Assembly.GetExecutingAssembly(), builder.GetBuilderMonitor() );
 var app = builder.CKBuild( map );
 

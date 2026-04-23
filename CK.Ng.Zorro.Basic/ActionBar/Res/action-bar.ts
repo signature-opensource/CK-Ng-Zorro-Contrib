@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActionBarAction, ActionBarContent } from './action-bar-model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -9,7 +9,7 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 @Component({
     selector: 'ck-action-bar',
     templateUrl: './action-bar.html',
-    imports: [CommonModule, FormsModule, FontAwesomeModule, NzButtonModule, NzTooltipModule],
+    imports: [CommonModule, FormsModule, FontAwesomeModule, NgTemplateOutlet, NzButtonModule, NzTooltipModule],
     host: { 'class': 'ck-action-bar' }
 })
 export class ActionBar<T> {
@@ -33,7 +33,7 @@ export class ActionBar<T> {
 
     isDisabled(action: ActionBarAction<T>): boolean {
         if (action.shouldBeDisabled) {
-            return action.shouldBeDisabled();
+            return action.shouldBeDisabled(this.selectedItems());
         }
 
         return false;

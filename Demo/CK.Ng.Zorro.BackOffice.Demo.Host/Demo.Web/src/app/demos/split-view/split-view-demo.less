@@ -1,0 +1,44 @@
+@import '../demo-common.less';
+
+.split-demo-container {
+  min-height: 350px;
+}
+
+.sidebar-content {
+  padding: 16px;
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+}
+
+.sidebar-item {
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  &.active {
+    background: #e6f7ff;
+    color: #1890ff;
+    font-weight: 500;
+  }
+}
+
+.detail-content {
+  padding: 16px;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  .placeholder {
+    color: rgba(0, 0, 0, 0.35);
+    font-style: italic;
+  }
+}

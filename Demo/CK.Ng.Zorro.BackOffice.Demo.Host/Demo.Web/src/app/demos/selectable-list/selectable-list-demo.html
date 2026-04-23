@@ -1,0 +1,110 @@
+<ck-backoffice-layout-content [headerTitle]="'SelectableList'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-selectable-list</code> component renders a list of items with selection support.
+                It supports single-select and multi-select modes, custom item templates, and two-way binding
+                via <code>[(selectedItems)]</code>.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Interactive demo</h3>
+            <div class="demo-controls">
+                <span>Multi-select:</span>
+                <nz-switch [(ngModel)]="multiSelect"></nz-switch>
+            </div>
+            <div class="demo-live">
+                <ck-selectable-list
+                    [items]="items"
+                    [itemUniqueKey]="'id'"
+                    [itemTemplateRef]="itemTpl"
+                    [multiSelect]="multiSelect"
+                    [(selectedItems)]="selectedItems"
+                    (selectionChanged)="onSelectionChanged($event)"
+                    (itemDblClicked)="onItemDblClicked($event)">
+                </ck-selectable-list>
+            </div>
+
+            <ng-template #itemTpl let-item let-selected="selected">
+                <div class="item-card" [class.selected]="selected">
+                    <div class="item-name">{{ item.name }}</div>
+                    <div class="item-category">{{ item.category }}</div>
+                </div>
+            </ng-template>
+
+            @if (selectedItems.length > 0) {
+                <div class="selected-display">
+                    <strong>Selected:</strong> {{ selectedItems.length }} item(s) —
+                    @for (item of selectedItems; track item.id) {
+                        <span class="selected-tag">{{ item.name }}</span>
+                    }
+                </div>
+            }
+        </div>
+
+        @if (log.length > 0) {
+            <div class="demo-section">
+                <h3>Event log</h3>
+                <div class="demo-log">
+                    @for (entry of log; track $index) {
+                        <div>{{ entry }}</div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>[items]</code></td>
+                        <td><code>Array&lt;T&gt;</code></td>
+                        <td>required</td>
+                        <td>The data items to display.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[itemUniqueKey]</code></td>
+                        <td><code>keyof T</code></td>
+                        <td>required</td>
+                        <td>Property name used to uniquely identify items.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[itemTemplateRef]</code></td>
+                        <td><code>TemplateRef</code></td>
+                        <td>required</td>
+                        <td>Template for rendering each item. Context: <code>$implicit: T, selected: boolean</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[multiSelect]</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>false</code></td>
+                        <td>Allow selecting multiple items.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[(selectedItems)]</code></td>
+                        <td><code>Array&lt;T&gt;</code></td>
+                        <td><code>[]</code></td>
+                        <td>Two-way bound selected items.</td>
+                    </tr>
+                    <tr>
+                        <td><code>(selectionChanged)</code></td>
+                        <td><code>Array&lt;T&gt;</code></td>
+                        <td>-</td>
+                        <td>Emitted when the selection changes.</td>
+                    </tr>
+                    <tr>
+                        <td><code>(itemDblClicked)</code></td>
+                        <td><code>T</code></td>
+                        <td>-</td>
+                        <td>Emitted on double-click of an item.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

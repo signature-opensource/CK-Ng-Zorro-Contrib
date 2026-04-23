@@ -1,0 +1,73 @@
+.overview {
+  max-width: 1200px;
+}
+
+.overview-intro {
+  margin-bottom: 32px;
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  p {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 24px 0 12px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.component-card {
+  display: block;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #1890ff;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
+  }
+}
+
+.card-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.card-desc {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.55);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.card-package {
+  font-size: 11px;
+  color: #1890ff;
+  background: #e6f7ff;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+}

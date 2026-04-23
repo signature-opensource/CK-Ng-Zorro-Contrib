@@ -1,4 +1,4 @@
-import { Component, HostBinding, input, output, TemplateRef, viewChild } from '@angular/core';
+import { Component, input, output, signal, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -28,8 +28,6 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     host: { 'class': 'ck-backoffice-layout' }
 } )
 export class Layout {
-    topbarComponent = viewChild<TopBar>( 'topbar' );
-
     logoSrc = input<string>( 'logos/signature-one-logo.png' );
     navigationItems = input<Array<NavigationSection>>( [] );
     displayWCSDropdown = input<boolean>( false );
@@ -38,8 +36,6 @@ export class Layout {
     selectedLanguage = input<string>( 'fr' );
     userName = input<string>( '' );
     versionInfos = input<VersionInfos>();
-    displaySearchBar = input<boolean>( false );
-    displayLanguageChoices = input<boolean>( false );
     displayNotifIcon = input<boolean>( false );
     displayThemeToggle = input<boolean>( false );
     showGlobalSearchBtn = input<boolean>( false );
@@ -63,11 +59,11 @@ export class Layout {
     globalSearchRequested = output<string>();
     globalSearchCleared = output<void>();
 
-    public collapsed: boolean = false;
+    collapsed = signal( false );
 
     toggleCollapse(): void {
-        this.collapsed = !this.collapsed;
-        this.navbarCollapsedChanged.emit( this.collapsed );
+        this.collapsed.set( !this.collapsed() );
+        this.navbarCollapsedChanged.emit( this.collapsed() );
     }
 
     toggleAppIcon(): void {

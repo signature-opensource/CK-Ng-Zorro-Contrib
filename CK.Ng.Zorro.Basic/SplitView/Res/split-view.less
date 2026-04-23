@@ -1,0 +1,54 @@
+.ck-split-view {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.ck-split-view-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.ck-split-view-sidebar {
+    flex-shrink: 0;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.ck-split-view-detail {
+    flex: 1;
+    overflow-y: auto;
+    height: 100%;
+    min-width: 0;
+
+    @media (max-width: @screen-md-max) {
+        display: none;
+
+        &.visible {
+            display: block;
+        }
+    }
+}
+
+@media (max-width: @screen-md-max) {
+    .ck-split-view-container {
+        flex-direction: column;
+    }
+
+    .ck-split-view-sidebar {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    .ck-split-view-detail.visible {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: @white;
+        z-index: 10;
+    }
+}

@@ -107,6 +107,32 @@
     }
 }
 
+.ck-filter-drawer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.ck-filter-drawer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-top: 1px solid @border-color-base;
+    border-bottom: 1px solid @border-color-base;
+}
+
+.ck-filter-drawer-filters {
+    ck-filters {
+        flex-direction: column;
+    }
+
+    .ck-filter {
+        flex: 1 1 100%;
+        max-width: none;
+    }
+}
+
 .ck-backoffice-layout-content-main {
     flex: @ck-backoffice-layout-content-main-flex;
     background-color: @ck-backoffice-layout-content-main-background-color;

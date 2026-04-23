@@ -1,0 +1,78 @@
+<ck-backoffice-layout-content [headerTitle]="'SplitView'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-split-view</code> component provides a master-detail layout.
+                It projects two content areas: a sidebar (master) and a detail pane.
+                On narrow viewports, the detail pane overlays the sidebar.
+                Use <code>[(detailVisible)]</code> for two-way binding.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Master-detail layout</h3>
+            <p class="demo-description">Click an item in the sidebar to see its details. Resize the browser to see the responsive behavior.</p>
+            <div class="demo-live split-demo-container">
+                <ck-split-view
+                    [(detailVisible)]="detailVisible"
+                    [sidebarWidth]="'300px'"
+                    (detailClosed)="onDetailClosed()">
+                    <div ckSplitSidebar class="sidebar-content">
+                        <h4>Projects</h4>
+                        @for (item of items; track item.id) {
+                            <div class="sidebar-item"
+                                 [class.active]="selectedItem?.id === item.id"
+                                 (click)="selectItem(item)">
+                                {{ item.name }}
+                            </div>
+                        }
+                    </div>
+                    <div ckSplitDetail class="detail-content">
+                        @if (selectedItem) {
+                            <h4>{{ selectedItem.name }}</h4>
+                            <p>{{ selectedItem.description }}</p>
+                            <p><strong>ID:</strong> {{ selectedItem.id }}</p>
+                        } @else {
+                            <p class="placeholder">Select an item to view details.</p>
+                        }
+                    </div>
+                </ck-split-view>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>[(detailVisible)]</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>false</code></td>
+                        <td>Two-way binding to control detail pane visibility.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[breakpoint]</code></td>
+                        <td><code>string</code></td>
+                        <td><code>'1025px'</code></td>
+                        <td>CSS media query breakpoint for mobile collapse.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[sidebarWidth]</code></td>
+                        <td><code>string</code></td>
+                        <td><code>'350px'</code></td>
+                        <td>Width of the sidebar panel.</td>
+                    </tr>
+                    <tr>
+                        <td><code>(detailClosed)</code></td>
+                        <td><code>void</code></td>
+                        <td>-</td>
+                        <td>Emitted when the detail pane is closed.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

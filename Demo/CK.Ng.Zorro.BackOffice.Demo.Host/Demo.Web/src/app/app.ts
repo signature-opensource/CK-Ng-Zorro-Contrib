@@ -1,12 +1,11 @@
 // <HasNgPrivatePage />
 import { Component, inject, computed } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTable, faList, faBars, faFilter, faColumns, faPen, faInfoCircle, faQuoteLeft, faSpinner, faSearch, faRoute, faClipboardList, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
 import { Layout, NavigationSection, PrivatePage, NgAuthService } from '@local/ck-gen';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-// Private Page is from CK.Ng.AspNet.Auth package.
 
 @Component( {
   selector: 'app-root',
@@ -32,113 +31,56 @@ export class App {
   navSections: Array<NavigationSection> = [];
 
   constructor() {
-    this.navSections.push( {
-      bottom: false,
-      sectionHeadline: '',
-      items: [
-        {
-          label: 'Overview',
-          routerLink: 'overview',
-          icon: faHome
-        },
-        {
-          label: 'Components',
-          routerLink: 'action-bar',
-          children: [
-            {
-              label: 'ActionBar',
-              routerLink: 'action-bar',
-            },
-            {
-              label: 'Blockquote',
-            },
-            {
-              label: 'Breadcrumb',
-            },
-            {
-              label: 'Filter',
-            },
-            {
-              label: 'GenericForm',
-            },
-            {
-              label: 'Layout',
-            },
-            {
-              label: 'LayoutContent',
-            },
-            {
-              label: 'Loader',
-            },
-            {
-              label: 'MobileBar',
-            },
-            {
-              label: 'SideBar',
-            },
-            {
-              label: 'Table',
-            },
-            {
-              label: 'TopBar',
-            },
-          ]
-        },
-        {
-          label: 'Components1',
-          routerLink: 'action-bar',
-          children: [
-            {
-              label: 'ActionBar1',
-              routerLink: 'action-bar',
-            }
-          ]
-        }
-      ]
-    } );
-    this.navSections.push( {
-      bottom: false,
-      sectionHeadline: 'Back Office',
-      items: [
-        {
-          label: 'ActionBar',
-          routerLink: 'action-bar',
-        },
-        {
-          label: 'Blockquote',
-        },
-        {
-          label: 'Breadcrumb',
-        },
-        {
-          label: 'Filter',
-        },
-        {
-          label: 'GenericForm',
-        },
-        {
-          label: 'Layout',
-        },
-        {
-          label: 'LayoutContent',
-        },
-        {
-          label: 'Loader',
-        },
-        {
-          label: 'MobileBar',
-        },
-        {
-          label: 'SideBar',
-        },
-        {
-          label: 'Table',
-        },
-        {
-          label: 'TopBar',
-        },
-      ],
-    } );
+    this.navSections = [
+      {
+        sectionHeadline: '',
+        bottom: false,
+        items: [
+          {
+            label: 'Overview',
+            routerLink: 'overview',
+            icon: faHome
+          }
+        ]
+      },
+      {
+        sectionHeadline: 'Basic',
+        bottom: false,
+        items: [
+          { label: 'Table', routerLink: 'basic/table', icon: faTable },
+          { label: 'ListView', routerLink: 'basic/list-view', icon: faList },
+          { label: 'ActionBar', routerLink: 'basic/action-bar', icon: faBars },
+          { label: 'Filters', routerLink: 'basic/filters', icon: faFilter },
+          { label: 'AdaptivePageLayout', routerLink: 'basic/adaptive-page-layout', icon: faColumns },
+          { label: 'SplitView', routerLink: 'basic/split-view' },
+          { label: 'SelectableList', routerLink: 'basic/selectable-list' },
+          { label: 'InlineEdit', routerLink: 'basic/inline-edit', icon: faPen },
+          { label: 'SimpleInfoBox', routerLink: 'basic/simple-info-box', icon: faInfoCircle },
+          { label: 'Blockquote', routerLink: 'basic/blockquote', icon: faQuoteLeft },
+          { label: 'Loader', routerLink: 'basic/loader', icon: faSpinner },
+          { label: 'GenericForm', routerLink: 'basic/generic-form' },
+        ]
+      },
+      {
+        sectionHeadline: 'BackOffice',
+        bottom: false,
+        items: [
+          { label: 'Layout', routerLink: 'backoffice/layout' },
+          { label: 'LayoutContent', routerLink: 'backoffice/layout-content' },
+          { label: 'TopBar', routerLink: 'backoffice/top-bar' },
+          { label: 'SideBar', routerLink: 'backoffice/side-bar' },
+          { label: 'MobileBar', routerLink: 'backoffice/mobile-bar' },
+          { label: 'SearchModal', routerLink: 'backoffice/search-modal', icon: faSearch },
+        ]
+      },
+      {
+        sectionHeadline: 'Other',
+        bottom: false,
+        items: [
+          { label: 'Breadcrumb', routerLink: 'breadcrumb', icon: faRoute },
+        ]
+      }
+    ];
   }
 
   goToHome(): void {

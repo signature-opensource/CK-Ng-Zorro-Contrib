@@ -22,9 +22,6 @@
             height: @ck-backoffice-layout-sidebar-height;
             border-radius: @ck-backoffice-layout-sidebar-border-radius;
             box-shadow: @ck-backoffice-layout-sidebar-boxshadow;
-            -webkit-transition: width 0.25s ease-in-out;
-            -moz-transition: width 0.25s ease-in-out;
-            -o-transition: width 0.25s ease-in-out;
             transition: width 0.25s ease-in-out;
 
             &.collapsed {
@@ -61,13 +58,14 @@
                 flex-direction: row;
                 align-items: center;
                 background-color: @ck-backoffice-bg-color;
-                z-index: 1;
+                z-index: @ck-z-index-topbar;
                 box-shadow: 0px 2px 2px -2px rgba(0, 0, 0, 0.1);
             }
 
             ck-backoffice-mobile-bar {
                 height: @ck-backoffice-layout-topbar-height;
-                overflow-x: hidden;
+                background-color: @ck-backoffice-bg-color;
+                box-shadow: 0px 2px 2px -2px rgba(0, 0, 0, 0.1);
             }
 
             .ck-backoffice-layout-inner-content {
@@ -75,6 +73,7 @@
                 overflow-y: auto;
                 height: @ck-backoffice-layout-inner-content-height;
                 width: 100%;
+                padding-right: @ck-backoffice-layout-inner-content-right-padding;
 
                 @media (max-width: (@screen-lg-max + 1)) {
                     height: @ck-backoffice-layout-inner-content-smallscreen-height;

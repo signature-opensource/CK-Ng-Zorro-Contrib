@@ -1,0 +1,44 @@
+<ck-backoffice-layout-content [headerTitle]="'CK.Ng.Zorro Components'" [showFilters]="false">
+    <div class="overview">
+        <div class="overview-intro">
+            <h2>Component Documentation</h2>
+            <p>
+                Interactive demos for all CK.Ng.Zorro components.
+                Each page provides live examples and configuration options.
+            </p>
+        </div>
+
+        <h3 class="section-title">CK.Ng.Zorro.Basic</h3>
+        <div class="card-grid">
+            @for (comp of basicComponents; track comp.name) {
+                <a class="component-card" [routerLink]="comp.route">
+                    <div class="card-name">{{ comp.name }}</div>
+                    <div class="card-desc">{{ comp.description }}</div>
+                    <div class="card-package">{{ comp.package }}</div>
+                </a>
+            }
+        </div>
+
+        <h3 class="section-title">CK.Ng.Zorro.BackOffice</h3>
+        <div class="card-grid">
+            @for (comp of backofficeComponents; track comp.name) {
+                <a class="component-card" [routerLink]="comp.route">
+                    <div class="card-name">{{ comp.name }}</div>
+                    <div class="card-desc">{{ comp.description }}</div>
+                    <div class="card-package">{{ comp.package }}</div>
+                </a>
+            }
+        </div>
+
+        <h3 class="section-title">Other</h3>
+        <div class="card-grid">
+            @for (comp of otherComponents; track comp.name) {
+                <a class="component-card" [routerLink]="comp.route">
+                    <div class="card-name">{{ comp.name }}</div>
+                    <div class="card-desc">{{ comp.description }}</div>
+                    <div class="card-package">{{ comp.package }}</div>
+                </a>
+            }
+        </div>
+    </div>
+</ck-backoffice-layout-content>

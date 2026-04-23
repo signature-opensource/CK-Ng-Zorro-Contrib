@@ -1,14 +1,13 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, input, linkedSignal, output, TemplateRef } from '@angular/core';
+import { Component, DestroyRef, inject, input, linkedSignal, output, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClose, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
-import { TableAction } from '@local/ck-gen';
+import { createSearchDebouncer, SearchDebouncer, TableAction } from '@local/ck-gen';
 
 @Component( {
   selector: 'ck-list-view',
@@ -25,13 +24,16 @@ import { TableAction } from '@local/ck-gen';
   host: { 'class': 'ck-list-view' }
 } )
 export class ListView<T> {
+  readonly #destroyRef = inject( DestroyRef );
+
   items = input.required<Array<T>>();
   itemUniqueKey = input.required<keyof T>();
   itemActions = input<Array<TableAction<T>>>();
   itemTemplateRef = input.required<TemplateRef<{ $implicit: T }>>();
   searchbarEnabled = input<boolean>( true );
   searchbarDebounceTime = input<number>( 1000 );
-  dblClickFunc = input<( item: T ) => Array<T>>();
+  defaultSearchString = input<string>( '' );
+  dblClickFunc = input<( item: T ) => void>();
 
   searchRequested = output<string>();
   searchCleared = output<void>();
@@ -40,13 +42,16 @@ export class ListView<T> {
   searchIcon = faSearch;
   closeIcon = faClose;
 
-  #searchDecouncer$: Subject<string> = new Subject();
+  #searchDebouncer: SearchDebouncer;
   protected displayedItems = linkedSignal( () => this.items() );
-  protected searchString = '';
-  protected debouncing = false;
+  protected searchString = linkedSignal( () => this.defaultSearchString() );
 
   constructor() {
-    this.setupSearchInputChange();
+    this.#searchDebouncer = createSearchDebouncer(
+      this.searchbarDebounceTime(),
+      this.#destroyRef,
+      ( term: string ) => this.requestSearch( term )
+    );
   }
 
   doubleClick( item: T ): void {
@@ -54,22 +59,16 @@ export class ListView<T> {
   }
 
   onSearchInputChange( term: string ): void {
-    this.debouncing = true;
-    this.#searchDecouncer$.next( term );
+    this.#searchDebouncer.onInputChange( term );
   }
 
-  setupSearchInputChange(): void {
-    this.#searchDecouncer$.pipe( debounceTime( this.searchbarDebounceTime() ), distinctUntilChanged() ).subscribe( ( term: string ) => {
-      if ( this.debouncing ) {
-        this.debouncing = false;
-        this.requestSearch( term );
-      }
-    } );
+  get debouncing(): boolean {
+    return this.#searchDebouncer.debouncing;
   }
 
   requestSearch( s: string ): void {
     if ( s.length > 0 ) {
-      this.searchString = s;
+      this.searchString.set( s );
       this.searchRequested.emit( s );
     } else {
       this.clearSearch();
@@ -77,7 +76,7 @@ export class ListView<T> {
   }
 
   clearSearch(): void {
-    this.searchString = '';
+    this.searchString.set( '' );
     this.searchCleared.emit();
     this.displayedItems.set( this.items() );
   }

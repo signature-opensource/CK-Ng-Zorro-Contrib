@@ -2,7 +2,7 @@
     @if (searchbarEnabled()) {
         <div class="ck-table-searchbar">
             <fa-icon class="ck-table-search-icon search" [icon]="searchIcon"></fa-icon>
-            <input nz-input [(ngModel)]="searchString" (ngModelChange)="onSearchInputChange($event)" />
+            <input nz-input [ngModel]="searchString()" (ngModelChange)="onSearchInputChange($event)" />
             @if (debouncing) {
                 <span nz-icon nzType="loading" nzTheme="outline"></span>
             }
@@ -60,7 +60,7 @@
             }
             @for (col of displayedColumns(); track col.name) {
                 @if (col.sortable) {
-                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align ?? 'left'" [nzSortOrder]="col.sortOrder!" [nzSortFn]="col.sortFn!">
+                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align ?? 'left'" [nzWidth]="col.width ?? null" [nzSortOrder]="col.sortOrder!" [nzSortFn]="col.sortFn!" (nzSortOrderChange)="onSortOrderChange(col, $event)">
                         {{ col.displayedName }}
                         @if (col.filter) {
                             <ng-container>
@@ -87,7 +87,7 @@
                         }
                     </th>
                 } @else {
-                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align ?? 'left'">
+                    <th [class]="!col.showInMobile ? 'ck-table-header ck-table-desktop-only' : 'ck-table-header'" [nzAlign]="col.align ?? 'left'" [nzWidth]="col.width ?? null">
                         {{ col.displayedName }}
                     </th>
                 }

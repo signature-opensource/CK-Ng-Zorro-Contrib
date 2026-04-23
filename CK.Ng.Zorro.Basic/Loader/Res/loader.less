@@ -6,18 +6,15 @@
     left: 0;
     z-index: @ck-loader-zindex;
     background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     svg {
-        position: relative;
-        left: @ck-loader-svg-left;
         width: @ck-loader-svg-width;
-        top: @ck-loader-svg-top;
-        z-index: 1;
 
         @media (max-width: @screen-md-min) {
-            top: @ck-loader-svg-midscreen-top;
             width: @ck-loader-svg-midscreen-width;
-            left: @ck-loader-svg-midscreen-left;
         }
     }
 }

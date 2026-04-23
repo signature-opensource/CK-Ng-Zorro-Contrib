@@ -21,12 +21,13 @@ export interface TableColumn<T> {
   filter?: ColumnFilter<T>;
   sortOrder?: NzTableSortOrder | null;
   sortDirections?: Array<string | null>;
-  sortFn?: NzTableSortFn<T>;
+  sortFn?: NzTableSortFn<T> | boolean;
   valueFormatter?: ( value: T[keyof T], row: T ) => string;
   template?: TemplateRef<TableCellContext<T>>;
   defineIcon?: ( value: T[keyof T] ) => IconDefinition;
   style?: ( ( value: T ) => TableCellStyle ) | TableCellStyle;
   align?: 'left' | 'right' | 'center';
+  width?: string;
 }
 
 export class DefaultTableColumn<T> implements TableColumn<T> {
@@ -39,12 +40,13 @@ export class DefaultTableColumn<T> implements TableColumn<T> {
   sortOrder?: NzTableSortOrder;
   sortDirections?: ( string | null )[];
   iconShouldReplaceValue: boolean = false;
-  sortFn?: NzTableSortFn<T>;
+  sortFn?: NzTableSortFn<T> | boolean;
   valueFormatter?: ( value: T[keyof T], row: T ) => string;
   template?: TemplateRef<TableCellContext<T>>;
   defineIcon?: ( value: T[keyof T] ) => IconDefinition;
   style?: ( ( value: T ) => TableCellStyle ) | TableCellStyle;
   align?: 'left' | 'right' | 'center';
+  width?: string;
 
   constructor(
     name: keyof T,
@@ -62,7 +64,8 @@ export class DefaultTableColumn<T> implements TableColumn<T> {
       template,
       defineIcon,
       style,
-      align = 'left'
+      align = 'left',
+      width
     }: Partial<Omit<TableColumn<T>, 'name' | 'displayedName'>> = {} ) {
     this.name = name;
     this.displayedName = displayedName;
@@ -79,6 +82,7 @@ export class DefaultTableColumn<T> implements TableColumn<T> {
     this.defineIcon = defineIcon;
     this.style = style;
     this.align = align;
+    this.width = width;
   }
 }
 

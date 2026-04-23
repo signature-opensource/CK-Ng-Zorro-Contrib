@@ -1,0 +1,64 @@
+<ck-backoffice-layout-content [headerTitle]="'ListView'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-list-view</code> component renders items using a custom template.
+                It provides search with debounce and double-click handling.
+                Typically used as the mobile view in <code>ck-adaptive-page-layout</code>.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Custom item template</h3>
+            <div class="demo-live">
+                <ck-list-view
+                    [items]="items"
+                    [itemUniqueKey]="'id'"
+                    [itemTemplateRef]="itemTpl"
+                    [searchbarDebounceTime]="300"
+                    (searchRequested)="search($event)"
+                    (searchCleared)="clearSearch()"
+                    (dblClicked)="onDblClick($event)">
+                </ck-list-view>
+            </div>
+
+            <ng-template #itemTpl let-item>
+                <div class="user-card">
+                    <div class="user-avatar">{{ item.name.charAt(0) }}</div>
+                    <div class="user-info">
+                        <div class="user-name">{{ item.name }}</div>
+                        <div class="user-email">{{ item.email }}</div>
+                    </div>
+                    <div class="user-role">{{ item.role }}</div>
+                </div>
+            </ng-template>
+        </div>
+
+        @if (log.length > 0) {
+            <div class="demo-section">
+                <h3>Event log</h3>
+                <div class="demo-log">
+                    @for (entry of log; track $index) {
+                        <div>{{ entry }}</div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="demo-section">
+            <h3>Key inputs</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>[items]</code></td><td><code>Array&lt;T&gt;</code></td><td>The data items to render.</td></tr>
+                    <tr><td><code>[itemUniqueKey]</code></td><td><code>keyof T</code></td><td>Unique identifier property.</td></tr>
+                    <tr><td><code>[itemTemplateRef]</code></td><td><code>TemplateRef</code></td><td>Template for rendering each item. Context: <code>$implicit: T</code>.</td></tr>
+                    <tr><td><code>[searchbarEnabled]</code></td><td><code>boolean</code></td><td>Show search bar (default: true).</td></tr>
+                    <tr><td><code>[searchbarDebounceTime]</code></td><td><code>number</code></td><td>Debounce time in ms (default: 1000).</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

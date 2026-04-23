@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, inject, input, OnDestroy, output, OutputRefSubscription, linkedSignal, TemplateRef, effect } from '@angular/core';
+import { Component, inject, input, output, linkedSignal, TemplateRef, effect } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -19,10 +19,10 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 @Component( {
     selector: 'ck-backoffice-side-bar',
     templateUrl: './side-bar.html',
-    imports: [CommonModule, FormsModule, FontAwesomeModule, NzDividerModule, NzModalModule, NzMenuModule, NzTooltipModule, TranslateModule],
+    imports: [CommonModule, FormsModule, FontAwesomeModule, NgTemplateOutlet, NzDividerModule, NzModalModule, NzMenuModule, NzTooltipModule, TranslateModule],
     host: { 'class': 'ck-backoffice-side-bar' }
 } )
-export class SideBar implements OnDestroy {
+export class SideBar {
     readonly #router = inject( Router );
     readonly #translateService = inject( TranslateService );
     readonly #modal = inject( NzModalService );
@@ -47,7 +47,6 @@ export class SideBar implements OnDestroy {
     readonly infoIcon = faInfoCircle;
     readonly searchIcon = faSearch;
 
-    #subscriptions: Array<OutputRefSubscription> = [];
     collapsed = linkedSignal<boolean>( this.isCollapsed );
     menuOpenMap: { [name: string]: boolean } = {};
     navItems = linkedSignal( () => this.navigationItems() );
@@ -124,10 +123,10 @@ export class SideBar implements OnDestroy {
             nzMaskStyle: { 'background-color': 'rgb(0 0 0 / 70%)' },
             nzFooter: [
                 {
-                    label: this.#translateService.instant( 'Button.Close' ),
+                    label: this.#translateService.instant( 'CK.SideBar.Button.Close' ),
                     type: 'primary',
                     onClick: c => {
-                        c!.searchString = '';
+                        c!.searchString.set( '' );
                         ref.close();
                     }
                 }
@@ -136,16 +135,20 @@ export class SideBar implements OnDestroy {
 
         const ref: NzModalRef<SearchModal> = this.#modal.create( opts );
         const comp = ref.getContentComponent();
-        this.#subscriptions.push( comp.searchRequested.subscribe( ( s: string ) => {
+        const searchSub = comp.searchRequested.subscribe( ( s: string ) => {
             this.searchRequested.emit( s );
-        } ) );
-        this.#subscriptions.push( comp.searchCleared.subscribe( () => {
+        } );
+        const clearSub = comp.searchCleared.subscribe( () => {
             this.searchCleared.emit();
-        } ) );
+        } );
+        ref.afterClose.subscribe( () => {
+            searchSub.unsubscribe();
+            clearSub.unsubscribe();
+        } );
     }
 
     getSearchTooltip(): string {
-        return this.#translateService.instant( 'Button.Search' );
+        return this.#translateService.instant( 'CK.SideBar.Button.Search' );
     }
 
     #generateUrl( routerLink: string ): string {
@@ -153,19 +156,24 @@ export class SideBar implements OnDestroy {
     }
 
     #resetActiveItem(): void {
-        const sections = [...this.navigationItems()];
-
-        sections.forEach( ( n ) => {
-            n.items.forEach( ( i: NavigationItem ) => {
-                i.isActive = false;
-                i.children?.forEach( c => c.isActive = false );
-            } );
-        } );
-
         let currentPath = this.#router.url;
         if ( currentPath.startsWith( '/' ) ) {
             currentPath = currentPath.substring( 1 );
         }
+        const qIdx = currentPath.indexOf( '?' );
+        if ( qIdx !== -1 ) currentPath = currentPath.substring( 0, qIdx );
+        const hIdx = currentPath.indexOf( '#' );
+        if ( hIdx !== -1 ) currentPath = currentPath.substring( 0, hIdx );
+
+        const sections = this.navigationItems().map( s => ( {
+            ...s,
+            items: s.items.map( ( i: NavigationItem ) => ( {
+                ...i,
+                isActive: false,
+                children: i.children?.map( c => ( { ...c, isActive: false } ) )
+            } ) )
+        } ) );
+
         const navItems = sections.flatMap( ns => ns.items );
         const activeItem = this.#findItemByRouterLink( navItems, currentPath );
         if ( activeItem ) {
@@ -176,20 +184,21 @@ export class SideBar implements OnDestroy {
     }
 
     #findItemByRouterLink( items: Array<NavigationItem>, routerLink: string ): NavigationItem | undefined {
+        let best: NavigationItem | undefined;
         for ( const item of items ) {
-            if ( item.routerLink === routerLink ) {
-                return item;
+            if ( item.routerLink && ( item.routerLink === routerLink || routerLink.startsWith( item.routerLink + '/' ) ) ) {
+                if ( !best || item.routerLink.length > best.routerLink!.length ) {
+                    best = item;
+                }
             }
-
             if ( item.children?.length ) {
                 const found = this.#findItemByRouterLink( item.children, routerLink );
-                if ( found ) return found;
+                if ( found && ( !best || found.routerLink!.length > best.routerLink!.length ) ) {
+                    best = found;
+                }
             }
         }
-        return undefined;
+        return best;
     }
 
-    ngOnDestroy(): void {
-        this.#subscriptions.forEach( s => s.unsubscribe() );
-    }
 }

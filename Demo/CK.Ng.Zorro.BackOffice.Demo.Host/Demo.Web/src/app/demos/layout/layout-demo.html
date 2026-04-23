@@ -1,0 +1,72 @@
+<ck-backoffice-layout-content [headerTitle]="'Layout'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-backoffice-layout</code> component is the main application shell.
+                It composes the <strong>SideBar</strong>, <strong>TopBar</strong>, and <strong>MobileBar</strong>
+                into a responsive layout. You are currently inside one — it wraps this entire application.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Structure</h3>
+            <div class="structure-diagram">
+                <div class="diagram-box layout-box">
+                    ck-backoffice-layout
+                    <div class="diagram-inner">
+                        <div class="diagram-box sidebar-box">SideBar</div>
+                        <div class="diagram-main">
+                            <div class="diagram-box topbar-box">TopBar</div>
+                            <div class="diagram-box content-box">&lt;router-outlet /&gt;</div>
+                        </div>
+                    </div>
+                    <div class="diagram-box mobilebar-box">MobileBar (mobile only)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Inputs</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>[navigationItems]</code></td><td><code>Array&lt;NavigationSection&gt;</code></td><td><code>[]</code></td><td>Sidebar navigation sections and items.</td></tr>
+                    <tr><td><code>[userName]</code></td><td><code>string</code></td><td><code>''</code></td><td>User name displayed in the top bar.</td></tr>
+                    <tr><td><code>[logoSrc]</code></td><td><code>string</code></td><td>Default logo</td><td>Path to the sidebar logo image.</td></tr>
+                    <tr><td><code>[displayThemeToggle]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the theme toggle button in the top bar.</td></tr>
+                    <tr><td><code>[displayWCSDropdown]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the WCS (Working Context Selector) dropdown.</td></tr>
+                    <tr><td><code>[displayNotifIcon]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the notification bell icon.</td></tr>
+                    <tr><td><code>[showGlobalSearchBtn]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the global search button in the sidebar.</td></tr>
+                    <tr><td><code>[globalSearchPlaceholder]</code></td><td><code>string</code></td><td><code>''</code></td><td>Placeholder for the global search input.</td></tr>
+                    <tr><td><code>[globalSearchDebounceTime]</code></td><td><code>number</code></td><td><code>300</code></td><td>Debounce time for global search (ms).</td></tr>
+                    <tr><td><code>[defaultContentTpl]</code></td><td><code>TemplateRef</code></td><td>-</td><td>Default content template for the search modal.</td></tr>
+                    <tr><td><code>[searchResultTpl]</code></td><td><code>TemplateRef</code></td><td>-</td><td>Search results template for the search modal.</td></tr>
+                    <tr><td><code>[selectedLanguage]</code></td><td><code>string</code></td><td><code>'fr'</code></td><td>Currently selected language.</td></tr>
+                    <tr><td><code>[versionInfos]</code></td><td><code>VersionInfos</code></td><td>-</td><td>Version information shown in the sidebar footer.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>Outputs</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Output</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>(logoClicked)</code></td><td><code>void</code></td><td>Logo in the sidebar was clicked.</td></tr>
+                    <tr><td><code>(themeToggled)</code></td><td><code>void</code></td><td>Theme toggle button was clicked.</td></tr>
+                    <tr><td><code>(languageChanged)</code></td><td><code>string</code></td><td>Language selection changed.</td></tr>
+                    <tr><td><code>(profileClicked)</code></td><td><code>void</code></td><td>Profile button was clicked.</td></tr>
+                    <tr><td><code>(disconnectClicked)</code></td><td><code>void</code></td><td>Disconnect button was clicked.</td></tr>
+                    <tr><td><code>(globalSearchRequested)</code></td><td><code>string</code></td><td>Global search query submitted.</td></tr>
+                    <tr><td><code>(globalSearchCleared)</code></td><td><code>void</code></td><td>Global search cleared.</td></tr>
+                    <tr><td><code>(navItemClicked)</code></td><td><code>NavigationItem</code></td><td>A navigation item was clicked.</td></tr>
+                    <tr><td><code>(navbarCollapsedChanged)</code></td><td><code>boolean</code></td><td>Sidebar collapse state changed.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

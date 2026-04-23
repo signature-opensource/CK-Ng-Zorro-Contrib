@@ -1,59 +1,57 @@
 ck-filters {
-    gap: 0.5%;
     display: flex;
     flex-wrap: wrap;
-}
-
-.filter-icon {
-    color: @primary-color;
-    font-size: @regular-font-size;
-}
-
-.clear-icon {
-    color: @primary-color;
-    font-size: @regular-font-size;
-    position: absolute;
-    transform: translate(-50%, -15%);
+    gap: @ck-filter-gap;
 }
 
 .ck-filter {
-    box-shadow: @ck-filter-box-shadow;
-    border: @ck-filter-border;
-    border-radius: @ck-border-radius;
-    padding: 0 1%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    flex: 0 0 auto;
+    height: 2.5rem;
+    padding: @ck-filter-padding;
+    background: @ck-filter-bg;
+    border: @ck-filter-border;
+    border-radius: @ck-filter-border-radius;
+    transition: @ck-filter-transition;
 
-    @media (max-width: 1024px) {
-        flex: 0 0 45%;
-    }
-
-    @media (min-width: 1025px) {
-        flex: 0 0 23%;
-    }
-
-    &:not(:last-child) {
-        margin-right: @ck-filter-margin-right;
+    &:hover {
+        background: @ck-filter-hover-bg;
     }
 
     &.active {
-        border-color: @primary-color;
-        min-height: 32px;
+        background: @ck-filter-active-bg;
+        border-color: @ck-filter-active-border;
     }
 
     .label {
-        color: @grey;
-        font-weight: @font-weight-bold;
-        font-size: @regular-font-size;
+        font-size: @ck-filter-label-size;
+        font-weight: @ck-filter-label-weight;
+        color: @ck-filter-label-color;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-right: 0.5rem;
+        white-space: nowrap;
         user-select: none;
     }
 
+    .filter-control {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        min-width: 0;
+    }
+
     .select-filter {
-        width: 70%;
+        min-width: 4rem;
+    }
+
+    .date-range-filter {
+        width: 100%;
     }
 
     .switch-filter {
-        margin: 0 3%;
+        margin: 0;
     }
+
 }

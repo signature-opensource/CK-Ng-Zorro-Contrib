@@ -54,9 +54,20 @@
                     margin-left: @ck-backoffice-mobile-bar-navigation-item-left-margin;
                     cursor: pointer;
                     font-size: @ck-backoffice-mobile-bar-navigation-item-font-size;
+                    padding: 0.25rem 0.5rem;
+                    border-left: 3px solid transparent;
+                    border-radius: 0 4px 4px 0;
+                    transition: all 0.2s ease;
 
                     &:not(:last-child) {
                         margin-bottom: @ck-backoffice-mobile-bar-navigation-item-bottom-margin;
+                    }
+
+                    &.active {
+                        color: @primary-color;
+                        border-left-color: @primary-color;
+                        font-weight: 600;
+                        background-color: fade(@primary-color, 6%);
                     }
 
                     .ck-backoffice-mobile-bar-navigation-icon {

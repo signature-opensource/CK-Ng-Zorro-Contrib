@@ -1,0 +1,71 @@
+<ck-backoffice-layout-content [headerTitle]="'SearchModal'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-search-modal</code> component provides a full-screen search modal with debounced input.
+                It is integrated into the <code>ck-backoffice-layout</code> via the sidebar's search button.
+            </p>
+            <p>
+                <strong>Click the search icon in the sidebar</strong> (magnifying glass) to open the search modal and see it in action.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>How it works</h3>
+            <ul>
+                <li>Triggered by the sidebar search button (when <code>[showGlobalSearchBtn]="true"</code>)</li>
+                <li>Opens as a full-screen overlay with a search input</li>
+                <li>Search is debounced (configurable via <code>globalSearchDebounceTime</code>)</li>
+                <li>Supports a <code>defaultContentTpl</code> shown before any search is made</li>
+                <li>Supports a <code>searchResultTpl</code> shown after a search query</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h3>Configuration (via Layout)</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>[showGlobalSearchBtn]</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the search button in the sidebar.</td></tr>
+                    <tr><td><code>[globalSearchPlaceholder]</code></td><td><code>string</code></td><td><code>''</code></td><td>Placeholder text for the search input.</td></tr>
+                    <tr><td><code>[globalSearchDebounceTime]</code></td><td><code>number</code></td><td><code>300</code></td><td>Debounce time in ms.</td></tr>
+                    <tr><td><code>[defaultContentTpl]</code></td><td><code>TemplateRef</code></td><td>-</td><td>Template shown when no search has been made.</td></tr>
+                    <tr><td><code>[searchResultTpl]</code></td><td><code>TemplateRef</code></td><td>-</td><td>Template shown with search results.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>Outputs (via Layout)</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Output</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>(globalSearchRequested)</code></td><td><code>string</code></td><td>Search query submitted.</td></tr>
+                    <tr><td><code>(globalSearchCleared)</code></td><td><code>void</code></td><td>Search input cleared.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="demo-section">
+            <h3>Example template usage</h3>
+            <div class="demo-log">
+                <div>&lt;ck-backoffice-layout</div>
+                <div>&nbsp;&nbsp;[showGlobalSearchBtn]="true"</div>
+                <div>&nbsp;&nbsp;[globalSearchDebounceTime]="300"</div>
+                <div>&nbsp;&nbsp;[globalSearchPlaceholder]="'Search...'"</div>
+                <div>&nbsp;&nbsp;[defaultContentTpl]="defaultTpl"</div>
+                <div>&nbsp;&nbsp;[searchResultTpl]="resultTpl"</div>
+                <div>&nbsp;&nbsp;(globalSearchRequested)="onSearch($event)"</div>
+                <div>&nbsp;&nbsp;(globalSearchCleared)="onClear()"&gt;</div>
+                <div>&lt;/ck-backoffice-layout&gt;</div>
+                <div></div>
+                <div>&lt;ng-template #defaultTpl&gt;Recent items...&lt;/ng-template&gt;</div>
+                <div>&lt;ng-template #resultTpl&gt;Search results...&lt;/ng-template&gt;</div>
+            </div>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

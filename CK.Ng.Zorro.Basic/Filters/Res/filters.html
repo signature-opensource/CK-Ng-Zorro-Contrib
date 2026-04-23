@@ -1,52 +1,62 @@
 @if (this.showFilters()) {
-    <!-- <fa-icon [icon]="filterIcon" class="filter-icon"></fa-icon> -->
-
     @for (filter of filters(); track filter.label) {
         @if (filter.active) {
             <div [class]="getFilterClassName(filter)">
                 <span class="label">{{ filter.label }}</span>
-                @if (instanceOfSelect(filter)) {
-                    @if (asSelectFilter(filter).mode === 'default') {
-                        <nz-select
-                            class="select-filter"
-                            [nzMode]="'tags'"
-                            [nzMaxMultipleCount]="1"
-                            [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
-                            [(ngModel)]="asSelectFilter(filter).value"
-                            nzBorderless
-                            nzAllowClear
-                            (ngModelChange)="filterValueChanged()">
-                            @for (opts of asSelectFilter(filter).options; track opts.label) {
-                                <nz-option [nzLabel]="opts.label" [nzValue]="opts.value"></nz-option>
-                            }
-                        </nz-select>
-                    } @else {
-                        <nz-select
-                            class="select-filter"
-                            [nzMode]="asSelectFilter(filter).mode"
-                            [(ngModel)]="asSelectFilter(filter).value"
-                            [nzMaxMultipleCount]="asSelectFilter(filter).maxSelectionCount"
-                            [nzMaxTagCount]="asSelectFilter(filter).maxDisplayedCount"
-                            [nzMaxTagPlaceholder]="asSelectFilter(filter).maxDisplayedTemplate ?? defaultMaxTagPlaceholder"
-                            [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
-                            nzBorderless
-                            nzAllowClear
-                            (ngModelChange)="filterValueChanged()">
-                            @for (opts of asSelectFilter(filter).options; track opts.label) {
-                                <nz-option [nzLabel]="opts.label" [nzValue]="opts.value"></nz-option>
-                            }
-                        </nz-select>
+                <div class="filter-control">
+                    @if (instanceOfSelect(filter)) {
+                        @if (asSelectFilter(filter).mode === 'default') {
+                            <nz-select
+                                class="select-filter"
+                                [nzMode]="'tags'"
+                                [nzMaxMultipleCount]="1"
+                                [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
+                                [(ngModel)]="asSelectFilter(filter).value"
+                                nzBorderless
+                                nzAllowClear
+                                (ngModelChange)="filterValueChanged()">
+                                @for (opts of asSelectFilter(filter).options; track opts.label) {
+                                    <nz-option [nzLabel]="opts.label" [nzValue]="opts.value" />
+                                }
+                            </nz-select>
+                        } @else {
+                            <nz-select
+                                class="select-filter"
+                                [nzMode]="asSelectFilter(filter).mode"
+                                [(ngModel)]="asSelectFilter(filter).value"
+                                [nzMaxMultipleCount]="asSelectFilter(filter).maxSelectionCount"
+                                [nzMaxTagCount]="0"
+                                [nzMaxTagPlaceholder]="emptyTpl"
+                                [nzDropdownMatchSelectWidth]="false"
+                                [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
+                                nzBorderless
+                                nzAllowClear
+                                (ngModelChange)="filterValueChanged()">
+                                @for (opts of asSelectFilter(filter).options; track opts.label) {
+                                    <nz-option [nzLabel]="opts.label" [nzValue]="opts.value" />
+                                }
+                            </nz-select>
+                        }
                     }
-                }
-                @if (instanceOfSwitch(filter)) {
-                    <nz-switch class="switch-filter" [(ngModel)]="asSwitchFilter(filter).value" (ngModelChange)="filterValueChanged()">
-                    </nz-switch>
-                }
+                    @if (instanceOfSwitch(filter)) {
+                        <nz-switch
+                            class="switch-filter"
+                            [(ngModel)]="asSwitchFilter(filter).value"
+                            (ngModelChange)="filterValueChanged()" />
+                    }
+                    @if (instanceOfDateRange(filter)) {
+                        <nz-range-picker
+                            class="date-range-filter ant-picker-borderless"
+                            [nzFormat]="asDateRangeFilter(filter).format"
+                            [nzShowTime]="asDateRangeFilter(filter).showTime"
+                            [nzRanges]="asDateRangeFilter(filter).presets ?? {}"
+                            [nzPlaceHolder]="asDateRangeFilter(filter).placeholder ?? ['', '']"
+                            [(ngModel)]="asDateRangeFilter(filter).value"
+                            (ngModelChange)="filterValueChanged()" />
+                    }
+                </div>
             </div>
         }
     }
 }
-<ng-template #defaultMaxTagPlaceholder let-selectedList>
-    <fa-icon [icon]="plusIcon" class="ck-btn-icon"></fa-icon>
-    <span>{{ selectedList.length }}</span>
-</ng-template>
+<ng-template #emptyTpl></ng-template>

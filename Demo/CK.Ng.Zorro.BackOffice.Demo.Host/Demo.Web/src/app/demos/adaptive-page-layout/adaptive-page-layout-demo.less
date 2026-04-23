@@ -1,0 +1,48 @@
+@import '../demo-common.less';
+
+.task-card {
+  padding: 12px 16px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-title {
+  font-weight: 500;
+}
+
+.task-priority {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #f0f0f0;
+
+  &[data-priority="High"] {
+    background: #fff1f0;
+    color: #ff4d4f;
+  }
+
+  &[data-priority="Medium"] {
+    background: #fff7e6;
+    color: #fa8c16;
+  }
+
+  &[data-priority="Low"] {
+    background: #f6ffed;
+    color: #52c41a;
+  }
+}
+
+.task-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.45);
+}

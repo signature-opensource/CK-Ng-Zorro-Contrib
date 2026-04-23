@@ -1,0 +1,98 @@
+<ck-backoffice-layout-content [headerTitle]="'InlineEdit'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-inline-edit</code> component provides click-to-edit (or double-click-to-edit) text input.
+                It supports two-way binding via <code>[(value)]</code> and emits
+                <code>confirmed</code> and <code>cancelled</code> events.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Click to edit (default)</h3>
+            <div class="demo-live">
+                <ck-inline-edit
+                    [(value)]="value1"
+                    (confirmed)="onConfirmed('Click-to-edit', $event)"
+                    (cancelled)="onCancelled('Click-to-edit')">
+                </ck-inline-edit>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Double-click to edit</h3>
+            <div class="demo-live">
+                <ck-inline-edit
+                    [(value)]="value2"
+                    [editOnDblClick]="true"
+                    (confirmed)="onConfirmed('DblClick-to-edit', $event)"
+                    (cancelled)="onCancelled('DblClick-to-edit')">
+                </ck-inline-edit>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>With placeholder</h3>
+            <div class="demo-live">
+                <ck-inline-edit
+                    [(value)]="value3"
+                    [placeholder]="'Enter a value...'"
+                    (confirmed)="onConfirmed('Placeholder', $event)"
+                    (cancelled)="onCancelled('Placeholder')">
+                </ck-inline-edit>
+            </div>
+        </div>
+
+        @if (log.length > 0) {
+            <div class="demo-section">
+                <h3>Event log</h3>
+                <div class="demo-log">
+                    @for (entry of log; track $index) {
+                        <div>{{ entry }}</div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>[(value)]</code></td>
+                        <td><code>string</code></td>
+                        <td><code>''</code></td>
+                        <td>Two-way bound text value.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[placeholder]</code></td>
+                        <td><code>string</code></td>
+                        <td><code>''</code></td>
+                        <td>Placeholder text shown when value is empty.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[editOnDblClick]</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>false</code></td>
+                        <td>If true, requires double-click to enter edit mode.</td>
+                    </tr>
+                    <tr>
+                        <td><code>(confirmed)</code></td>
+                        <td><code>string</code></td>
+                        <td>-</td>
+                        <td>Emitted when the edit is confirmed (Enter or blur).</td>
+                    </tr>
+                    <tr>
+                        <td><code>(cancelled)</code></td>
+                        <td><code>void</code></td>
+                        <td>-</td>
+                        <td>Emitted when the edit is cancelled (Escape).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

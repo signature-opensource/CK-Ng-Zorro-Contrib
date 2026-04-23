@@ -1,0 +1,84 @@
+<ck-backoffice-layout-content [headerTitle]="'SimpleInfoBox'" [showFilters]="false">
+    <div class="demo-page">
+        <div class="demo-description">
+            <p>
+                The <code>ck-simple-info-box</code> component displays a label/value pair in a styled box.
+                Useful for dashboards and summary panels. Supports an optional icon with color accent.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h3>Basic usage</h3>
+            <div class="demo-live">
+                <div class="demo-row">
+                    <ck-simple-info-box [label]="'Total Users'" [value]="1284" />
+                    <ck-simple-info-box [label]="'Active Sessions'" [value]="42" />
+                    <ck-simple-info-box [label]="'Status'" [value]="'Online'" />
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>With icons</h3>
+            <div class="demo-live">
+                <div class="demo-row">
+                    <ck-simple-info-box [label]="'Total Users'" [value]="1284" [icon]="usersIcon" />
+                    <ck-simple-info-box [label]="'Active Sessions'" [value]="42" [icon]="boltIcon" />
+                    <ck-simple-info-box [label]="'Status'" [value]="'Online'" [icon]="checkIcon" />
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>With icons and colors</h3>
+            <div class="demo-live">
+                <div class="demo-row">
+                    <ck-simple-info-box [label]="'Revenue'" [value]="'€ 12,450'" [icon]="chartIcon" [color]="'#52c41a'" [subtitle]="'+12% this month'" />
+                    <ck-simple-info-box [label]="'Completion'" [value]="'87%'" [icon]="percentIcon" [color]="'#faad14'" [subtitle]="'13 remaining'" />
+                    <ck-simple-info-box [label]="'Items'" [value]="342" [icon]="boxesIcon" [color]="'#1890ff'" />
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>API</h3>
+            <table class="demo-api-table">
+                <thead>
+                    <tr><th>Input</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>label</code></td>
+                        <td><code>string</code></td>
+                        <td>Yes</td>
+                        <td>The label displayed above the value.</td>
+                    </tr>
+                    <tr>
+                        <td><code>value</code></td>
+                        <td><code>string | number</code></td>
+                        <td>Yes</td>
+                        <td>The value to display.</td>
+                    </tr>
+                    <tr>
+                        <td><code>icon</code></td>
+                        <td><code>IconDefinition</code></td>
+                        <td>No</td>
+                        <td>FontAwesome icon shown in a tinted circle on the left.</td>
+                    </tr>
+                    <tr>
+                        <td><code>color</code></td>
+                        <td><code>string</code></td>
+                        <td>No</td>
+                        <td>CSS color for the icon and its background tint. Defaults to primary color.</td>
+                    </tr>
+                    <tr>
+                        <td><code>subtitle</code></td>
+                        <td><code>string</code></td>
+                        <td>No</td>
+                        <td>Secondary text displayed below the value.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ck-backoffice-layout-content>

@@ -1,10 +1,10 @@
 <nz-layout class="ck-backoffice-root-layout">
     <nz-layout class="router-layout">
         <ng-container *appResponsive="'(min-width: 1025px)'">
-            <div [ngClass]="collapsed ? 'ck-backoffice-layout-sidebar-container collapsed' : 'ck-backoffice-layout-sidebar-container'">
+            <div [ngClass]="collapsed() ? 'ck-backoffice-layout-sidebar-container collapsed' : 'ck-backoffice-layout-sidebar-container'">
                 <ck-backoffice-side-bar [logoSrc]="logoSrc()"
                                         [navigationItems]="navigationItems()"
-                                        [isCollapsed]="collapsed"
+                                        [isCollapsed]="collapsed()"
                                         [versionInfos]="versionInfos()"
                                         [showGlobalSearchBtn]="showGlobalSearchBtn()"
                                         [defaultContentTpl]="defaultContentTpl()"
@@ -20,9 +20,9 @@
             </div>
         </ng-container>
 
-        <nz-content [class]="collapsed ? 'ck-backoffice-layout-content collapsed' : 'ck-backoffice-layout-content'">
+        <nz-content [class]="collapsed() ? 'ck-backoffice-layout-content collapsed' : 'ck-backoffice-layout-content'">
             <ng-container *appResponsive="'(min-width: 1025px)'">
-                <ck-backoffice-top-bar #topbar
+                <ck-backoffice-top-bar
                                        [displayWCSDropdown]="displayWCSDropdown()"
                                        [allWCS]="allWCS()"
                                        [selectedWCS]="selectedWCS()"
@@ -48,7 +48,7 @@
                                           (notificationClicked)="openNotifications()">
                 </ck-backoffice-mobile-bar>
             </ng-container>
-            <div [class]="collapsed ? 'ck-backoffice-layout-inner-content collapsed' : 'ck-backoffice-layout-inner-content'">
+            <div [class]="collapsed() ? 'ck-backoffice-layout-inner-content collapsed' : 'ck-backoffice-layout-inner-content'">
                 <ng-content></ng-content>
             </div>
         </nz-content>

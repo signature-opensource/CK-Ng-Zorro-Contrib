@@ -71,9 +71,6 @@ export class GenericForm {
       if ( this.formData.generalFormValidators ) {
         groupOpts.validators = this.formData.generalFormValidators.validators;
       }
-      // if ( this.formData.generalFormAsyncValidators ) {
-      //   groupOpts.asyncValidators = this.formData.generalFormAsyncValidators.validators;
-      // }
     }
 
     return this.#formBuilder.group( group, groupOpts );

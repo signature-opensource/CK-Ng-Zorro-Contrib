@@ -1,0 +1,20 @@
+@if (editing()) {
+    <input #editInput
+           nz-input
+           [ngModel]="editValue()"
+           (ngModelChange)="editValue.set($event)"
+           [placeholder]="placeholder()"
+           (keydown)="onKeydown($event)"
+           (blur)="confirm()"
+           class="ck-inline-edit-input" />
+} @else {
+    <span class="ck-inline-edit-display"
+          (click)="onClick()"
+          (dblclick)="onDblClick()">
+        @if (value().length > 0) {
+            {{ value() }}
+        } @else {
+            <span class="ck-inline-edit-placeholder">{{ placeholder() }}</span>
+        }
+    </span>
+}
