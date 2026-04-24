@@ -58,7 +58,6 @@ export class LayoutContent<T> {
     filtersApplied = output<Array<Filter<unknown>>>();
     filtersCleared = output<void>();
 
-    currentFilters: Array<Filter<unknown>> = [];
     filterChoices = computed( () => this.filters().map( f => { return { label: f.label, value: f.label } as NzCheckboxOption } ) );
     selectedFilters: WritableSignal<Array<string>> = linkedSignal( () => this.filters().filter( f => f.active ).map( f => f.label ) );
 
@@ -88,7 +87,6 @@ export class LayoutContent<T> {
     }
 
     onFilterApplied( f: Array<Filter<unknown>> ): void {
-        this.currentFilters = [...f];
         this.filtersApplied.emit( f );
     }
 
@@ -103,8 +101,8 @@ export class LayoutContent<T> {
     updateFilterChecked( selected: Array<string> ): void {
         this.selectedFilters.set( selected );
         const selectedSet = new Set( selected );
-        const updatedFilters = this.filters().map( f => ( { ...f, active: selectedSet.has( f.label ) } ) );
-        this.onFilterApplied( updatedFilters );
+        this.filters().forEach( f => f.active = selectedSet.has( f.label ) );
+        this.onFilterApplied( this.filters() );
     }
 
     toggleAllFilters(): void {
@@ -116,14 +114,14 @@ export class LayoutContent<T> {
     }
 
     clearFilters(): void {
-        const updatedFilters = this.filters().map( f => ( { ...f, active: false } ) );
+        this.filters().forEach( f => f.active = false );
         this.selectedFilters.set( [] );
-        this.onFilterApplied( updatedFilters );
+        this.onFilterApplied( this.filters() );
     }
 
     activateAllFilters(): void {
-        const updatedFilters = this.filters().map( f => ( { ...f, active: true } ) );
-        this.selectedFilters.set( updatedFilters.map( f => f.label ) );
-        this.onFilterApplied( updatedFilters );
+        this.filters().forEach( f => f.active = true );
+        this.selectedFilters.set( this.filters().map( f => f.label ) );
+        this.onFilterApplied( this.filters() );
     }
 }
