@@ -10,6 +10,7 @@
                                 class="select-filter"
                                 [nzMode]="'tags'"
                                 [nzMaxMultipleCount]="1"
+                                [nzDropdownMatchSelectWidth]="false"
                                 [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
                                 [(ngModel)]="asSelectFilter(filter).value"
                                 nzBorderless
