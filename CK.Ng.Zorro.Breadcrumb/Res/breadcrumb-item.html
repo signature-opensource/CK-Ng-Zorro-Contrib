@@ -1,4 +1,4 @@
-<a (click)="itemClicked(item)">
+<a (click)="itemClicked(item())">
     <span [class]="item().disabled ? 'disabled-item' : 'enabled-item'">
         <fa-icon class="ck-breadcrumb-item-icon" *ngIf="!!item().icon" [icon]="item().icon!"></fa-icon>
         <span class="ck-breadcrumb-item-label">
