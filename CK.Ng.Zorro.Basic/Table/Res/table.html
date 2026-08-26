@@ -52,7 +52,8 @@
     [nzTotal]="totalCount()"
     [nzFrontPagination]="frontPagination()"
     (nzPageSizeChange)="sizeChanged($event)"
-    (nzPageIndexChange)="indexChanged($event)">
+    (nzPageIndexChange)="indexChanged($event)"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
     <thead>
         <tr>
             @if (selectableRows()) {
@@ -100,9 +101,13 @@
     <tbody>
         @for (data of table.data; track data[dataUniqueKey()]) {
             <tr (click)="selectRow(data)" class="ck-table-row" (dblclick)="rowDblClicked(data)">
-                <!-- Selectable rows have a checkbox as first column -->
+                <!-- Selectable rows have a checkbox as first column. The cell swallows the click:
+                     letting it reach the row handler toggles the selection twice, and nz-td keeps the
+                     checkbox visually checked because its bound value never changed. -->
                 @if (selectableRows()) {
-                    <td [nzChecked]="isSelected(data)" (nzCheckedChange)="itemChecked(data, $event)"></td>
+                    <td [nzChecked]="isSelected(data)"
+                        (nzCheckedChange)="itemChecked(data, $event)"
+                        (click)="$event.stopPropagation()"></td>
                 }
 
                 <!-- Displaying each column's value -->
@@ -133,13 +138,13 @@
                                     @if (a.isDanger) {
                                         @if (a.tooltip && a.tooltip.length > 0) {
                                             <!-- Danger + Tooltip + DisplayedName -->
-                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" (click)="execAction($event, a, data)" [nzType]="a.type">
+                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" (click)="execAction($event, a, data)" [nzType]="a.type" [disabled]="isDisabled(a, data)">
                                                 <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
                                                 {{ a.displayedName }}
                                             </button>
                                         } @else {
                                             <!-- Danger + DisplayedName -->
-                                            <button nz-button nzDanger [nzType]="a.type" (click)="execAction($event, a, data)">
+                                            <button nz-button nzDanger [nzType]="a.type" (click)="execAction($event, a, data)" [disabled]="isDisabled(a, data)">
                                                 <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
                                                 {{ a.displayedName }}
                                             </button>
@@ -147,13 +152,13 @@
                                     } @else {
                                         @if (a.tooltip && a.tooltip.length > 0) {
                                             <!-- Tooltip + DisplayedName -->
-                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)">
+                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)" [disabled]="isDisabled(a, data)">
                                                 <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
                                                 {{ a.displayedName }}
                                             </button>
                                         } @else {
                                             <!-- DisplayedName -->
-                                            <button nz-button [nzType]="a.type" (click)="execAction($event, a, data)">
+                                            <button nz-button [nzType]="a.type" (click)="execAction($event, a, data)" [disabled]="isDisabled(a, data)">
                                                 <fa-icon class="action-icon" [icon]="a.icon"></fa-icon>
                                                 {{ a.displayedName }}
                                             </button>
@@ -163,24 +168,24 @@
                                     @if (a.isDanger) {
                                         @if (a.tooltip && a.tooltip.length > 0) {
                                             <!-- Danger + Tooltip -->
-                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)">
+                                            <button nz-button nzDanger [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)" [disabled]="isDisabled(a, data)">
                                                 <fa-icon [icon]="a.icon"></fa-icon>
                                             </button>
                                         } @else {
                                             <!-- Danger -->
-                                            <button nz-button nzDanger [nzType]="a.type" (click)="execAction($event, a, data)">
+                                            <button nz-button nzDanger [nzType]="a.type" (click)="execAction($event, a, data)" [disabled]="isDisabled(a, data)">
                                                 <fa-icon [icon]="a.icon"></fa-icon>
                                             </button>
                                         }
                                     } @else {
                                         @if (a.tooltip && a.tooltip.length > 0) {
                                             <!-- Tooltip -->
-                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)">
+                                            <button nz-button [nz-tooltip]="a.tooltip" [nzType]="a.type" (click)="execAction($event, a, data)" [disabled]="isDisabled(a, data)">
                                                 <fa-icon [icon]="a.icon"></fa-icon>
                                             </button>
                                         } @else {
                                             <!-- Nothing -->
-                                            <button nz-button [nzType]="a.type" (click)="execAction($event, a, data)">
+                                            <button nz-button [nzType]="a.type" (click)="execAction($event, a, data)" [disabled]="isDisabled(a, data)">
                                                 <fa-icon [icon]="a.icon"></fa-icon>
                                             </button>
                                         }

@@ -1,6 +1,7 @@
 import { Component, input, linkedSignal, output } from '@angular/core';
 import { DateRangeFilter, Filter, FilterType, SelectFilter, SwitchFilter } from '@local/ck-gen';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -8,7 +9,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @Component( {
   selector: 'ck-filters',
-  imports: [FormsModule, NzSelectModule, NzSwitchModule, NzDatePickerModule],
+  imports: [FormsModule, TranslateModule, NzSelectModule, NzSwitchModule, NzDatePickerModule],
   templateUrl: './filters.html'
 } )
 export class Filters<T> {
@@ -46,6 +47,12 @@ export class Filters<T> {
     filter.value = filter.defaultValue;
   }
 
+  // Only impose ng-zorro's max-selection limit (which also renders its "N / M" badge)
+  // when the filter defines a genuine cap. Otherwise return Infinity so no limit/badge shows.
+  selectionLimit( filter: SelectFilter<T> ): number {
+    return filter.maxSelectionCount < filter.options.length ? filter.maxSelectionCount : Infinity;
+  }
+
   filterValueChanged(): void {
     this.filtersChanged.emit();
   }
@@ -54,7 +61,11 @@ export class Filters<T> {
     let res = 'ck-filter';
     if ( this.instanceOfSelect( filter ) ) {
       const selectFilter = this.asSelectFilter( filter );
-      if ( selectFilter.value && ( selectFilter.value as Array<T> ).length > 0 ) {
+      // Single-select stores a scalar value; multiple/tags store an array.
+      const hasValue = selectFilter.mode === 'default'
+        ? selectFilter.value !== undefined && selectFilter.value !== null && selectFilter.value !== ''
+        : Array.isArray( selectFilter.value ) && selectFilter.value.length > 0;
+      if ( hasValue ) {
         res += ' active';
       }
     }

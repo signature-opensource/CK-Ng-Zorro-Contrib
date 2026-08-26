@@ -57,6 +57,19 @@ export class FiltersDemo {
         placeholder: 'Select categories'
       }
     ),
+    new SelectFilter<Category>(
+      'default',
+      'Category (single)',
+      [
+        { label: 'Electronics', value: Category.Electronics },
+        { label: 'Clothing', value: Category.Clothing },
+        { label: 'Books', value: Category.Books },
+      ],
+      {
+        active: false,
+        placeholder: 'Select a category'
+      }
+    ),
     new DateRangeFilter( 'Created', {
       placeholder: ['Start date', 'End date'],
       presets: {
@@ -94,6 +107,9 @@ export class FiltersDemo {
       }
       if ( f.label === 'Category' ) {
         result = result.filter( p => ( f.value as Array<string> ).includes( p.category ) );
+      }
+      if ( f.label === 'Category (single)' && f.value ) {
+        result = result.filter( p => p.category === f.value );
       }
       if ( f.label === 'Created' && f.value ) {
         const [start, end] = f.value as [Date, Date];

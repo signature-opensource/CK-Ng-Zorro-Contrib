@@ -50,4 +50,22 @@ ck-filters {
         margin: 0;
     }
 
+    .select-filter {
+        min-width: @ck-filter-select-min-width;
+        max-width: @ck-filter-select-max-width;
+
+        // Keep the control on a single row so the fixed chip height is never exceeded.
+        .ant-select-selection-overflow {
+            flex-wrap: nowrap;
+        }
+
+        // Ellipsis a long tag label instead of letting it grow the chip.
+        .ant-select-selection-item {
+            max-width: @ck-filter-tag-max-width;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+
 }

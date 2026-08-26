@@ -8,11 +8,9 @@
                         @if (asSelectFilter(filter).mode === 'default') {
                             <nz-select
                                 class="select-filter"
-                                [nzMode]="'tags'"
-                                [nzMaxMultipleCount]="1"
+                                [(ngModel)]="asSelectFilter(filter).value"
                                 [nzDropdownMatchSelectWidth]="false"
                                 [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
-                                [(ngModel)]="asSelectFilter(filter).value"
                                 nzBorderless
                                 nzAllowClear
                                 (ngModelChange)="filterValueChanged()">
@@ -25,9 +23,9 @@
                                 class="select-filter"
                                 [nzMode]="asSelectFilter(filter).mode"
                                 [(ngModel)]="asSelectFilter(filter).value"
-                                [nzMaxMultipleCount]="asSelectFilter(filter).maxSelectionCount"
-                                [nzMaxTagCount]="0"
-                                [nzMaxTagPlaceholder]="emptyTpl"
+                                [nzMaxMultipleCount]="selectionLimit(asSelectFilter(filter))"
+                                [nzMaxTagCount]="1"
+                                [nzMaxTagPlaceholder]="overflowTpl"
                                 [nzDropdownMatchSelectWidth]="false"
                                 [nzPlaceHolder]="asSelectFilter(filter).placeholder ?? ''"
                                 nzBorderless
@@ -60,4 +58,4 @@
         }
     }
 }
-<ng-template #emptyTpl></ng-template>
+<ng-template #overflowTpl let-omitted>{{ 'CK.Filters.Select.Overflow' | translate: { count: omitted.length } }}</ng-template>

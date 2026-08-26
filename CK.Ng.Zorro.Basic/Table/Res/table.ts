@@ -80,6 +80,10 @@ export class Table<T> {
 
   #searchDebouncer!: SearchDebouncer;
   #selectedItems = signal<Array<T>>( [] );
+  // The rows nz-table actually renders: the page slice when front pagination is on, the whole
+  // filtered set otherwise. Selection is scoped to them so a bulk action can never carry a row
+  // the user cannot see.
+  #currentPageData = signal<Array<T>>( [] );
   public displayedColumns = linkedSignal( () => this.columns().filter( c => !c.hidden ) );
   public pageSize = linkedSignal( () => this.defaultPageSize() );
   public pageIndex = linkedSignal( () => this.defaultPageIndex() );
@@ -119,28 +123,24 @@ export class Table<T> {
 
   itemChecked( data: T, checked: boolean ): void {
     const currentSelection = this.#selectedItems();
-    if ( currentSelection.find( ( s ) => s === data ) ) {
-      if ( checked ) {
-        this.#selectedItems.set( [...currentSelection, data] );
-      } else {
-        this.#selectedItems.set( currentSelection.filter( item => item !== data ) );
-      }
-    } else {
-      if ( checked ) {
-        this.#selectedItems.set( [...currentSelection, data] );
-      }
+    const alreadySelected = currentSelection.includes( data );
+    if ( checked && !alreadySelected ) {
+      this.#selectedItems.set( [...currentSelection, data] );
+    } else if ( !checked && alreadySelected ) {
+      this.#selectedItems.set( currentSelection.filter( item => item !== data ) );
     }
 
     this.triggerSelectionChanged();
   }
 
   isEveryItemChecked(): boolean {
-    return this.#selectedItems().length === this.tableData().length;
+    const page = this.#currentPageData();
+    return page.length > 0 && this.#selectedItems().length === page.length;
   }
 
   selectAll(): void {
     if ( !this.isEveryItemChecked() ) {
-      this.#selectedItems.set( [...this.tableData()] );
+      this.#selectedItems.set( [...this.#currentPageData()] );
     } else {
       this.#selectedItems.set( [] );
     }
@@ -149,7 +149,16 @@ export class Table<T> {
   }
 
   hasSelectedItems(): boolean {
-    return this.#selectedItems().length > 0 && this.#selectedItems().length < this.tableData.length;
+    return this.#selectedItems().length > 0 && this.#selectedItems().length < this.#currentPageData().length;
+  }
+
+  onCurrentPageDataChange( data: ReadonlyArray<T> ): void {
+    this.#currentPageData.set( [...data] );
+    // Selection is reference-based: rows that left the view no longer match any checkbox and
+    // could not be unchecked.
+    if ( this.#selectedItems().length > 0 ) {
+      this.clearSelection();
+    }
   }
 
   getColumnStyle( colName: keyof T, data: T ) {
@@ -172,13 +181,7 @@ export class Table<T> {
   }
 
   selectRow( data: T ): void {
-    if ( this.#selectedItems().find( ( i ) => i === data ) ) {
-      this.#selectedItems.set( [...this.#selectedItems().filter( ( i ) => i !== data )] );
-    } else {
-      this.#selectedItems.set( [...this.#selectedItems(), data] );
-    }
-
-    this.triggerSelectionChanged();
+    this.itemChecked( data, !this.isSelected( data ) );
   }
 
   clearSelection(): void {
@@ -305,6 +308,10 @@ export class Table<T> {
     this.displayedColumns.set( [] );
     this.columnsConfig.set( [] );
     this.columns().forEach( c => c.hidden = true );
+  }
+
+  isDisabled( action: TableAction<T>, data: T ): boolean {
+    return action.shouldBeDisabled ? action.shouldBeDisabled( data ) : false;
   }
 
   execAction( event: Event, action: TableAction<T>, data: T ): void {
