@@ -7,10 +7,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.AppBuilder" Version="33.1.0" />
-    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.55.6" />
-    <PackageReference Include="CK.Setupable.Engine" Version="33.0.6" />
-    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="33.0.6" />
-    <PackageReference Include="CK.TS.Angular.Engine" Version="0.31.6" />
+    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.56.0" />
+    <PackageReference Include="CK.Setupable.Engine" Version="33.1.0" />
+    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="33.1.0" />
+    <PackageReference Include="CK.TS.Angular.Engine" Version="0.32.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.App\CK.Ng.Zorro.BackOffice.Demo.App.csproj" />
