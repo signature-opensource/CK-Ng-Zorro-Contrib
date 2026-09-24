@@ -1,5 +1,7 @@
 # CK-Ng-Zorro-Contrib
 
+[![Licence](https://img.shields.io/github/license/signature-opensource/CK-Ng-Zorro-Contrib.svg)](LICENSE)
+
 Angular components for ng-zorro back-office applications: the page shell, and the pieces that go
 inside it.
 
