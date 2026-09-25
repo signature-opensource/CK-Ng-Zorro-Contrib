@@ -6,15 +6,15 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="1.0.0--ci.2" />
-    <PackageReference Include="CK.AspNet" Version="22.0.0--ci.2" />
-    <PackageReference Include="CK.DB.AspNet.Auth" Version="32.0.0--ci.2" />
-    <PackageReference Include="CK.DB.User.NamedUser" Version="29.0.0--ci.2" />
-    <PackageReference Include="CK.DB.User.PreferredCulture" Version="1.0.0--ci.2" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="29.0.0--ci.3" />
-    <PackageReference Include="CK.Cris.TypeScript" Version="1.0.0--ci.2" />
-    <PackageReference Include="CK.Ng.AspNet.Auth" Version="1.0.0--ci.2" />
-    <PackageReference Include="CK.TS.Angular" Version="1.0.0--ci.2" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="1.0.0" />
+    <PackageReference Include="CK.AspNet" Version="22.0.0" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="32.0.0" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="29.0.0" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="1.0.0" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="29.0.0" />
+    <PackageReference Include="CK.Cris.TypeScript" Version="1.0.0" />
+    <PackageReference Include="CK.Ng.AspNet.Auth" Version="1.0.0" />
+    <PackageReference Include="CK.TS.Angular" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Ng.Zorro.BackOffice\CK.Ng.Zorro.BackOffice.csproj" />
