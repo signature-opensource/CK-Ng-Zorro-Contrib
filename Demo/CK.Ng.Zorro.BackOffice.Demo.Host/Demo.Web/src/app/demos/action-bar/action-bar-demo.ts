@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { faPlus, faTrash, faEdit, faDownload } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -16,8 +16,9 @@ interface DemoItem {
 
 @Component( {
   selector: 'app-action-bar-demo',
-  imports: [CommonModule, FormsModule, LayoutContent, CKActionBarComponent, NzSwitchModule],
+  imports: [FormsModule, LayoutContent, CKActionBarComponent, NzSwitchModule],
   templateUrl: './action-bar-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './action-bar-demo.less'
 } )
 export class ActionBarDemo {

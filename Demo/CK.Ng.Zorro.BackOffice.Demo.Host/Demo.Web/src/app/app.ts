@@ -1,21 +1,23 @@
 // <HasNgPrivatePage />
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { faHome, faTable, faList, faBars, faFilter, faColumns, faPen, faInfoCircle, faQuoteLeft, faSpinner, faSearch, faRoute, faClipboardList, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
 import { Layout, NavigationSection, PrivatePage, NgAuthService } from '@local/ck-gen';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component( {
   selector: 'app-root',
   imports: [
-    RouterOutlet, CommonModule, PrivatePage,
+    RouterOutlet,
+    PrivatePage,
     CKGenAppModule,
     Layout,
     TranslateModule
-  ],
+],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.less',
 } )
 export class App {

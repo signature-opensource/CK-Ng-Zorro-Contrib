@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Validators } from '@angular/forms';
 import {
   FormControlConfig,
@@ -22,8 +22,9 @@ interface MyFormValues {
 
 @Component( {
   selector: 'app-generic-form-demo',
-  imports: [CommonModule, LayoutContent, GenericForm, NzButtonModule],
+  imports: [LayoutContent, GenericForm, NzButtonModule],
   templateUrl: './generic-form-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './generic-form-demo.less'
 } )
 export class GenericFormDemo {

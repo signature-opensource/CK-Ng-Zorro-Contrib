@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+
+import { Component, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { SelectableList, LayoutContent } from '@local/ck-gen';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -13,8 +13,9 @@ interface DemoItem {
 
 @Component( {
   selector: 'app-selectable-list-demo',
-  imports: [CommonModule, FormsModule, LayoutContent, SelectableList, NzButtonModule, NzSwitchModule],
+  imports: [FormsModule, LayoutContent, SelectableList, NzButtonModule, NzSwitchModule],
   templateUrl: './selectable-list-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './selectable-list-demo.less'
 } )
 export class SelectableListDemo {

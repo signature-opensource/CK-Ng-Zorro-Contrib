@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActionBarContent, Filter, LayoutContent, SwitchFilter } from '@local/ck-gen';
@@ -8,8 +8,9 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 
 @Component( {
   selector: 'app-layout-content-demo',
-  imports: [CommonModule, FormsModule, LayoutContent, NzSwitchModule, NzInputModule],
+  imports: [FormsModule, LayoutContent, NzSwitchModule, NzInputModule],
   templateUrl: './layout-content-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './layout-content-demo.less'
 } )
 export class LayoutContentDemo {

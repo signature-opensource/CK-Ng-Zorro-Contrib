@@ -1,12 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { faHome, faFolder, faFile } from '@fortawesome/free-solid-svg-icons';
 import { Breadcrumb, BreadcrumbItem, LayoutContent } from '@local/ck-gen';
 
 @Component( {
   selector: 'app-breadcrumb-demo',
-  imports: [CommonModule, LayoutContent, Breadcrumb],
+  imports: [LayoutContent, Breadcrumb],
   templateUrl: './breadcrumb-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './breadcrumb-demo.less'
 } )
 export class BreadcrumbDemo {
