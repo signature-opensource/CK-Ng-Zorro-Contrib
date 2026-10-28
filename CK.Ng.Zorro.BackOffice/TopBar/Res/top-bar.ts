@@ -5,7 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { faCaretDown, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { WCSType } from './wcs-type-model';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -19,7 +19,7 @@ import { locales } from '@local/ck-gen/ts-locales/locales';
         CommonModule,
         FormsModule,
         FontAwesomeModule,
-        NzDropDownModule,
+        NzDropdownModule,
         NzSelectModule,
     ],
     host: { 'class': 'ck-backoffice-top-bar' }

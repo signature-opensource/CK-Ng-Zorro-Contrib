@@ -23,7 +23,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule, NzCheckboxOption } from 'ng-zorro-antd/checkbox';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 @Component( {
     selector: 'ck-backoffice-layout-content',
@@ -39,7 +39,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
         NzCheckboxModule,
         NzDrawerModule,
         NzPopoverModule,
-        NzToolTipModule,
+        NzTooltipModule,
         FontAwesomeModule,
         TranslateModule
     ],

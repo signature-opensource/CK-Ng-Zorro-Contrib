@@ -1,13 +1,9 @@
 <div class="ck-search-modal-header">
-    <nz-input-group [nzPrefix]="prefix" [nzSuffix]="suffix">
+    <nz-input-wrapper>
+        <fa-icon nzInputPrefix [icon]="searchIcon"></fa-icon>
         <input #input nz-input [ngModel]="searchString()" (ngModelChange)="searchString.set($event)" class="search-input" [placeholder]="inputPlaceholder()" />
-    </nz-input-group>
-    <ng-template #prefix>
-        <fa-icon [icon]="searchIcon"></fa-icon>
-    </ng-template>
-    <ng-template #suffix>
-        <fa-icon class="close-icon" [icon]="closeIcon" (click)="clearSearch()"></fa-icon>
-    </ng-template>
+        <fa-icon nzInputSuffix class="close-icon" [icon]="closeIcon" (click)="clearSearch()"></fa-icon>
+    </nz-input-wrapper>
 </div>
 <div class="ck-search-modal-content">
     @if (searchString().length === 0) {
