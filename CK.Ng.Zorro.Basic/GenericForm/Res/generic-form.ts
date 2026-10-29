@@ -1,8 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { Component, effect, HostListener, inject, input, output, signal, WritableSignal } from '@angular/core';
-import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, computed, HostListener, inject, Injector, input, OnInit, output, Signal, signal } from '@angular/core';
+import { FieldState, FieldTree, FormField, FormRoot, SchemaFn } from '@angular/forms/signals';
+import { TranslatePipe } from '@ngx-translate/core';
 
-import { IFormControlConfig, GenericFormData } from './generic-form-model';
+import { GenericField, GenericFields, GenericFormHandle, genericForm } from './generic-form-fields';
 
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
@@ -11,110 +12,89 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 
+interface GenericFormRow {
+  readonly key: string;
+  readonly def: GenericField<any>;
+  readonly field: FieldTree<unknown>;
+}
+
+/**
+ * Renders the fields of a {@link GenericFormHandle}: a label, the input bound with `[formField]`
+ * and the rule messages (translation keys) once the field is touched or dirty.
+ * Opened as modal content with `NZ_MODAL_DATA` `{ fields, rules? }` and no `form` input, it builds
+ * its own form; modal callers read it from {@link GenericForm.handle}.
+ */
 @Component( {
   selector: 'ck-generic-form',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NzDatePickerModule, NzCheckboxModule, NzFormModule, NzInputModule, NzSelectModule],
+  imports: [NgTemplateOutlet, FormField, FormRoot, TranslatePipe, NzCheckboxModule, NzDatePickerModule, NzFormModule, NzInputModule, NzSelectModule],
   templateUrl: './generic-form.html'
 } )
-export class GenericForm {
-  @HostListener( 'document:keydown.enter', ['$event'] )
-  keyEvent( event: Event ) {
-    if ( this.#modalRef ) {
+export class GenericForm implements OnInit {
+  form = input<GenericFormHandle<GenericFields>>();
+  formLayout = input<NzFormLayoutType>( 'vertical' );
+  appearance = input<'labelled' | 'compact'>( 'labelled' );
+  errorDisplay = input<'text' | 'tip'>( 'text' );
+  /** Enter typed inside the form, outside a modal. In a modal, Enter triggers the modal OK instead. */
+  submitRequested = output<void>();
+
+  readonly #modalData = inject<{ fields?: GenericFields, rules?: SchemaFn<any> } | null>( NZ_MODAL_DATA, { optional: true } );
+  readonly #modalRef = inject( NzModalRef, { optional: true } );
+  readonly #injector = inject( Injector );
+  readonly #built = signal<GenericFormHandle<GenericFields> | undefined>( undefined );
+
+  /** The bound `form` input, or the form built from the modal data. */
+  readonly handle: Signal<GenericFormHandle<GenericFields> | undefined> = computed( () => this.form() ?? this.#built() );
+
+  protected readonly rows = computed<GenericFormRow[]>( () => {
+    const h = this.handle();
+    if( !h ) {
+      return [];
+    }
+    const fields = h.fields();
+    const tree = h.form as unknown as Record<string, FieldTree<unknown>>;
+    return Object.keys( fields ).map( key => ( { key, def: fields[key], field: tree[key] } ) );
+  } );
+
+  ngOnInit(): void {
+    // Inputs are not set yet in the constructor; from ngOnInit on, an undefined form input means none is bound.
+    const data = this.#modalData;
+    if( !this.form() && data?.fields ) {
+      const fields = data.fields;
+      this.#built.set( genericForm( () => fields, { rules: data.rules, injector: this.#injector } ) );
+    }
+  }
+
+  // An Enter already handled by a control (nz-select opening or picking an option) is not a submit.
+  @HostListener( 'keydown.enter', ['$event'] )
+  protected onEnter( event: Event ): void {
+    if( event.defaultPrevented ) {
+      return;
+    }
+    event.preventDefault();
+    if( this.#modalRef ) {
       this.#modalRef.triggerOk();
     } else {
       this.submitRequested.emit();
     }
-    event.preventDefault();
-    event.stopPropagation();
   }
 
-  inputFormData = input.required<GenericFormData<unknown, unknown>>();
-  formLayout = input<NzFormLayoutType>( 'vertical' );
-  formGroup = input<FormGroup>();
-  submitRequested = output<void>();
-
-  readonly #modalData = inject( NZ_MODAL_DATA, { optional: true } );
-  readonly #formBuilder = inject( FormBuilder );
-  readonly #modalRef = inject( NzModalRef, { optional: true } );
-
-  form: WritableSignal<FormGroup | undefined> = signal( undefined );
-  formData?: GenericFormData<unknown, unknown>;
-
-  constructor() {
-    if ( this.#modalData ) {
-      this.formData = this.#modalData.formData;
-      this.form.set( this.createFormGroup() );
-    }
-
-    effect( () => {
-      if ( !this.#modalData ) {
-        this.formData = this.inputFormData();
-        this.form.set( this.createFormGroup() );
-      }
-    } );
+  protected revealed( state: FieldState<unknown> ): boolean {
+    return state.touched() || state.dirty();
   }
 
-  createFormGroup(): FormGroup {
-    const group: { [key: string]: AbstractControl } = {};
-
-    for ( const key in this.formData!.formControls ) {
-      if ( this.formData!.formControls.hasOwnProperty( key ) ) {
-        const controlConfig = this.formData!.formControls[key];
-        const validators = controlConfig.validators ?? [];
-        group[key] = new FormControl( { value: controlConfig.defaultValue, disabled: controlConfig.disabled }, { nonNullable: controlConfig.required ?? false, validators: validators } );
-      }
-    }
-
-    const groupOpts: AbstractControlOptions = {};
-
-    if ( this.formData ) {
-      if ( this.formData.generalFormValidators ) {
-        groupOpts.validators = this.formData.generalFormValidators.validators;
-      }
-    }
-
-    return this.#formBuilder.group( group, groupOpts );
+  protected showErrors( state: FieldState<unknown> ): boolean {
+    return this.revealed( state ) && state.invalid();
   }
 
-  getFormControl( controlName: string ): FormControl {
-    return this.form()?.get( controlName ) as FormControl;
+  protected messagesOf( state: FieldState<unknown> ): string[] {
+    return state.errors().map( e => e.message ).filter( ( m ): m is string => !!m );
   }
 
-  getErrorMessageKeys( key: string ): string[] {
-    const control = this.form()?.get( key );
-    return control?.errors ? Object.keys( control.errors ) : [];
+  protected asText( field: FieldTree<unknown> ): FieldTree<string> {
+    return field as FieldTree<string>;
   }
 
-  originalOrder = () => 0;
-
-  isVisible( control: IFormControlConfig<unknown, unknown> ): boolean {
-    return control.show ? control.show( this.form()!.value ) : true;
-  }
-
-  getGeneralFormErrorKeys(): string[] {
-    if ( !this.form() || !this.form()!.errors ) return [];
-
-    return Object.keys( this.form()!.errors! );
-  }
-
-  getGeneralFormErrorMessage( key: string ): string {
-    if ( this.formData ) {
-      if ( this.formData.generalFormErrors ) {
-        return this.formData.generalFormErrors[key] ?? '';
-      }
-      if ( this.formData.generalFormAsyncValidators ) {
-        return this.formData.generalFormAsyncValidators.errorMessages[key] ?? '';
-      }
-      if ( this.formData.generalFormValidators ) {
-        return this.formData.generalFormValidators.errorMessages[key] ?? '';
-      }
-    }
-    return '';
-  }
-
-  submitForm( _: Event ): void {
-    if ( this.#modalRef ) {
-      this.#modalRef.triggerOk();
-    }
+  protected asNumber( field: FieldTree<unknown> ): FieldTree<number | null> {
+    return field as FieldTree<number | null>;
   }
 }
