@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormsModule, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { minLength, required } from '@angular/forms/signals';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
   ActionBarContent,
   DefaultTableColumn,
   Filter,
-  FormControlConfig,
+  GenericFields,
   GenericForm,
-  IFormControlConfig,
   LayoutContent,
   SelectFilter,
   SwitchFilter,
   TableColumn,
-  Table
+  Table,
+  numberField,
+  selectField,
+  textField
 } from '@local/ck-gen';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
@@ -179,18 +182,19 @@ export class Overview {
   }
 
   openAddModal(): void {
-    const form = this.generateMyItemForm();
-    const opts: ModalOptions = {
-      nzTitle: 'Ajouter un item',
-      nzCancelText: 'Annuler',
+    const fields = this.generateMyItemForm();
+    const opts: ModalOptions<GenericForm, { fields: GenericFields }> = {
+      nzTitle: this.#translateService.instant( 'Demo.Overview.AddItem.Title' ),
+      nzCancelText: this.#translateService.instant( 'Button.Cancel' ),
       nzOkText: this.#translateService.instant( 'Button.Add' ),
       nzContent: GenericForm,
-      nzData: { formData: { formControls: form } },
+      nzData: { fields },
       nzOnOk: async () => {
-        const formComponent = modalRef.componentRef?.instance;
-        if ( formComponent && formComponent.form.valid ) {
+        const handle = modalRef.componentRef?.instance.handle();
+        if ( handle && handle.form().valid() ) {
           try {
-            const newItem = { id: formComponent.form.get( 'id' )!.value, label: formComponent.form.get( 'label' )!.value, creationDate: DateTime.now(), type: formComponent.form.get( 'type' )!.value, displayed: true };
+            const value = handle.model();
+            const newItem = { id: value['id'], label: value['label'], creationDate: DateTime.now(), type: value['type'], displayed: true };
             this.#allItems.push( newItem );
             this.items = [...this.#allItems];
             this.applyFilters( this.filters );
@@ -210,23 +214,20 @@ export class Overview {
     const modalRef = this.#modal.create( opts );
   }
 
-  generateMyItemForm(): { [key: string]: IFormControlConfig<unknown, unknown> } {
+  generateMyItemForm(): GenericFields {
     const computedId = this.#allItems.sort( ( a, b ) => a.id - b.id )[this.#allItems.length - 1].id;
-    const id = new FormControlConfig( 'number', 'Identifiant', computedId + 1 );
-    id.disabled = true;
-    const label = new FormControlConfig( 'text', 'Label', `Label #${computedId + 1}`, {
-      placeholder: 'Renseignez le label',
-      required: true,
-      validators: [Validators.required, Validators.minLength( 3 )],
-      errorMessages: { 'required': 'Veuillez renseigner le label', 'minLength': 'Le label doit contenir au moins 3 caractères' }
+    const id = numberField( 'Demo.Overview.AddItem.Id.Label', computedId + 1, { disabled: true } );
+    const label = textField( 'Demo.Overview.AddItem.ItemLabel.Label', `Label #${computedId + 1}`, {
+      placeholder: 'Demo.Overview.AddItem.ItemLabel.Placeholder',
+      rules: p => {
+        required( p, { message: 'Demo.Overview.AddItem.ItemLabel.Required' } );
+        minLength( p, 3, { message: 'Demo.Overview.AddItem.ItemLabel.MinLength' } );
+      }
     } );
-    const type = new FormControlConfig( 'select', 'Type', MyTypeEnum.Type1, {
-      placeholder: 'Sélectionnez le type',
-      required: true,
-      validators: [Validators.required],
-      errorMessages: { 'required': 'Choisissez le type' },
-      autocomplete: undefined,
-      options: [{ label: 'Type1', value: MyTypeEnum.Type1 }, { label: 'Type2', value: MyTypeEnum.Type2 }]
+    const type = selectField( 'Demo.Overview.AddItem.Type.Label', MyTypeEnum.Type1, {
+      placeholder: 'Demo.Overview.AddItem.Type.Placeholder',
+      rules: p => required( p, { message: 'Demo.Overview.AddItem.Type.Required' } ),
+      options: [{ label: 'Demo.Overview.AddItem.Type.Type1', value: MyTypeEnum.Type1 }, { label: 'Demo.Overview.AddItem.Type.Type2', value: MyTypeEnum.Type2 }]
     } );
 
     return { id, label, type };

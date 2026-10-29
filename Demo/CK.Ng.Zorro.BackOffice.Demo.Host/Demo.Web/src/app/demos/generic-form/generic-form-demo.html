@@ -2,10 +2,10 @@
     <div class="demo-page">
         <div class="demo-description">
             <p>
-                The <code>ck-generic-form</code> component dynamically builds a form from a configuration object.
+                The <code>ck-generic-form</code> component renders a signal form built from field definitions.
                 It supports field types: <code>text</code>, <code>number</code>, <code>date</code>,
-                <code>password</code>, <code>select</code>, and <code>checkbox</code>.
-                Validation, error messages, and conditional visibility are all declarative.
+                <code>password</code>, <code>select</code>, <code>checkbox</code> and <code>custom</code>.
+                Validation rules carry their messages, and conditional visibility is declarative.
             </p>
         </div>
 
@@ -13,17 +13,17 @@
             <h3>All field types</h3>
             <div class="demo-live form-container">
                 <ck-generic-form
-                    [inputFormData]="formData"
+                    [form]="form"
                     [formLayout]="'vertical'"
                     (submitRequested)="onSubmit()">
                 </ck-generic-form>
 
                 <div class="form-actions">
-                    <button nz-button nzType="primary" (click)="onSubmit()">Submit</button>
+                    <button nz-button nzType="primary" (click)="onSubmit()">{{ 'Demo.GenericForm.Submit' | translate }}</button>
                 </div>
 
                 @if (formSubmitted) {
-                    <div class="submit-feedback">Form submitted!</div>
+                    <div class="submit-feedback">{{ 'Demo.GenericForm.Submitted' | translate }}</div>
                 }
             </div>
         </div>
@@ -31,20 +31,25 @@
         <div class="demo-section">
             <h3>Configuration</h3>
             <p class="demo-description">
-                Create a <code>GenericFormData</code> object with a dictionary of <code>FormControlConfig</code> instances.
-                Each config defines the field type, label, default value, validators, and error messages.
+                Call <code>genericForm( () =&gt; fields )</code> once in the owning component with a dictionary of field definitions
+                built by the field factories. Each definition holds the label, default value, placeholder and signal-form
+                <code>rules</code>, each rule carrying its message (<code>required( p, {{ '{' }} message: 'Key' {{ '}' }} )</code>).
+                Labels, placeholders, option labels and messages are translation keys; a text that is not a key shows as written.
+                Cross-field rules go in <code>genericForm( ..., {{ '{' }} rules {{ '}' }} )</code>: an error a rule puts on a field shows under that field,
+                and an error on the form itself shows at the top of the form.
             </p>
             <table class="demo-api-table">
                 <thead>
-                    <tr><th>Field type</th><th>Description</th></tr>
+                    <tr><th>Field type</th><th>Factory</th><th>Description</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><code>text</code></td><td>Standard text input</td></tr>
-                    <tr><td><code>number</code></td><td>Numeric input</td></tr>
-                    <tr><td><code>password</code></td><td>Password input (masked)</td></tr>
-                    <tr><td><code>date</code></td><td>Date picker</td></tr>
-                    <tr><td><code>select</code></td><td>Dropdown select (single/multiple/tags)</td></tr>
-                    <tr><td><code>checkbox</code></td><td>Boolean checkbox</td></tr>
+                    <tr><td><code>text</code></td><td><code>textField</code></td><td>Standard text input</td></tr>
+                    <tr><td><code>number</code></td><td><code>numberField</code></td><td>Numeric input, <code>null</code> when empty</td></tr>
+                    <tr><td><code>password</code></td><td><code>passwordField</code></td><td>Password input (masked)</td></tr>
+                    <tr><td><code>date</code></td><td><code>dateField</code></td><td>Date picker</td></tr>
+                    <tr><td><code>select</code></td><td><code>selectField</code></td><td>Dropdown select (single/multiple/tags)</td></tr>
+                    <tr><td><code>checkbox</code></td><td><code>checkboxField</code></td><td>Boolean checkbox</td></tr>
+                    <tr><td><code>custom</code></td><td><code>customField</code></td><td>Consumer template bound to the field</td></tr>
                 </tbody>
             </table>
         </div>
@@ -57,9 +62,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><code>[inputFormData]</code></td>
-                        <td><code>GenericFormData</code></td>
-                        <td>Form configuration with field definitions.</td>
+                        <td><code>[form]</code></td>
+                        <td><code>GenericFormHandle</code></td>
+                        <td>The handle returned by <code>genericForm()</code>. Without it, as modal content, the form is built from <code>nzData: {{ '{' }} fields, rules? {{ '}' }}</code> and read from <code>handle()</code>.</td>
                     </tr>
                     <tr>
                         <td><code>[formLayout]</code></td>
@@ -67,9 +72,19 @@
                         <td>Form layout direction (default: 'vertical').</td>
                     </tr>
                     <tr>
+                        <td><code>[appearance]</code></td>
+                        <td><code>'labelled' | 'compact'</code></td>
+                        <td>Labels with messages under the controls (default), or no labels, large inputs and error tips.</td>
+                    </tr>
+                    <tr>
+                        <td><code>[errorDisplay]</code></td>
+                        <td><code>'text' | 'tip'</code></td>
+                        <td>Messages under the control (default) or as error tips; compact always uses tips.</td>
+                    </tr>
+                    <tr>
                         <td><code>(submitRequested)</code></td>
                         <td><code>void</code></td>
-                        <td>Emitted on Enter key press (when not in modal).</td>
+                        <td>Emitted on Enter typed inside the form (when not in modal).</td>
                     </tr>
                 </tbody>
             </table>
