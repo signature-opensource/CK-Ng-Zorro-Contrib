@@ -2,6 +2,7 @@ import { Component, TemplateRef, viewChild } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { FormField, SchemaFn, minLength, required, validate } from '@angular/forms/signals';
 import { TranslateService, provideTranslateService } from '@ngx-translate/core';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { CustomFieldContext, GenericFields, GenericForm, ModelOf, customField, genericForm, numberField, selectField, textField } from '@local/ck-gen';
 
@@ -36,6 +37,19 @@ class TemplatesHost {
     } ),
     e: textField( 'K.Text', '', { errorTemplate: this.error(), rules: p => required( p, { message: 'K.Required' } ) } ),
     s: selectField( 'K.Lang', 'fr', { options: [{ label: 'K.Fr', value: 'fr' }, { label: 'K.En', value: 'en' }], selectOptionTemplate: this.option() } )
+  } ) );
+}
+
+@Component( {
+  imports: [GenericForm, FormField, NzInputModule],
+  template: `
+    <ck-generic-form [form]="handle" />
+    <ng-template #input let-field><input nz-input class="native" [formField]="field" /></ng-template>`
+} )
+class NativeCustomHost {
+  readonly input = viewChild<TemplateRef<CustomFieldContext<string>>>( 'input' );
+  readonly handle = genericForm( () => ( {
+    c: customField( 'K.Custom', '', { template: this.input()!, rules: p => minLength( p, 3, { message: 'K.Short' } ) } )
   } ) );
 }
 
@@ -147,6 +161,26 @@ describe( 'GenericForm', () => {
     expect( fixture.componentInstance.handle.model().c ).toBe( 'ab' );
     const item = all( fixture, 'nz-form-item' )[0];
     expect( item.querySelector( '.form-control-error' )?.textContent?.trim() ).toBe( 'K.Short' );
+  } );
+
+  it( 'the nz-input of a custom template shows the error status and no feedback icon', async () => {
+    const fixture = TestBed.createComponent( NativeCustomHost );
+    await fixture.whenStable();
+    const input = first( fixture, 'input.native' ) as HTMLInputElement;
+    await type( fixture, input, 'ab' );
+    expect( input.classList ).toContain( 'ant-input-status-error' );
+    expect( all( fixture, 'nz-form-item-feedback-icon' ) ).toEqual( [] );
+  } );
+
+  it( 'a field without a placeholder shows none, with no feedback icon and default-sized inputs', async () => {
+    const fixture = await render( () => ( {
+      a: textField( 'K.A', '', { rules: p => minLength( p, 3, { message: 'K.Short' } ) } ),
+      s: selectField( 'K.S', 'a', { options: [{ label: 'K.A', value: 'a' }] } )
+    } ) );
+    await type( fixture, first( fixture, 'input' ) as HTMLInputElement, 'x' );
+    expect( ( first( fixture, 'input' ) as HTMLInputElement ).placeholder ).toBe( '' );
+    expect( all( fixture, 'nz-form-item.ant-form-item-has-feedback' ) ).toEqual( [] );
+    expect( all( fixture, '.ant-input-lg, .ant-select-lg' ) ).toEqual( [] );
   } );
 
   it( 'errorTemplate replaces the rule messages', async () => {

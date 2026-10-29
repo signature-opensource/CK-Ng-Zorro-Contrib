@@ -17,47 +17,93 @@
         @let def = row.def;
         @let context = { $implicit: row.field, field: row.field };
         @let messages = showErrors(state) ? messagesOf(state) : [];
-        @let tipShown = errorDisplay() === 'tip' && (!!def.errorTemplate || messages.length > 0);
-        <nz-form-item [class]="'generic-form-item ' + layout">
-          <nz-form-label [class]="'generic-form-label ' + layout" [nzRequired]="def.requiredMark ?? state.required()">
-            {{ def.label | translate }}
-          </nz-form-label>
+        @let tipShown = tips() && (!!def.errorTemplate || messages.length > 0);
+        @let isCompact = compact();
+        @let itemClass = isCompact ? 'compact' : layout;
+        @let size = isCompact ? 'large' : 'default';
+        @let placeholder = (def.placeholder ?? (isCompact ? def.label : '')) | translate;
+        <nz-form-item [class]="'generic-form-item ' + itemClass">
+          @if (!isCompact) {
+            <nz-form-label [class]="'generic-form-label ' + layout" [nzRequired]="def.requiredMark ?? state.required()">
+              {{ def.label | translate }}
+            </nz-form-label>
+          }
           <nz-form-control
-            [class]="'generic-form-control ' + layout"
-            [nzValidateStatus]="showErrors(state) ? 'error' : ''"
+            [class]="'generic-form-control ' + itemClass"
+            [nzHasFeedback]="isCompact"
+            [nzValidateStatus]="statusOf(state)"
             [nzErrorTip]="tipShown ? tip : undefined">
             @switch (def.type) {
               @case ('text') {
-                <input
-                  nz-input
-                  [formField]="asText(row.field)"
-                  [autocomplete]="def.autocomplete ?? 'off'"
-                  [placeholder]="(def.placeholder ?? '') | translate" />
+                @if (isCompact) {
+                  <nz-input-wrapper>
+                    @if (def.prefixIcon) {
+                      <fa-icon nzInputPrefix class="ck-btn-icon" [icon]="def.prefixIcon" />
+                    }
+                    <input
+                      nz-input
+                      nzSize="large"
+                      [formField]="asText(row.field)"
+                      [autocomplete]="def.autocomplete ?? 'off'"
+                      [placeholder]="placeholder" />
+                  </nz-input-wrapper>
+                } @else {
+                  <input
+                    nz-input
+                    [formField]="asText(row.field)"
+                    [autocomplete]="def.autocomplete ?? 'off'"
+                    [placeholder]="placeholder" />
+                }
               }
               @case ('password') {
-                <input style="visibility: hidden" autocomplete="username" type="text" />
-                <input
-                  nz-input
-                  type="password"
-                  [formField]="asText(row.field)"
-                  [autocomplete]="def.autocomplete ?? 'new-password'"
-                  [placeholder]="(def.placeholder ?? '') | translate" />
+                @if (isCompact) {
+                  <nz-input-wrapper>
+                    @if (def.prefixIcon) {
+                      <fa-icon nzInputPrefix class="ck-btn-icon" [icon]="def.prefixIcon" />
+                    }
+                    <input
+                      nz-input
+                      nzSize="large"
+                      type="password"
+                      [formField]="asText(row.field)"
+                      [autocomplete]="def.autocomplete ?? 'new-password'"
+                      [placeholder]="placeholder" />
+                  </nz-input-wrapper>
+                } @else {
+                  <input style="visibility: hidden" autocomplete="username" type="text" />
+                  <input
+                    nz-input
+                    type="password"
+                    [formField]="asText(row.field)"
+                    [autocomplete]="def.autocomplete ?? 'new-password'"
+                    [placeholder]="placeholder" />
+                }
               }
               @case ('number') {
-                <input nz-input type="number" [formField]="asNumber(row.field)" [placeholder]="(def.placeholder ?? '') | translate" />
+                @if (isCompact) {
+                  <nz-input-wrapper>
+                    @if (def.prefixIcon) {
+                      <fa-icon nzInputPrefix class="ck-btn-icon" [icon]="def.prefixIcon" />
+                    }
+                    <input nz-input nzSize="large" type="number" [formField]="asNumber(row.field)" [placeholder]="placeholder" />
+                  </nz-input-wrapper>
+                } @else {
+                  <input nz-input type="number" [formField]="asNumber(row.field)" [placeholder]="placeholder" />
+                }
               }
               @case ('date') {
                 <nz-date-picker
                   [formField]="row.field"
+                  [nzSize]="size"
                   [nzShowTime]="!!def.dateFormat?.includes('HH:mm')"
                   [nzFormat]="def.dateFormat ?? 'dd-MM-yyyy'"
-                  [nzPlaceHolder]="(def.placeholder ?? '') | translate" />
+                  [nzPlaceHolder]="placeholder" />
               }
               @case ('checkbox') {
                 <label nz-checkbox [formField]="row.field">{{ def.label | translate }}</label>
               }
               @case ('select') {
-                <nz-select [formField]="row.field" [nzMode]="def.selectMode ?? 'default'" [nzPlaceHolder]="(def.placeholder ?? '') | translate">
+                <nz-select [formField]="row.field" [nzSize]="size" [nzMode]="def.selectMode ?? 'default'" [nzPlaceHolder]="placeholder">
                   @for (option of def.options ?? []; track $index) {
                     @if (def.selectOptionTemplate) {
                       <nz-option nzCustomContent [nzValue]="option.value" [nzLabel]="option.label | translate" [nzDisabled]="!!option.disabled">
@@ -70,7 +116,12 @@
                 </nz-select>
               }
               @case ('custom') {
-                <ng-container *ngTemplateOutlet="def.template ?? null; context: context" />
+                <ng-container
+                  ckFormStatusScope
+                  #scope="ckFormStatusScope"
+                  [ngTemplateOutlet]="def.template ?? null"
+                  [ngTemplateOutletContext]="context"
+                  [ngTemplateOutletInjector]="scope.injector" />
               }
             }
             <ng-template #tip>
@@ -82,7 +133,7 @@
                 }
               }
             </ng-template>
-            @if (errorDisplay() === 'text' && showErrors(state)) {
+            @if (!tips() && showErrors(state)) {
               <div class="errors">
                 @if (def.errorTemplate) {
                   <ng-container *ngTemplateOutlet="def.errorTemplate; context: context" />
