@@ -1,4 +1,5 @@
 using CK.Core;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Hosting.WindowsServices;
 using System.Reflection;
 
@@ -40,10 +41,10 @@ builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddHttpClient();
 
-builder.AddWebFrontAuth( options =>
-{
-    options.ExpireTimeSpan = TimeSpan.FromDays( 7 );
-} );
+// This application is its own AuthCenter (its "Local" allows the "AuthCenter" feature, see appsettings.json) and its
+// HTTP front: the session commands on "/.cris/auth", the other commands on "/.cris".
+builder.Services.AddDataProtection();
+builder.Services.AddCrisAuthentication();
 
 var map = StObjContextRoot.Load( Assembly.GetExecutingAssembly(), builder.GetBuilderMonitor() );
 var app = builder.CKBuild( map );
@@ -66,9 +67,9 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseSpaStaticFiles();
 app.UseRouting();
-app.UseAuthentication();
 app.UseAuthorization();
-//app.UseCris();
+app.UseCrisAuthentication();
+app.UseCris();
 
 app.UseSpa( ( b ) =>
 {

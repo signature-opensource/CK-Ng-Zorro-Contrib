@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 export class App {
 
   readonly #authService = inject( NgAuthService );
-  isAuthenticated = computed( () => this.#authService.authenticationInfo().user.userId !== 0 );
+  isAuthenticated = computed( () => this.#authService.actor().actorId !== 0 );
 
   #router = inject( Router );
   #translateService = inject( TranslateService );
