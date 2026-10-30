@@ -9,13 +9,13 @@
     <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth" />
     <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
-    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Local" Version="3.0.0-0.cris-auth" />
-    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth" />
+    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Local" Version="3.0.0-0.cris-auth.0.ci.67" />
+    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.53" />
     <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.cris-auth" />
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.cris-auth" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth" />
-    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.cris-auth" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth" />
+    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.cris-auth.0.ci.53" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.0.ci.53" />
     <PackageReference Include="CK.TS.Angular" Version="3.0.0-0.cris-auth" />
   </ItemGroup>
   <ItemGroup>
