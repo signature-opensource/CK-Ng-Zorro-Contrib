@@ -9,7 +9,7 @@
     <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.0.ci.19" />
     <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.0.ci.21" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
-    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Local" Version="3.0.0-0.cris-auth.0.ci.81" />
+    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Local" Version="3.0.0-0.cris-auth.0.ci.82" />
     <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.66" />
     <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.cris-auth.0.ci.26" />
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.cris-auth.0.ci.26" />
