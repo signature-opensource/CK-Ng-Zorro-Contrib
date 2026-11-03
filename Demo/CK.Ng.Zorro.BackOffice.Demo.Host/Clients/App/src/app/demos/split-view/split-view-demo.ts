@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SplitView, LayoutContent } from '@local/ck-gen';
 
 interface DemoItem {
@@ -10,8 +10,9 @@ interface DemoItem {
 
 @Component( {
   selector: 'app-split-view-demo',
-  imports: [CommonModule, LayoutContent, SplitView],
+  imports: [LayoutContent, SplitView],
   templateUrl: './split-view-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './split-view-demo.less'
 } )
 export class SplitViewDemo {

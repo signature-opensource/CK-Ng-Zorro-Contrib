@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input, output, ViewEncapsulation, H
 import { BreadcrumbItem } from './breadcrumb-item-model';
 import { BreadcrumbBase } from './breadcrumb-model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
         CommonModule,
         FormsModule,
         FontAwesomeModule,
-        NzDropDownModule,
+        NzDropdownModule,
     ]
 } )
 export class CKBreadcrumbItem {

@@ -14,7 +14,7 @@ import { TableAction } from './table-action-model';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule, NzCheckboxOption } from 'ng-zorro-antd/checkbox';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
@@ -31,7 +31,7 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
     FontAwesomeModule,
     NzButtonModule,
     NzCheckboxModule,
-    NzDropDownModule,
+    NzDropdownModule,
     NzIconModule,
     NzInputModule,
     NzPopoverModule,

@@ -1,11 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { InlineEdit, LayoutContent } from '@local/ck-gen';
 
 @Component( {
   selector: 'app-inline-edit-demo',
-  imports: [CommonModule, LayoutContent, InlineEdit],
+  imports: [LayoutContent, InlineEdit],
   templateUrl: './inline-edit-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './inline-edit-demo.less'
 } )
 export class InlineEditDemo {

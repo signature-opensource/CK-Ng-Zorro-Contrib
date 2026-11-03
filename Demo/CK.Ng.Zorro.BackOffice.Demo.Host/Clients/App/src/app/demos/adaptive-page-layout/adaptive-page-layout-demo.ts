@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons';
 import {
   ActionBarContent,
@@ -27,8 +27,9 @@ interface Task {
 
 @Component( {
   selector: 'app-adaptive-page-layout-demo',
-  imports: [CommonModule, LayoutContent, AdaptivePageLayout],
+  imports: [LayoutContent, AdaptivePageLayout],
   templateUrl: './adaptive-page-layout-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './adaptive-page-layout-demo.less'
 } )
 export class AdaptivePageLayoutDemo {

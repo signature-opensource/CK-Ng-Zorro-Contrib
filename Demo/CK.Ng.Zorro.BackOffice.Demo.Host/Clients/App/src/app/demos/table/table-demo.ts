@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   DefaultTableColumn,
   TableColumn,
@@ -21,8 +21,9 @@ interface User {
 
 @Component( {
   selector: 'app-table-demo',
-  imports: [CommonModule, LayoutContent, Table],
+  imports: [LayoutContent, Table],
   templateUrl: './table-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './table-demo.less'
 } )
 export class TableDemo {

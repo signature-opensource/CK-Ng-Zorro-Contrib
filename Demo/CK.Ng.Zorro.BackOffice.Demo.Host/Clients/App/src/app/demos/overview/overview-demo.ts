@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LayoutContent } from '@local/ck-gen';
 
@@ -12,8 +12,9 @@ interface ComponentCard {
 
 @Component( {
   selector: 'app-overview-demo',
-  imports: [CommonModule, LayoutContent, RouterLink],
+  imports: [LayoutContent, RouterLink],
   templateUrl: './overview-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './overview-demo.less'
 } )
 export class OverviewDemo {

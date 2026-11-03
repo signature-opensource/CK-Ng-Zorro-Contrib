@@ -8,11 +8,11 @@ import { debounceTime, fromEvent } from 'rxjs';
 
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 @Component( {
   selector: 'ck-search-modal',
-  imports: [CommonModule, FormsModule, FontAwesomeModule, NzInputModule, NzToolTipModule, NgTemplateOutlet],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, NzInputModule, NzTooltipModule, NgTemplateOutlet],
   templateUrl: './search-modal.html'
 } )
 export class SearchModal {

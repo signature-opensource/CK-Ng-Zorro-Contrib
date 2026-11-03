@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ListView, LayoutContent } from '@local/ck-gen';
 
 interface User {
@@ -11,8 +11,9 @@ interface User {
 
 @Component( {
   selector: 'app-list-view-demo',
-  imports: [CommonModule, LayoutContent, ListView],
+  imports: [LayoutContent, ListView],
   templateUrl: './list-view-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './list-view-demo.less'
 } )
 export class ListViewDemo {

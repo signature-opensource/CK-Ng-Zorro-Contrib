@@ -1,11 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { LayoutContent } from '@local/ck-gen';
 
 @Component( {
   selector: 'app-layout-demo',
-  imports: [CommonModule, LayoutContent],
+  imports: [LayoutContent],
   templateUrl: './layout-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './layout-demo.less'
 } )
 export class LayoutDemo {

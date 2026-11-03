@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   DateRangeFilter,
   Filter,
@@ -25,8 +25,9 @@ enum Category {
 
 @Component( {
   selector: 'app-filters-demo',
-  imports: [CommonModule, LayoutContent, NzButtonModule],
+  imports: [LayoutContent, NzButtonModule],
   templateUrl: './filters-demo.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './filters-demo.less'
 } )
 export class FiltersDemo {
