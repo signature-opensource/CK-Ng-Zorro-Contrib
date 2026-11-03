@@ -7,20 +7,20 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.0.ci.24" />
-    <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.0.ci.29" />
+    <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.0.ci.31" />
     <!-- The "HttpEndpoint" feature: the web server of this party (Local:HttpEndpoint). -->
-    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="24.0.0-0.cris-auth.0.ci.29" />
+    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="24.0.0-0.cris-auth.0.ci.31" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
-    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Local" Version="3.0.0-0.cris-auth.0.ci.91" />
-    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.70" />
+    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Local" Version="3.0.0-0.cris-auth.0.ci.92" />
+    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.72" />
     <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.cris-auth.0.ci.29" />
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.cris-auth.0.ci.29" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth.0.ci.35" />
-    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.cris-auth.0.ci.70" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.0.ci.70" />
-    <PackageReference Include="CK.TS.Angular" Version="3.0.0-0.cris-auth.0.ci.45" />
+    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.cris-auth.0.ci.72" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.0.ci.72" />
+    <PackageReference Include="CK.TS.Angular" Version="3.0.0-0.cris-auth.0.ci.47" />
     <!-- Serves the client application: its dev server in Development, its "dist" otherwise. -->
-    <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.0-0.cris-auth.0.ci.45" />
+    <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.0-0.cris-auth.0.ci.47" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Ng.Zorro.BackOffice\CK.Ng.Zorro.BackOffice.csproj" />
