@@ -8,11 +8,16 @@
     <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="10.0.14" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.14" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.Builder\CK.Ng.Zorro.BackOffice.Demo.Builder.csproj" ReferenceOutputAssembly="false" Private="false" />
     <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.App\CK.Ng.Zorro.BackOffice.Demo.App.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The Angular application is built by its own tool chain. -->
+    <Compile Remove="Clients/**" />
+    <Content Remove="Clients/**" />
+    <None Remove="Clients/**" />
   </ItemGroup>
 </Project>

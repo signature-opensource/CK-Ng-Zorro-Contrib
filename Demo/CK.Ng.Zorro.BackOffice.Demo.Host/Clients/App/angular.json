@@ -3,11 +3,11 @@
   "version": 1,
   "cli": {
     "packageManager": "yarn",
-    "analytics": "bb6857ec-8ba9-416d-9f05-3fc93417b0ec"
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
-    "Demo.Web": {
+    "App": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,7 +21,6 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/demo.web",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -42,7 +41,8 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "baseHref": "/"
           },
           "configurations": {
             "production": {
@@ -75,10 +75,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "Demo.Web:build:production"
+              "buildTarget": "App:build:production"
             },
             "development": {
-              "buildTarget": "Demo.Web:build:development"
+              "buildTarget": "App:build:development"
             }
           },
           "defaultConfiguration": "development"

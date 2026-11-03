@@ -8,7 +8,8 @@
 
     <BinPaths>
         <BinPath>
-            <TypeScript IntegrationMode="Inline" TargetProjectPath="{ProjectPath}/Demo.Web" ActiveCultures="fr" />
+            <!-- The client application served by the host at "/" (CK.Ng.Zorro.BackOffice.Demo.Host/Clients/App). -->
+            <TypeScript IntegrationMode="Inline" Name="App" Kind="DefaultApp" DevServerPort="4201" ActiveCultures="fr" />
         </BinPath>
     </BinPaths>
 </Setup>
