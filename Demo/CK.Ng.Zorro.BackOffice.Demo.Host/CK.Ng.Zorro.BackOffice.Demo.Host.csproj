@@ -8,16 +8,11 @@
     <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.14" />
+    <!-- The bootstrap of the host (Program.cs, the Windows service support) and the conventions of the host project. -->
+    <PackageReference Include="CK.AppHost" Version="24.0.0-0.cris-auth.0.ci.29" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.Builder\CK.Ng.Zorro.BackOffice.Demo.Builder.csproj" ReferenceOutputAssembly="false" Private="false" />
     <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.App\CK.Ng.Zorro.BackOffice.Demo.App.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- The Angular application is built by its own tool chain. -->
-    <Compile Remove="Clients/**" />
-    <Content Remove="Clients/**" />
-    <None Remove="Clients/**" />
   </ItemGroup>
 </Project>
