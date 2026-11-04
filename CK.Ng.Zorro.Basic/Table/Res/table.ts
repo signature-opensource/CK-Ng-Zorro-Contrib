@@ -7,7 +7,7 @@ import { faQuestion, faTableColumns } from '@fortawesome/free-solid-svg-icons';
 import { first } from 'rxjs';
 import { faClose, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { createSearchDebouncer, SearchDebouncer } from './search-debouncer';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { TableColumn } from './table-column-model';
 import { TableAction } from './table-action-model';
@@ -37,7 +37,7 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
     NzPopoverModule,
     NzTableModule,
     NzTooltipModule,
-    TranslateModule
+    TranslatePipe
   ],
   host: { 'class': 'ck-table' }
 } )

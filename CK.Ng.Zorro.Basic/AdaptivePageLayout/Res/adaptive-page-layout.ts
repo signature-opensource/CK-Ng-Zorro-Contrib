@@ -2,7 +2,7 @@ import { Component, computed, input, linkedSignal, output, signal, viewChild, Te
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule, NzCheckboxOption } from 'ng-zorro-antd/checkbox';
@@ -26,7 +26,7 @@ import { ActionBar, ActionBarContent, Filter, Filters, LayoutRadioChoice, ListVi
     NzRadioModule,
     NzTooltipModule,
     FontAwesomeModule,
-    TranslateModule,
+    TranslatePipe,
     ResponsiveDirective,
     ListView,
     Filters

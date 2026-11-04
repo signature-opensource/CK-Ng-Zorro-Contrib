@@ -4,7 +4,7 @@ import { Component, inject, input, output, linkedSignal, TemplateRef, effect } f
 import { NavigationEnd, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faInfoCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 
@@ -19,7 +19,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 @Component( {
     selector: 'ck-backoffice-side-bar',
     templateUrl: './side-bar.html',
-    imports: [CommonModule, FormsModule, FontAwesomeModule, NgTemplateOutlet, NzDividerModule, NzModalModule, NzMenuModule, NzTooltipModule, TranslateModule],
+    imports: [CommonModule, FormsModule, FontAwesomeModule, NgTemplateOutlet, NzDividerModule, NzModalModule, NzMenuModule, NzTooltipModule, TranslatePipe],
     host: { 'class': 'ck-backoffice-side-bar' }
 } )
 export class SideBar {

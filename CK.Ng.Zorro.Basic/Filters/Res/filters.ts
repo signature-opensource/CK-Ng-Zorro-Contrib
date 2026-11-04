@@ -1,7 +1,7 @@
 import { Component, input, linkedSignal, output } from '@angular/core';
 import { DateRangeFilter, Filter, FilterType, SelectFilter, SwitchFilter } from '@local/ck-gen';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -9,7 +9,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @Component( {
   selector: 'ck-filters',
-  imports: [FormsModule, TranslateModule, NzSelectModule, NzSwitchModule, NzDatePickerModule],
+  imports: [FormsModule, TranslatePipe, NzSelectModule, NzSwitchModule, NzDatePickerModule],
   templateUrl: './filters.html'
 } )
 export class Filters<T> {

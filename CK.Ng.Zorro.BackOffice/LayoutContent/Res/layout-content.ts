@@ -16,7 +16,7 @@ import {
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -41,7 +41,7 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
         NzPopoverModule,
         NzTooltipModule,
         FontAwesomeModule,
-        TranslateModule
+        TranslatePipe
     ],
     host: { 'class': 'ck-backoffice-layout-content' }
 } )

@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { faHome, faTable, faList, faBars, faFilter, faColumns, faPen, faInfoCircle, faQuoteLeft, faSpinner, faSearch, faRoute, faClipboardList, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
 import { Layout, NavigationSection, PrivatePage, NgAuthService } from '@local/ck-gen';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 
 @Component( {
@@ -14,7 +14,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     PrivatePage,
     CKGenAppModule,
     Layout,
-    TranslateModule
+    TranslatePipe
 ],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
