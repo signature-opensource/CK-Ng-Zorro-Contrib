@@ -2402,15 +2402,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngx-translate/core@npm:^17":
-  version: 17.0.0
-  resolution: "@ngx-translate/core@npm:17.0.0"
+"@ngx-translate/core@npm:^18":
+  version: 18.1.0
+  resolution: "@ngx-translate/core@npm:18.1.0"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": ">=16"
-    "@angular/core": ">=16"
-  checksum: 10/a05b86347675b2e841e9bf598ada046f6563159330dfda821df7231025d1f276be54a4a3748170245e23e98288e509428ed1dd77a80fbb3cb191ee93f22c432a
+    "@angular/common": ">=18"
+    "@angular/core": ">=18"
+    rxjs: ">=7"
+  checksum: 10/db7bc6f3ab45fb8bb467bf73919108eede34e1e8afdd0fdeeb6598736aa27794d3cf6189388284cff56eaafd81feec47c729be0cdae98ee6b2a6823676ed68c8
   languageName: node
   linkType: hard
 
@@ -3556,6 +3557,49 @@ __metadata:
   languageName: node
   linkType: hard
 
+"app@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "app@workspace:."
+  dependencies:
+    "@angular/build": "npm:^22.2.5"
+    "@angular/cdk": "npm:^22.2.4"
+    "@angular/cli": "npm:^22.2.5"
+    "@angular/common": "npm:^22.2.3"
+    "@angular/compiler": "npm:^22.2.3"
+    "@angular/compiler-cli": "npm:^22.2.3"
+    "@angular/core": "npm:^22.2.3"
+    "@angular/forms": "npm:^22.2.3"
+    "@angular/platform-browser": "npm:^22.2.3"
+    "@angular/router": "npm:^22.2.3"
+    "@fortawesome/angular-fontawesome": "npm:^5.1"
+    "@fortawesome/fontawesome-svg-core": "npm:^7"
+    "@fortawesome/free-brands-svg-icons": "npm:^7"
+    "@fortawesome/free-regular-svg-icons": "npm:^7"
+    "@fortawesome/free-solid-svg-icons": "npm:^7"
+    "@ngx-translate/core": "npm:^18"
+    "@types/jest": "npm:^29.5.14"
+    "@types/luxon": "npm:^3.6.2"
+    "@types/node": "npm:^22.10.10"
+    "@yarnpkg/sdks": "npm:^3.3.1"
+    axios: "npm:^1.7.7"
+    jest: "npm:^30.1.1"
+    jest-environment-jsdom: "npm:^30.1.1"
+    jest-preset-angular: "npm:^17.0.1"
+    jest-util: "npm:^30.0.5"
+    less: "npm:^4.4.1"
+    luxon: "npm:^3.5"
+    ng-zorro-antd: "npm:~22.1.2"
+    prettier: "npm:^3.4.2"
+    rxjs: "npm:~7.8"
+    ts-jest: "npm:^29.4.1"
+    tslib: "npm:^2.3"
+    typescript: "npm:~6.0.3"
+    zone.js: "npm:~0.15"
+  peerDependencies:
+    axios: ^1.7.7
+  languageName: unknown
+  linkType: soft
+
 "argparse@npm:^1.0.7":
   version: 1.0.10
   resolution: "argparse@npm:1.0.10"
@@ -4202,49 +4246,6 @@ __metadata:
   checksum: 10/46fe6e83e2cb1d85ba50bd52803c68be9bd953282fa7096f51fc29edd5d67ff84ff753c51966061e5ba7cb5e47ef6d36a91924eddb7f3f3483b1c560f77a0020
   languageName: node
   linkType: hard
-
-"app@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "app@workspace:."
-  dependencies:
-    "@angular/build": "npm:^22.2.5"
-    "@angular/cdk": "npm:^22.2.4"
-    "@angular/cli": "npm:^22.2.5"
-    "@angular/common": "npm:^22.2.3"
-    "@angular/compiler": "npm:^22.2.3"
-    "@angular/compiler-cli": "npm:^22.2.3"
-    "@angular/core": "npm:^22.2.3"
-    "@angular/forms": "npm:^22.2.3"
-    "@angular/platform-browser": "npm:^22.2.3"
-    "@angular/router": "npm:^22.2.3"
-    "@fortawesome/angular-fontawesome": "npm:^5.1"
-    "@fortawesome/fontawesome-svg-core": "npm:^7"
-    "@fortawesome/free-brands-svg-icons": "npm:^7"
-    "@fortawesome/free-regular-svg-icons": "npm:^7"
-    "@fortawesome/free-solid-svg-icons": "npm:^7"
-    "@ngx-translate/core": "npm:^17"
-    "@types/jest": "npm:^29.5.14"
-    "@types/luxon": "npm:^3.6.2"
-    "@types/node": "npm:^22.10.10"
-    "@yarnpkg/sdks": "npm:^3.3.1"
-    axios: "npm:^1.7.7"
-    jest: "npm:^30.1.1"
-    jest-environment-jsdom: "npm:^30.1.1"
-    jest-preset-angular: "npm:^17.0.1"
-    jest-util: "npm:^30.0.5"
-    less: "npm:^4.4.1"
-    luxon: "npm:^3.5"
-    ng-zorro-antd: "npm:~22.1.2"
-    prettier: "npm:^3.4.2"
-    rxjs: "npm:~7.8"
-    ts-jest: "npm:^29.4.1"
-    tslib: "npm:^2.3"
-    typescript: "npm:~6.0.3"
-    zone.js: "npm:~0.15"
-  peerDependencies:
-    axios: ^1.7.7
-  languageName: unknown
-  linkType: soft
 
 "detect-libc@npm:^2.0.1, detect-libc@npm:^2.0.3":
   version: 2.1.2
