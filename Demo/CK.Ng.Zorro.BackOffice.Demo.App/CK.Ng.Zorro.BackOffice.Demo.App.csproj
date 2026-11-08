@@ -6,21 +6,21 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.1.ci.39" />
-    <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.1.ci.49" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.1.ci.40" />
+    <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.1.ci.50" />
     <!-- The "HttpEndpoint" feature: the web server of this party (Local:HttpEndpoint). -->
-    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="24.0.0-0.cris-auth.1.ci.49" />
+    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="24.0.0-0.cris-auth.1.ci.50" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
-    <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="3.0.0-0.cris-auth.1.ci.131" />
-    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.1.ci.104" />
-    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.cris-auth.1.ci.39" />
-    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.cris-auth.1.ci.39" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth.1.ci.47" />
-    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.cris-auth.1.ci.104" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.1.ci.104" />
-    <PackageReference Include="CK.TS.Angular" Version="3.0.1-0.cris-auth.0.ci.28" />
+    <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="3.0.0-0.cris-auth.1.ci.133" />
+    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.1.ci.105" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.cris-auth.1.ci.40" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.cris-auth.1.ci.40" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth.1.ci.48" />
+    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.cris-auth.1.ci.105" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.1.ci.105" />
+    <PackageReference Include="CK.TS.Angular" Version="3.0.1-0.cris-auth.0.ci.29" />
     <!-- Serves the client application: its dev server in Development, its "dist" otherwise. -->
-    <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.1-0.cris-auth.0.ci.28" />
+    <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.1-0.cris-auth.0.ci.30" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Ng.Zorro.BackOffice\CK.Ng.Zorro.BackOffice.csproj" />
