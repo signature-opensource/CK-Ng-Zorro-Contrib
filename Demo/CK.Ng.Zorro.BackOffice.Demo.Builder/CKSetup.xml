@@ -4,12 +4,5 @@
         <DefaultDatabaseConnectionString>Server=.;Database=NgZorroBackOfficeDemo_LOCAL;Integrated Security=True;TrustServerCertificate=true</DefaultDatabaseConnectionString>
     </Aspect>
     
-    <Aspect Type="CK.Setup.TypeScriptAspectConfiguration, CK.TypeScript" />
 
-    <BinPaths>
-        <BinPath>
-            <!-- The client application served by the host at "/" (CK.Ng.Zorro.BackOffice.Demo.Host/Clients/App). -->
-            <TypeScript IntegrationMode="Inline" Name="App" Kind="DefaultApp" DevServerPort="4201" ActiveCultures="fr" />
-        </BinPath>
-    </BinPaths>
 </Setup>
