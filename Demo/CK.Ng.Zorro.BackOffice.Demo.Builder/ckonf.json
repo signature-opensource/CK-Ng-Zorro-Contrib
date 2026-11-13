@@ -1,37 +1,33 @@
 {
-  // The configuration of the App: its BinPath "CK.Ng.Zorro.BackOffice.Demo" is the CK.Ng.Zorro.BackOffice.Demo.App project (its code) and the
-  // CK.Ng.Zorro.BackOffice.Demo.Host project, whose appsettings.json is generated from the "CK.Ng.Zorro.BackOffice.Demo" section below (without its compile
-  // time keys).
-  "App": {
-    "BinPaths": {
-      "CK.Ng.Zorro.BackOffice.Demo": {
-        "AllowedHosts": "*",
-        "CK-AppIdentity": {
-            "FullName": "Demo/$Host",
-            // This application is its own AuthCenter, and a web server: its "HttpEndpoint" feature
-            // (CK.AppIdentity.HttpEndpoint) starts the web application of each endpoint.
-            "Local": {
-                "AllowFeatures": "AuthCenter, HttpEndpoint",
-                // The "Main" endpoint: the client application and its "/.cris" endpoints share this origin (no CORS).
-                "HttpEndpoint": { "Main": { "Urls": "http://localhost:5001" } },
-                // The client application served by the host at "/" (CK.Ng.Zorro.BackOffice.Demo.Host/Clients/App).
-                "PartyClient": { "App": { "Type": "TypeScript", "Kind": "DefaultApp", "DevServerPort": 4201, "IntegrationMode": "Inline", "ActiveCultures": "fr" } }
-            },
-            "Parties": []
-        },
-        "CK-Monitoring": {
-            "LogPath": "Logs",
-            "HandleDotNetLogs": false,
-            "GlobalDefaultFilter": "Debug",
-            "GrandOutput": {
-                "Handlers": {
-                    "Console": true,
-                    "TextFile": {
-                        "Path": "Text"
-                    }
-                }
-            }
-        }
+  // The configuration of the builder: its App "CK.Ng.Zorro.BackOffice.Demo" is the CK.Ng.Zorro.BackOffice.Demo.App project (its code) and the CK.Ng.Zorro.BackOffice.Demo.Host project,
+  // whose appsettings.json is generated from the "CK.Ng.Zorro.BackOffice.Demo" section below (without its compile time keys; the keys of its
+  // party go in the "CK-AppIdentity" section).
+  "Apps": {
+    "CK.Ng.Zorro.BackOffice.Demo": {
+      "AllowedHosts": "*",
+      "FullName": "Demo/$Host",
+      // This application is its own AuthCenter, and a web server: its "HttpEndpoint" feature
+      // (CK.AppIdentity.HttpEndpoint) starts the web application of each endpoint.
+      "Local": {
+          "AllowFeatures": "AuthCenter, HttpEndpoint",
+          // The "Main" endpoint: the client application and its "/.cris" endpoints share this origin (no CORS).
+          "HttpEndpoint": { "Main": { "Urls": "http://localhost:5001" } },
+          // The client application served by the host at "/" (CK.Ng.Zorro.BackOffice.Demo.Host/Clients/App).
+          "PartyClient": { "App": { "Type": "TypeScript", "Kind": "DefaultApp", "DevServerPort": 4201, "IntegrationMode": "Inline", "ActiveCultures": "fr" } }
+      },
+      "Parties": [],
+      "CK-Monitoring": {
+          "LogPath": "Logs",
+          "HandleDotNetLogs": false,
+          "GlobalDefaultFilter": "Debug",
+          "GrandOutput": {
+              "Handlers": {
+                  "Console": true,
+                  "TextFile": {
+                      "Path": "Text"
+                  }
+              }
+          }
       }
     }
   }
