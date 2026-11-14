@@ -11,7 +11,7 @@
       "Local": {
           "AllowFeatures": "AuthCenter, HttpEndpoint",
           // The "Main" endpoint: the client application and its "/.cris" endpoints share this origin (no CORS).
-          "HttpEndpoint": { "Main": { "Urls": "http://localhost:5001" } },
+          "HttpEndpoint": { "Urls": "http://localhost:5001" },
           // The client application served by the host at "/" (CK.Ng.Zorro.BackOffice.Demo.Host/Clients/App).
           "PartyClient": { "App": { "Type": "TypeScript", "Kind": "DefaultApp", "DevServerPort": 4201, "IntegrationMode": "Inline", "ActiveCultures": "fr" } }
       },
