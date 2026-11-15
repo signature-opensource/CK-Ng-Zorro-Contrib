@@ -9,7 +9,7 @@
       // This application is its own AuthCenter, and a web server: its "HttpEndpoint" feature
       // (CK.AppIdentity.HttpEndpoint) starts the web application of each endpoint.
       "Local": {
-          "AllowFeatures": "AuthCenter, HttpEndpoint",
+          "AuthCenter": true,
           // Its endpoint: the client application and its "/.cris" endpoints share this origin (no CORS).
           "HttpEndpoint": { "Urls": "http://localhost:5001" },
           // The client application served by the host at "/" (CK.Ng.Zorro.BackOffice.Demo.Host/Clients/App).
