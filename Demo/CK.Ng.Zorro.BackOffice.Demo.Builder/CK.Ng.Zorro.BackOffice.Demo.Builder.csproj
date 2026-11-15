@@ -6,12 +6,12 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Engine" Version="3.0.0-0.uc.0.ci.84" />
-    <PackageReference Include="CK.AppBuilder" Version="36.0.1-0.uc.0.ci.16" />
-    <PackageReference Include="CK.Cris.AspNet.Engine" Version="3.0.0-0.uc.0.ci.138" />
-    <PackageReference Include="CK.Setupable.Engine" Version="36.0.0-0.uc.0.ci.72" />
-    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="36.0.0-0.uc.0.ci.72" />
-    <PackageReference Include="CK.TS.Angular.Engine" Version="3.0.1-0.uc.0.ci.51" />
+    <PackageReference Include="CK.AppIdentity.Engine" Version="3.0.0-0.uc.0.ci.90" />
+    <PackageReference Include="CK.AppBuilder" Version="36.0.1-0.uc.0.ci.17" />
+    <PackageReference Include="CK.Cris.AspNet.Engine" Version="3.0.0-0.uc.0.ci.139" />
+    <PackageReference Include="CK.Setupable.Engine" Version="36.0.0-0.uc.0.ci.73" />
+    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="36.0.0-0.uc.0.ci.73" />
+    <PackageReference Include="CK.TS.Angular.Engine" Version="3.0.1-0.uc.0.ci.52" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.Zorro.BackOffice.Demo.App\CK.Ng.Zorro.BackOffice.Demo.App.csproj" />
