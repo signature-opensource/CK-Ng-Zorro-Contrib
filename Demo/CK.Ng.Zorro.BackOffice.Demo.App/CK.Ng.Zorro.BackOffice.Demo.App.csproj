@@ -11,13 +11,13 @@
     <!-- The "HttpEndpoint" feature: the web server of this party (Local:HttpEndpoint). -->
     <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.0.ci.19" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
-    <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="4.0.0-0.uc.0.ci.24" />
-    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.uc.0.ci.163" />
-    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.uc.0.ci.80" />
-    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.uc.0.ci.80" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.0.ci.87" />
-    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.uc.0.ci.163" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.0.ci.163" />
+    <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="4.0.0-0.uc.0.ci.25" />
+    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.uc.0.ci.164" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.uc.0.ci.81" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.uc.0.ci.81" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.0.ci.88" />
+    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.uc.0.ci.164" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.0.ci.164" />
     <PackageReference Include="CK.TS.Angular" Version="3.0.1-0.uc.0.ci.75" />
     <!-- Serves the client application: its dev server in Development, its "dist" otherwise. -->
     <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.1-0.uc.0.ci.87" />
