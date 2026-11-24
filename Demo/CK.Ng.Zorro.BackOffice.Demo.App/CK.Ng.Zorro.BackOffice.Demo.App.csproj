@@ -6,23 +6,23 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.uc.2.ci.173" />
-    <PackageReference Include="CK.AspNet" Version="25.0.0-0.uc.2.ci.64" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.uc.2.ci.175" />
+    <PackageReference Include="CK.AspNet" Version="25.0.0-0.uc.2.ci.65" />
     <!-- The "HttpEndpoint" feature: the web server of this party (Local:HttpEndpoint). -->
-    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.2.ci.64" />
+    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.2.ci.65" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
-    <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="4.0.0-0.uc.2.ci.79" />
+    <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="4.0.0-0.uc.2.ci.81" />
     <!-- The "Password" option: the "Basic" scheme family (its provider is CK.DB.User.UserPassword). -->
-    <PackageReference Include="CK.AppIdentity.AuthCenter.Password" Version="4.0.0-0.uc.2.ci.79" />
-    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.uc.2.ci.201" />
-    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.uc.2.ci.112" />
-    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.uc.2.ci.112" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.2.ci.119" />
-    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.uc.2.ci.201" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.2.ci.201" />
-    <PackageReference Include="CK.TS.Angular" Version="3.0.1-0.uc.2.ci.111" />
+    <PackageReference Include="CK.AppIdentity.AuthCenter.Password" Version="4.0.0-0.uc.2.ci.81" />
+    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.uc.2.ci.202" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.uc.2.ci.113" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.uc.2.ci.113" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.2.ci.120" />
+    <PackageReference Include="CK.Cris.TypeScript" Version="3.0.0-0.uc.2.ci.202" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.2.ci.202" />
+    <PackageReference Include="CK.TS.Angular" Version="3.0.1-0.uc.2.ci.112" />
     <!-- Serves the client application: its dev server in Development, its "dist" otherwise. -->
-    <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.1-0.uc.2.ci.127" />
+    <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.1-0.uc.2.ci.128" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Ng.Zorro.BackOffice\CK.Ng.Zorro.BackOffice.csproj" />
