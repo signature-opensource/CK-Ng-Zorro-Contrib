@@ -12,6 +12,8 @@
     <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.2.ci.64" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
     <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="4.0.0-0.uc.2.ci.79" />
+    <!-- The "Password" option: the "Basic" scheme family (its provider is CK.DB.User.UserPassword). -->
+    <PackageReference Include="CK.AppIdentity.AuthCenter.Password" Version="4.0.0-0.uc.2.ci.79" />
     <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.uc.2.ci.201" />
     <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.uc.2.ci.112" />
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.uc.2.ci.112" />
