@@ -17,7 +17,7 @@
         // Its endpoint: the client application and its "/.cris" endpoints share this origin (no CORS).
         "HttpEndpoint": { "Urls": "http://localhost:5001" },
         // The client application served by the host at "/" (CK.Ng.Zorro.BackOffice.Demo.Host/Clients/App).
-        "PartyClient": { "App": { "NgApp": { "IntegrationMode": "Inline", "ActiveCultures": "fr" }, "Hosting": { "RequestPath": "/", "DevServerPort": 4201 } } }
+        "PartyClient": { "App": { "NgApp": { "IntegrationMode": "Inline", "ActiveCultures": "fr", "RequestPath": "/", "DevServerPort": 4201 }, "Hosting": true } }
     },
     "Parties": [],
     "CK-Monitoring": {
