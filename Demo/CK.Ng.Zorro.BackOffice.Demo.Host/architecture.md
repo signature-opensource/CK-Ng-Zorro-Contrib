@@ -60,7 +60,6 @@ Package: `CK.AppIdentity.PartyClient`
 
 ## The client 'App' of '$Host'
 
-
 ### Client feature `NgApp`
 
 Package: `CK.TS.Angular`
